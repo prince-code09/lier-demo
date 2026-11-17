@@ -190,47 +190,47 @@ export const CheckoutPage: React.FC = () => {
           {/* Left: Multi-Step Checkout Form (7 Columns) */}
           <div className="lg:col-span-7 bg-obsidian-900 border border-white/10 rounded-sm p-6 sm:p-10 shadow-luxury space-y-8">
             {/* Step Indicators */}
-            <div className="flex items-center justify-between pb-6 border-b border-white/10 text-xs">
+            <div className="flex items-center justify-between pb-6 border-b border-white/10 text-xs overflow-x-auto gap-2">
               <button
                 onClick={() => setStep(1)}
-                className={`flex items-center space-x-2 font-medium uppercase tracking-wider transition-colors ${
+                className={`flex items-center space-x-1.5 sm:space-x-2 font-medium uppercase tracking-wider transition-colors shrink-0 ${
                   step === 1 ? 'text-gold-400' : 'text-zinc-400 hover:text-white'
                 }`}
               >
-                <span className={`w-6 h-6 rounded-full border flex items-center justify-center text-[11px] ${
+                <span className={`w-6 h-6 rounded-full border flex items-center justify-center text-[11px] shrink-0 ${
                   step === 1 ? 'border-gold-400 bg-gold-500/20 text-gold-300' : 'border-white/20'
                 }`}>
                   1
                 </span>
-                <span>Shipping Address</span>
+                <span><span className="hidden sm:inline">Shipping </span>Address</span>
               </button>
-              <div className="w-8 h-[1px] bg-white/10" />
+              <div className="w-4 sm:w-8 h-[1px] bg-white/10 shrink-0" />
               <button
                 onClick={() => setStep(2)}
-                className={`flex items-center space-x-2 font-medium uppercase tracking-wider transition-colors ${
+                className={`flex items-center space-x-1.5 sm:space-x-2 font-medium uppercase tracking-wider transition-colors shrink-0 ${
                   step === 2 ? 'text-gold-400' : 'text-zinc-400 hover:text-white'
                 }`}
               >
-                <span className={`w-6 h-6 rounded-full border flex items-center justify-center text-[11px] ${
+                <span className={`w-6 h-6 rounded-full border flex items-center justify-center text-[11px] shrink-0 ${
                   step === 2 ? 'border-gold-400 bg-gold-500/20 text-gold-300' : 'border-white/20'
                 }`}>
                   2
                 </span>
-                <span>Delivery Option</span>
+                <span>Delivery<span className="hidden sm:inline"> Option</span></span>
               </button>
-              <div className="w-8 h-[1px] bg-white/10" />
+              <div className="w-4 sm:w-8 h-[1px] bg-white/10 shrink-0" />
               <button
                 onClick={() => setStep(3)}
-                className={`flex items-center space-x-2 font-medium uppercase tracking-wider transition-colors ${
+                className={`flex items-center space-x-1.5 sm:space-x-2 font-medium uppercase tracking-wider transition-colors shrink-0 ${
                   step === 3 ? 'text-gold-400' : 'text-zinc-400 hover:text-white'
                 }`}
               >
-                <span className={`w-6 h-6 rounded-full border flex items-center justify-center text-[11px] ${
+                <span className={`w-6 h-6 rounded-full border flex items-center justify-center text-[11px] shrink-0 ${
                   step === 3 ? 'border-gold-400 bg-gold-500/20 text-gold-300' : 'border-white/20'
                 }`}>
                   3
                 </span>
-                <span>Payment Preview</span>
+                <span>Payment<span className="hidden sm:inline"> Preview</span></span>
               </button>
             </div>
 
@@ -239,14 +239,14 @@ export const CheckoutPage: React.FC = () => {
               <div className="space-y-4 animate-fade-in">
                 <h3 className="font-serif text-xl text-white">Client Delivery Details</h3>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1">First Name</label>
                     <input
                       type="text"
                       value={shippingDetails.firstName}
                       onChange={(e) => setShippingDetails({ ...shippingDetails, firstName: e.target.value })}
-                      className="w-full bg-obsidian-850 border border-white/10 rounded-sm px-3.5 py-2 text-xs text-white focus:outline-none focus:border-gold-400"
+                      className="w-full bg-obsidian-850 border border-white/10 rounded-sm px-3.5 py-2 text-base sm:text-xs text-white focus:outline-none focus:border-gold-400"
                     />
                   </div>
                   <div>
@@ -255,19 +255,19 @@ export const CheckoutPage: React.FC = () => {
                       type="text"
                       value={shippingDetails.lastName}
                       onChange={(e) => setShippingDetails({ ...shippingDetails, lastName: e.target.value })}
-                      className="w-full bg-obsidian-850 border border-white/10 rounded-sm px-3.5 py-2 text-xs text-white focus:outline-none focus:border-gold-400"
+                      className="w-full bg-obsidian-850 border border-white/10 rounded-sm px-3.5 py-2 text-base sm:text-xs text-white focus:outline-none focus:border-gold-400"
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1">Email Address</label>
                     <input
                       type="email"
                       value={shippingDetails.email}
                       onChange={(e) => setShippingDetails({ ...shippingDetails, email: e.target.value })}
-                      className="w-full bg-obsidian-850 border border-white/10 rounded-sm px-3.5 py-2 text-xs text-white focus:outline-none focus:border-gold-400"
+                      className="w-full bg-obsidian-850 border border-white/10 rounded-sm px-3.5 py-2 text-base sm:text-xs text-white focus:outline-none focus:border-gold-400"
                     />
                   </div>
                   <div>
@@ -276,7 +276,7 @@ export const CheckoutPage: React.FC = () => {
                       type="tel"
                       value={shippingDetails.phone}
                       onChange={(e) => setShippingDetails({ ...shippingDetails, phone: e.target.value })}
-                      className="w-full bg-obsidian-850 border border-white/10 rounded-sm px-3.5 py-2 text-xs text-white focus:outline-none focus:border-gold-400"
+                      className="w-full bg-obsidian-850 border border-white/10 rounded-sm px-3.5 py-2 text-base sm:text-xs text-white focus:outline-none focus:border-gold-400"
                     />
                   </div>
                 </div>
@@ -287,18 +287,18 @@ export const CheckoutPage: React.FC = () => {
                     type="text"
                     value={shippingDetails.address}
                     onChange={(e) => setShippingDetails({ ...shippingDetails, address: e.target.value })}
-                    className="w-full bg-obsidian-850 border border-white/10 rounded-sm px-3.5 py-2 text-xs text-white focus:outline-none focus:border-gold-400"
+                    className="w-full bg-obsidian-850 border border-white/10 rounded-sm px-3.5 py-2 text-base sm:text-xs text-white focus:outline-none focus:border-gold-400"
                   />
                 </div>
 
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                   <div>
                     <label className="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1">City</label>
                     <input
                       type="text"
                       value={shippingDetails.city}
                       onChange={(e) => setShippingDetails({ ...shippingDetails, city: e.target.value })}
-                      className="w-full bg-obsidian-850 border border-white/10 rounded-sm px-3.5 py-2 text-xs text-white focus:outline-none focus:border-gold-400"
+                      className="w-full bg-obsidian-850 border border-white/10 rounded-sm px-3.5 py-2 text-base sm:text-xs text-white focus:outline-none focus:border-gold-400"
                     />
                   </div>
                   <div>
@@ -307,7 +307,7 @@ export const CheckoutPage: React.FC = () => {
                       type="text"
                       value={shippingDetails.state}
                       onChange={(e) => setShippingDetails({ ...shippingDetails, state: e.target.value })}
-                      className="w-full bg-obsidian-850 border border-white/10 rounded-sm px-3.5 py-2 text-xs text-white focus:outline-none focus:border-gold-400"
+                      className="w-full bg-obsidian-850 border border-white/10 rounded-sm px-3.5 py-2 text-base sm:text-xs text-white focus:outline-none focus:border-gold-400"
                     />
                   </div>
                   <div>
@@ -316,7 +316,7 @@ export const CheckoutPage: React.FC = () => {
                       type="text"
                       value={shippingDetails.postalCode}
                       onChange={(e) => setShippingDetails({ ...shippingDetails, postalCode: e.target.value })}
-                      className="w-full bg-obsidian-850 border border-white/10 rounded-sm px-3.5 py-2 text-xs text-white focus:outline-none focus:border-gold-400"
+                      className="w-full bg-obsidian-850 border border-white/10 rounded-sm px-3.5 py-2 text-base sm:text-xs text-white focus:outline-none focus:border-gold-400"
                     />
                   </div>
                 </div>

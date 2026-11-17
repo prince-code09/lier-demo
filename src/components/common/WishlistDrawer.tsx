@@ -23,19 +23,19 @@ export const WishlistDrawer: React.FC = () => {
         className="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity duration-300"
       />
 
-      <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
+      <div className="fixed inset-y-0 right-0 max-w-full flex pl-6 sm:pl-10">
         <div className="w-screen max-w-md bg-obsidian-950 border-l border-white/10 shadow-2xl flex flex-col justify-between animate-slide-left">
           {/* Header */}
-          <div className="p-6 border-b border-white/10 flex items-center justify-between">
+          <div className="p-5 sm:p-6 border-b border-white/10 flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Heart className="w-5 h-5 text-gold-400 fill-gold-400" />
-              <h2 className="text-base uppercase tracking-widest font-serif text-white">
+              <h2 className="text-sm sm:text-base uppercase tracking-widest font-serif text-white">
                 Saved Fragrances ({wishlistProducts.length})
               </h2>
             </div>
             <button
               onClick={() => setIsWishlistOpen(false)}
-              className="text-zinc-400 hover:text-white transition-colors p-1"
+              className="w-9 h-9 flex items-center justify-center text-zinc-400 hover:text-white transition-colors rounded"
               aria-label="Close wishlist"
             >
               <X className="w-5 h-5" />
@@ -92,7 +92,7 @@ export const WishlistDrawer: React.FC = () => {
                         </Link>
                         <button
                           onClick={() => toggleWishlist(product.id)}
-                          className="text-zinc-500 hover:text-red-400 transition-colors p-1"
+                          className="w-8 h-8 flex items-center justify-center text-zinc-500 hover:text-red-400 transition-colors"
                           title="Remove from wishlist"
                         >
                           <Trash2 className="w-3.5 h-3.5" />

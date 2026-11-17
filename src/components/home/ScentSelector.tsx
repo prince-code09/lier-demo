@@ -39,34 +39,34 @@ export const ScentSelector: React.FC = () => {
 
         {/* Interactive Tab Switcher */}
         <div className="flex justify-center mb-12">
-          <div className="inline-flex p-1.5 bg-obsidian-900 border border-white/10 rounded-sm shadow-luxury">
+          <div className="inline-flex p-1 sm:p-1.5 bg-obsidian-900 border border-white/10 rounded-sm shadow-luxury max-w-full">
             <button
               onClick={() => setActiveTab('musk')}
-              className={`flex items-center space-x-2 px-7 py-3 text-xs uppercase tracking-widest font-medium rounded-sm transition-all ${
+              className={`flex items-center justify-center space-x-1.5 sm:space-x-2 px-4 sm:px-7 py-2.5 sm:py-3 text-[11px] sm:text-xs uppercase tracking-wider sm:tracking-widest font-medium rounded-sm transition-all ${
                 activeTab === 'musk'
                   ? 'bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 text-obsidian-950 shadow-gold-glow font-bold'
                   : 'text-zinc-400 hover:text-white'
               }`}
             >
-              <Flame className="w-4 h-4" />
+              <Flame className="w-4 h-4 shrink-0" />
               <span>Crist Ash Musk</span>
             </button>
             <button
               onClick={() => setActiveTab('alpine')}
-              className={`flex items-center space-x-2 px-7 py-3 text-xs uppercase tracking-widest font-medium rounded-sm transition-all ${
+              className={`flex items-center justify-center space-x-1.5 sm:space-x-2 px-4 sm:px-7 py-2.5 sm:py-3 text-[11px] sm:text-xs uppercase tracking-wider sm:tracking-widest font-medium rounded-sm transition-all ${
                 activeTab === 'alpine'
                   ? 'bg-gradient-to-r from-sky-600 via-sky-500 to-sky-600 text-white shadow-md font-bold'
                   : 'text-zinc-400 hover:text-white'
               }`}
             >
-              <Mountain className="w-4 h-4" />
+              <Mountain className="w-4 h-4 shrink-0" />
               <span>Alpine Mist</span>
             </button>
           </div>
         </div>
 
         {/* Tab Content Showcase */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center bg-obsidian-900/60 border border-white/10 rounded-sm p-8 sm:p-12 shadow-luxury">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center bg-obsidian-900/60 border border-white/10 rounded-sm p-5 sm:p-8 lg:p-12 shadow-luxury">
           {/* Left: Authentic Comparison Visual */}
           <div className="lg:col-span-5 relative">
             <div className="relative aspect-[3/4] rounded-sm overflow-hidden border border-white/10 shadow-lg group bg-obsidian-950">

@@ -53,9 +53,9 @@ export const WhyChooseLier: React.FC = () => {
         </div>
 
         {/* Content Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
           {/* Left 3 Benefits */}
-          <div className="lg:col-span-4 space-y-6">
+          <div className="md:col-span-1 lg:col-span-4 lg:order-1 space-y-6">
             {benefits.slice(0, 3).map((b, i) => {
               const Icon = b.icon;
               return (
@@ -76,7 +76,7 @@ export const WhyChooseLier: React.FC = () => {
           </div>
 
           {/* Center: Authentic Client Pedestal Graphic (MKT-08) */}
-          <div className="lg:col-span-4 flex justify-center">
+          <div className="md:col-span-2 lg:col-span-4 flex justify-center order-first lg:order-2 mb-4 md:mb-6 lg:mb-0">
             <div className="relative w-full max-w-sm aspect-square rounded-sm overflow-hidden border border-gold-400/30 shadow-luxury group">
               <img
                 src="/assets/marketing/8.webp"
@@ -93,7 +93,7 @@ export const WhyChooseLier: React.FC = () => {
           </div>
 
           {/* Right 3 Benefits */}
-          <div className="lg:col-span-4 space-y-6">
+          <div className="md:col-span-1 lg:col-span-4 lg:order-3 space-y-6">
             {benefits.slice(3, 6).map((b, i) => {
               const Icon = b.icon;
               return (

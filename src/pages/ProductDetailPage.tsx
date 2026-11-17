@@ -80,7 +80,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ defaultSlu
   const productReviews = REVIEWS.filter((r) => r.productSlug === product.slug);
 
   return (
-    <div className="py-10 bg-obsidian-950 min-h-screen text-alabaster">
+    <div className="py-10 pb-28 lg:pb-10 bg-obsidian-950 min-h-screen text-alabaster">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb Navigation */}
         <nav className="flex items-center space-x-2 text-xs text-zinc-500 uppercase tracking-widest mb-8 overflow-x-auto whitespace-nowrap">
@@ -213,15 +213,15 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ defaultSlu
                 <div className="flex items-center border border-white/15 rounded-sm bg-obsidian-900">
                   <button
                     onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                    className="p-3 text-zinc-400 hover:text-white transition-colors"
+                    className="w-11 h-11 flex items-center justify-center text-zinc-400 hover:text-white transition-colors"
                     aria-label="Decrease quantity"
                   >
                     <Minus className="w-3.5 h-3.5" />
                   </button>
-                  <span className="px-4 text-sm font-mono text-white">{quantity}</span>
+                  <span className="px-3 text-sm font-mono text-white min-w-[2rem] text-center">{quantity}</span>
                   <button
                     onClick={() => setQuantity((q) => q + 1)}
-                    className="p-3 text-zinc-400 hover:text-white transition-colors"
+                    className="w-11 h-11 flex items-center justify-center text-zinc-400 hover:text-white transition-colors"
                     aria-label="Increase quantity"
                   >
                     <Plus className="w-3.5 h-3.5" />
@@ -474,6 +474,40 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ defaultSlu
             ))}
           </div>
         </div>
+      </div>
+
+      {/* Mobile Sticky Add to Bag Bar (Shows on mobile viewports) */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-obsidian-950/95 backdrop-blur-md border-t border-white/10 px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] flex items-center justify-between shadow-2xl">
+        <div className="flex items-center space-x-3 min-w-0 pr-3">
+          <img
+            src={product.heroImage}
+            alt={product.name}
+            className="w-10 h-10 object-cover rounded-sm border border-white/10 shrink-0"
+          />
+          <div className="min-w-0">
+            <h4 className="font-serif text-xs text-white truncate">{product.name}</h4>
+            <span className="text-xs text-gold-400 font-mono font-semibold">₹{product.price}</span>
+          </div>
+        </div>
+
+        <button
+          onClick={handleAddToCart}
+          className={`btn-gold py-2.5 px-4 text-xs tracking-wider uppercase shrink-0 flex items-center space-x-1.5 shadow-gold-glow transition-all ${
+            isAdded ? 'bg-emerald-500 text-white' : ''
+          }`}
+        >
+          {isAdded ? (
+            <>
+              <Check className="w-3.5 h-3.5" />
+              <span>Added</span>
+            </>
+          ) : (
+            <>
+              <ShoppingBag className="w-3.5 h-3.5" />
+              <span>Add to Bag</span>
+            </>
+          )}
+        </button>
       </div>
 
       {/* Fullscreen Image Zoom Lightbox */}

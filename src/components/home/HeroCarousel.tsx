@@ -120,7 +120,7 @@ export const HeroCarousel: React.FC = () => {
             </div>
 
             {/* Main Headline */}
-            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-white font-normal tracking-tight leading-[1.12]">
+            <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl text-white font-normal tracking-tight leading-[1.12]">
               {slide.title}
             </h1>
 
@@ -152,15 +152,15 @@ export const HeroCarousel: React.FC = () => {
             </div>
 
             {/* Technical Hardware Footnote */}
-            <div className="pt-4 border-t border-white/10 flex items-center space-x-4 text-xs text-zinc-400">
+            <div className="pt-4 border-t border-white/10 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-zinc-400">
               <span className="flex items-center space-x-1.5 text-gold-400">
-                <ShieldCheck className="w-4 h-4" />
+                <ShieldCheck className="w-4 h-4 shrink-0" />
                 <span className="text-[11px] uppercase tracking-wider text-zinc-300 font-mono">
                   Up to 30 Days Continuous Diffusion
                 </span>
               </span>
-              <span className="text-zinc-600">•</span>
-              <span className="tracking-wider uppercase text-[11px] text-zinc-400">
+              <span className="hidden sm:inline text-zinc-600">•</span>
+              <span className="tracking-wider uppercase text-[11px] text-zinc-400 font-light">
                 {slide.tagline}
               </span>
             </div>
@@ -213,14 +213,14 @@ export const HeroCarousel: React.FC = () => {
         <div className="flex items-center space-x-2">
           <button
             onClick={() => setCurrent((prev) => (prev - 1 + SLIDES.length) % SLIDES.length)}
-            className="p-2.5 rounded-sm bg-obsidian-900/80 hover:bg-gold-500 hover:text-obsidian-950 border border-white/10 text-zinc-300 transition-colors"
+            className="w-10 h-10 sm:w-9 sm:h-9 flex items-center justify-center rounded-sm bg-obsidian-900/80 hover:bg-gold-500 hover:text-obsidian-950 border border-white/10 text-zinc-300 transition-colors"
             aria-label="Previous slide"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
           <button
             onClick={() => setCurrent((prev) => (prev + 1) % SLIDES.length)}
-            className="p-2.5 rounded-sm bg-obsidian-900/80 hover:bg-gold-500 hover:text-obsidian-950 border border-white/10 text-zinc-300 transition-colors"
+            className="w-10 h-10 sm:w-9 sm:h-9 flex items-center justify-center rounded-sm bg-obsidian-900/80 hover:bg-gold-500 hover:text-obsidian-950 border border-white/10 text-zinc-300 transition-colors"
             aria-label="Next slide"
           >
             <ChevronRight className="w-4 h-4" />

@@ -82,7 +82,7 @@ export const ContactPage: React.FC = () => {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="e.g. Vikramaditya Singhania"
-                      className="w-full bg-obsidian-850 border border-white/10 rounded-sm px-4 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-gold-400"
+                      className="w-full bg-obsidian-850 border border-white/10 rounded-sm px-4 py-2.5 text-base sm:text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-gold-400"
                     />
                   </div>
                   <div>
@@ -95,7 +95,7 @@ export const ContactPage: React.FC = () => {
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="e.g. vikram@example.com"
-                      className="w-full bg-obsidian-850 border border-white/10 rounded-sm px-4 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-gold-400"
+                      className="w-full bg-obsidian-850 border border-white/10 rounded-sm px-4 py-2.5 text-base sm:text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-gold-400"
                     />
                   </div>
                 </div>
@@ -110,7 +110,7 @@ export const ContactPage: React.FC = () => {
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="+91 98765 43210"
-                      className="w-full bg-obsidian-850 border border-white/10 rounded-sm px-4 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-gold-400"
+                      className="w-full bg-obsidian-850 border border-white/10 rounded-sm px-4 py-2.5 text-base sm:text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-gold-400"
                     />
                   </div>
                   <div>
@@ -120,7 +120,7 @@ export const ContactPage: React.FC = () => {
                     <select
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      className="w-full bg-obsidian-850 border border-white/10 rounded-sm px-4 py-2.5 text-xs text-zinc-300 focus:outline-none focus:border-gold-400"
+                      className="w-full bg-obsidian-850 border border-white/10 rounded-sm px-4 py-2.5 text-base sm:text-xs text-zinc-300 focus:outline-none focus:border-gold-400"
                     >
                       <option value="general">Product Inquiry & Advice</option>
                       <option value="b2b">Corporate / Luxury Gifting</option>
@@ -140,7 +140,7 @@ export const ContactPage: React.FC = () => {
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Tell us about your requirements, vehicle models, or fragrance queries..."
-                    className="w-full bg-obsidian-850 border border-white/10 rounded-sm p-4 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-gold-400 leading-relaxed"
+                    className="w-full bg-obsidian-850 border border-white/10 rounded-sm p-4 text-base sm:text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-gold-400 leading-relaxed"
                   />
                 </div>
 

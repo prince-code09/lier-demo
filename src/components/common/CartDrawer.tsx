@@ -60,19 +60,19 @@ export const CartDrawer: React.FC = () => {
         className="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity duration-300"
       />
 
-      <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
+      <div className="fixed inset-y-0 right-0 max-w-full flex pl-6 sm:pl-10">
         <div className="w-screen max-w-md bg-obsidian-950 border-l border-white/10 shadow-2xl flex flex-col justify-between animate-slide-left">
           {/* Header */}
-          <div className="p-6 border-b border-white/10 flex items-center justify-between">
+          <div className="p-5 sm:p-6 border-b border-white/10 flex items-center justify-between">
             <div className="flex items-center space-x-2.5">
               <ShoppingBag className="w-5 h-5 text-gold-400" />
-              <h2 className="text-base uppercase tracking-widest font-serif text-white">
+              <h2 className="text-sm sm:text-base uppercase tracking-widest font-serif text-white">
                 Your Shopping Bag ({totalItems})
               </h2>
             </div>
             <button
               onClick={() => setIsCartOpen(false)}
-              className="text-zinc-400 hover:text-white transition-colors p-1"
+              className="w-9 h-9 flex items-center justify-center text-zinc-400 hover:text-white transition-colors rounded"
               aria-label="Close cart"
             >
               <X className="w-5 h-5" />
@@ -161,7 +161,7 @@ export const CartDrawer: React.FC = () => {
                             </Link>
                             <button
                               onClick={() => removeItem(product.id)}
-                              className="text-zinc-500 hover:text-red-400 transition-colors p-1"
+                              className="w-8 h-8 flex items-center justify-center text-zinc-500 hover:text-red-400 transition-colors"
                               title="Remove item"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
@@ -176,15 +176,15 @@ export const CartDrawer: React.FC = () => {
                           <div className="flex items-center border border-white/15 rounded-sm bg-obsidian-900">
                             <button
                               onClick={() => updateQuantity(product.id, quantity - 1)}
-                              className="p-1.5 text-zinc-400 hover:text-white transition-colors"
+                              className="w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-white transition-colors"
                               aria-label="Decrease quantity"
                             >
                               <Minus className="w-3 h-3" />
                             </button>
-                            <span className="px-3 text-xs font-mono text-white">{quantity}</span>
+                            <span className="px-2.5 text-xs font-mono text-white min-w-[1.5rem] text-center">{quantity}</span>
                             <button
                               onClick={() => updateQuantity(product.id, quantity + 1)}
-                              className="p-1.5 text-zinc-400 hover:text-white transition-colors"
+                              className="w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-white transition-colors"
                               aria-label="Increase quantity"
                             >
                               <Plus className="w-3 h-3" />
