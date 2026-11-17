@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LIER Fragrance - Client Asset Visual Contact Sheet & Inventory</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --card-bg: #1a1e29;
+      --border: #2b3245;
+      --text-main: #f1f3f9;
+      --text-muted: #9aa2b5;
+      --gold: #d4af37;
+      --accent-alpine: #38bdf8;
+      --accent-musk: #fb923c;
+      --accent-combo: #a78bfa;
+      --accent-marketing: #34d399;
+      --accent-confirm: #f87171;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      padding: 30px 20px;
+      line-height: 1.5;
+    }
+    header {
+      max-width: 1400px;
+      margin: 0 auto 30px auto;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 20px;
+    }
+    .header-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    h1 {
+      font-size: 28px;
+      letter-spacing: 0.5px;
+      color: var(--gold);
+    }
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 15px;
+      margin-top: 5px;
+    }
+    .stats-bar {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .stat-pill {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    .stat-pill strong {
+      color: #fff;
+    }
+    .filters-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .filter-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--gold);
+      color: #000;
+      border-color: var(--gold);
+      font-weight: 600;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 25px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .asset-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .asset-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--gold);
+    }
+    .img-wrapper {
+      background: #000;
+      height: 340px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .img-wrapper img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+    .img-wrapper:hover img {
+      transform: scale(1.03);
+    }
+    .card-body {
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+    .card-header-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .asset-id {
+      font-weight: 700;
+      font-size: 13px;
+      background: #252c3d;
+      padding: 3px 8px;
+      border-radius: 4px;
+      color: #ccd2e3;
+    }
+    .badge {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 12px;
+    }
+    .badge-alpine { background: rgba(56, 189, 248, 0.15); color: var(--accent-alpine); border: 1px solid rgba(56, 189, 248, 0.3); }
+    .badge-musk { background: rgba(251, 146, 60, 0.15); color: var(--accent-musk); border: 1px solid rgba(251, 146, 60, 0.3); }
+    .badge-combo { background: rgba(167, 139, 250, 0.15); color: var(--accent-combo); border: 1px solid rgba(167, 139, 250, 0.3); }
+    .badge-marketing { background: rgba(52, 211, 153, 0.15); color: var(--accent-marketing); border: 1px solid rgba(52, 211, 153, 0.3); }
+    .badge-confirm { background: rgba(248, 113, 113, 0.2); color: var(--accent-confirm); border: 1px solid rgba(248, 113, 113, 0.4); }
+    .filename {
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      word-break: break-all;
+    }
+    .meta-row {
+      display: flex;
+      gap: 12px;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+    .folder-path code {
+      font-size: 11px;
+      background: #12151e;
+      padding: 3px 6px;
+      border-radius: 4px;
+      color: #8bb2d9;
+    }
+    .desc-box, .usage-box, .sim-box {
+      font-size: 12px;
+      color: #c4c9d6;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 8px 10px;
+      border-radius: 6px;
+    }
+    .usage-box {
+      border-left: 3px solid var(--gold);
+    }
+    .sim-box {
+      border-left: 3px solid #6366f1;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-title-row">
+      <div>
+        <h1>LIER LUXURY FRAGRANCE &bull; CLIENT ASSET AUDIT</h1>
+        <p class="subtitle">Visual Contact Sheet, Categorization & Usage Assessment</p>
+      </div>
+      <div>
+        <a href="Contact_Sheet_Master.jpg" target="_blank" style="color: var(--gold); text-decoration: underline; font-size: 14px;">Open Master JPG Contact Sheet &rarr;</a>
+      </div>
+    </div>
+    <div class="stats-bar">
+      <div class="stat-pill">Total Archives: <strong>2 ZIPs</strong></div>
+      <div class="stat-pill">Total Images Discovered: <strong>30 Images</strong></div>
+      <div class="stat-pill">Corrupted / Unreadable: <strong>0 (100% Verified)</strong></div>
+      <div class="stat-pill">Alpine: <strong>7</strong></div>
+      <div class="stat-pill">Musk: <strong>7</strong> (+1 studio)</div>
+      <div class="stat-pill">Combo: <strong>7</strong></div>
+      <div class="stat-pill">Marketing Posts: <strong>9</strong></div>
+      <div class="stat-pill">Flagged for Confirmation: <strong>1 (1.jpg)</strong></div>
+    </div>
+    <div class="filters-row">
+      <span style="color: var(--text-muted); font-size: 14px;">Filter:</span>
+      <button class="filter-btn active" onclick="filterAssets('all')">All Assets (30)</button>
+      <button class="filter-btn" onclick="filterAssets('Alpine')">Alpine (7)</button>
+      <button class="filter-btn" onclick="filterAssets('Musk')">Musk (8)</button>
+      <button class="filter-btn" onclick="filterAssets('Combo')">Combo (7)</button>
+      <button class="filter-btn" onclick="filterAssets('Marketing')">Marketing Creatives (9)</button>
+      <button class="filter-btn" onclick="filterAssets('confirm')">Needs Confirmation (1)</button>
+    </div>
+  </header>
+
+  <main class="grid">
+    
+    <div class="asset-card" data-category="Alpine" data-confirm="No" data-folder="Lier Images\Alpine">
+      <div class="img-wrapper">
+        <a href="../Lier Images/Alpine/1 (2).png" target="_blank" title="Click to view full image">
+          <img src="../Lier Images/Alpine/1 (2).png" alt="1 (2).png" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">ALP-01</span>
+          <span class="badge badge-alpine">Alpine</span>
+          
+        </div>
+        <h4 class="filename" title="1 (2).png">1 (2).png</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> PNG</span>
+          <span><strong>Size:</strong> 1.94 MB</span>
+          <span><strong>Dim:</strong> 1086x1448</span>
+        </p>
+        <p class="folder-path"><code>Lier Images\Alpine</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> Clean luxury lifestyle hero photograph of Alpine Mist product box and glass perfume diffuser bottle filled with light blue fragrance liquid, grooved beech wooden cap, and black hanging strap. Set on a wet slate rock with pine needles, overlooking a serene alpine lake and snow-dusted jagged mountain peaks under bright daylight. No graphic overlays.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Alpine Mist PDP Primary Hero Banner, Alpine Mist Product Card, Homepage Hero Slide, Brand Lifestyle Gallery.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Base hero photo for Alpine Mist product line. Clean lifestyle counterpart to Alpine marketing creatives.
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Alpine" data-confirm="No" data-folder="Lier Images\Alpine">
+      <div class="img-wrapper">
+        <a href="../Lier Images/Alpine/ChatGPT Image Sep 3, 2026, 12_49_09 PM (2).png" target="_blank" title="Click to view full image">
+          <img src="../Lier Images/Alpine/ChatGPT Image Sep 3, 2026, 12_49_09 PM (2).png" alt="ChatGPT Image Sep 3, 2026, 12_49_09 PM (2).png" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">ALP-02</span>
+          <span class="badge badge-alpine">Alpine</span>
+          
+        </div>
+        <h4 class="filename" title="ChatGPT Image Sep 3, 2026, 12_49_09 PM (2).png">ChatGPT Image Sep 3, 2026, 12_49_09 PM (2).png</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> PNG</span>
+          <span><strong>Size:</strong> 2.15 MB</span>
+          <span><strong>Dim:</strong> 1086x1448</span>
+        </p>
+        <p class="folder-path"><code>Lier Images\Alpine</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> Promotional feature graphic for Alpine Mist set against snowy alpine peaks. Dark blue headline 'Long Lasting Freshness', navy pill badge 'Up to 30 Days', subheadline 'Keeps your car smelling fresh day after day', and circular '30 DAYS' clock icon badge. Product box and bottle rest on snowy rock in foreground.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Alpine Mist PDP '30-Day Longevity' Feature Highlight Card, Mobile Carousel Banner, Performance Benefit Block.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Part of the 3-variant 'Long Lasting Freshness' template family (shares structure with Musk 01_31_28 (1) and Combo 01_50_03 (1)).
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Alpine" data-confirm="No" data-folder="Lier Images\Alpine">
+      <div class="img-wrapper">
+        <a href="../Lier Images/Alpine/ChatGPT Image Sep 3, 2026, 12_49_10 PM (3).png" target="_blank" title="Click to view full image">
+          <img src="../Lier Images/Alpine/ChatGPT Image Sep 3, 2026, 12_49_10 PM (3).png" alt="ChatGPT Image Sep 3, 2026, 12_49_10 PM (3).png" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">ALP-03</span>
+          <span class="badge badge-alpine">Alpine</span>
+          
+        </div>
+        <h4 class="filename" title="ChatGPT Image Sep 3, 2026, 12_49_10 PM (3).png">ChatGPT Image Sep 3, 2026, 12_49_10 PM (3).png</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> PNG</span>
+          <span><strong>Size:</strong> 2.12 MB</span>
+          <span><strong>Dim:</strong> 1086x1448</span>
+        </p>
+        <p class="folder-path"><code>Lier Images\Alpine</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> Fragrance concept poster featuring Alpine Mist box and bottle on rock with misty alpine mountains and swirling fresh mountain breeze graphics with floating green leaves. Top headline: 'Alpine Inspired Fragrance' (cursive 'Fragrance') and 'Fresh mountain aroma for your car interior.' Bottom features 3 circular blue icon badges: 'Fresh & Clean Aroma', 'Premium Fragrance', 'Car Hanging Use'.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Alpine Mist Scent Profile Section, Fragrance Notes Breakdown, Homepage Fragrance Story Block.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Scent inspiration creative specific to Alpine Mist.
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Alpine" data-confirm="No" data-folder="Lier Images\Alpine">
+      <div class="img-wrapper">
+        <a href="../Lier Images/Alpine/ChatGPT Image Sep 3, 2026, 12_49_11 PM (5).png" target="_blank" title="Click to view full image">
+          <img src="../Lier Images/Alpine/ChatGPT Image Sep 3, 2026, 12_49_11 PM (5).png" alt="ChatGPT Image Sep 3, 2026, 12_49_11 PM (5).png" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">ALP-04</span>
+          <span class="badge badge-alpine">Alpine</span>
+          
+        </div>
+        <h4 class="filename" title="ChatGPT Image Sep 3, 2026, 12_49_11 PM (5).png">ChatGPT Image Sep 3, 2026, 12_49_11 PM (5).png</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> PNG</span>
+          <span><strong>Size:</strong> 1.91 MB</span>
+          <span><strong>Dim:</strong> 1086x1448</span>
+        </p>
+        <p class="folder-path"><code>Lier Images\Alpine</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> Instructional how-to infographic for Alpine Mist. Headline: 'Easy To Use - Freshness that drives with you.' with mountain peak motif. Left side features Alpine Mist box and bottle on rock; right side features 4 sequential numbered photo cards demonstrating usage: 1 Open the bottle, 2 Remove inner stopper, 3 Close the wooden cap, 4 Hang in your car.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Alpine Mist PDP 'How to Use' / Instruction Accordion, Onboarding Guide, Customer Support FAQ visual.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Part of the 3-variant 'Easy To Use' 4-step instructional template family (parallel to Musk 01_31_29 (3) and Combo 01_50_04 (3)).
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Alpine" data-confirm="No" data-folder="Lier Images\Alpine">
+      <div class="img-wrapper">
+        <a href="../Lier Images/Alpine/ChatGPT Image Sep 3, 2026, 12_49_12 PM (6).png" target="_blank" title="Click to view full image">
+          <img src="../Lier Images/Alpine/ChatGPT Image Sep 3, 2026, 12_49_12 PM (6).png" alt="ChatGPT Image Sep 3, 2026, 12_49_12 PM (6).png" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">ALP-05</span>
+          <span class="badge badge-alpine">Alpine</span>
+          
+        </div>
+        <h4 class="filename" title="ChatGPT Image Sep 3, 2026, 12_49_12 PM (6).png">ChatGPT Image Sep 3, 2026, 12_49_12 PM (6).png</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> PNG</span>
+          <span><strong>Size:</strong> 1.80 MB</span>
+          <span><strong>Dim:</strong> 1086x1448</span>
+        </p>
+        <p class="folder-path"><code>Lier Images\Alpine</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> Use-case promotional poster for Alpine Mist. Headline: 'Perfect For Every Drive - Keeps your car feeling fresh wherever you go.' Left column has 4 circular badges: 'Daily Commute', 'Road Trips', 'Office Travel', 'All Weather Use'. In-car cockpit view with hanging Alpine Mist bottle from rearview mirror, box resting on dashboard, overlooking mountain lake highway.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Alpine Mist 'Versatile Use' lifestyle block, Customer journey / drive scenarios showcase.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Part of the 3-variant 'Perfect For Every Drive' template family (parallel to Musk 01_31_30 (5) and Combo 02_30_09).
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Alpine" data-confirm="No" data-folder="Lier Images\Alpine">
+      <div class="img-wrapper">
+        <a href="../Lier Images/Alpine/ChatGPT Image Sep 3, 2026, 12_49_12 PM (7).png" target="_blank" title="Click to view full image">
+          <img src="../Lier Images/Alpine/ChatGPT Image Sep 3, 2026, 12_49_12 PM (7).png" alt="ChatGPT Image Sep 3, 2026, 12_49_12 PM (7).png" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">ALP-06</span>
+          <span class="badge badge-alpine">Alpine</span>
+          
+        </div>
+        <h4 class="filename" title="ChatGPT Image Sep 3, 2026, 12_49_12 PM (7).png">ChatGPT Image Sep 3, 2026, 12_49_12 PM (7).png</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> PNG</span>
+          <span><strong>Size:</strong> 1.84 MB</span>
+          <span><strong>Dim:</strong> 1086x1448</span>
+        </p>
+        <p class="folder-path"><code>Lier Images\Alpine</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> In-hand product showcase graphic for Alpine Mist. A hand holds the blue Alpine Mist packaging box and diffuser bottle inside an open car door, framing snow-covered alpine mountain peaks under bright blue sky. Headline: 'Premium Car Fragrance - A stylish hanging fragrance for a fresh driving experience.' Badges: '30 DAYS (Up to 30 Days)', 'Easy Hanging Use', 'Fresh Alpine Aroma'.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Alpine Mist Unboxing / Product Scale demonstration card, Social proof carousel card, Tactile experience highlight.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> In-hand showcase counterpart to Musk 01_31_30 (6).
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Alpine" data-confirm="No" data-folder="Lier Images\Alpine">
+      <div class="img-wrapper">
+        <a href="../Lier Images/Alpine/ChatGPT Image Sep 3, 2026, 12_49_21 PM.png" target="_blank" title="Click to view full image">
+          <img src="../Lier Images/Alpine/ChatGPT Image Sep 3, 2026, 12_49_21 PM.png" alt="ChatGPT Image Sep 3, 2026, 12_49_21 PM.png" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">ALP-07</span>
+          <span class="badge badge-alpine">Alpine</span>
+          
+        </div>
+        <h4 class="filename" title="ChatGPT Image Sep 3, 2026, 12_49_21 PM.png">ChatGPT Image Sep 3, 2026, 12_49_21 PM.png</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> PNG</span>
+          <span><strong>Size:</strong> 1.75 MB</span>
+          <span><strong>Dim:</strong> 1086x1448</span>
+        </p>
+        <p class="folder-path"><code>Lier Images\Alpine</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> Interior design feature poster. Headline: 'Compact & Stylish Design - Elegant hanging bottle enhances your car interior.' Left badges: 'Rear-view Mirror Hang', 'Premium Wooden Cap', 'Stylish Car Accessory'. Prominently showcases Alpine Mist bottle hanging from car rearview mirror with snow-covered alpine mountains seen through windshield.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Alpine Mist PDP 'Aesthetic & Craftsmanship' section, Minimalist car interior gallery.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Part of the 3-variant 'Compact & Stylish Design' template family (parallel to Musk 01_31_29 (4) and Combo 01_50_04 (4)).
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Combo" data-confirm="No" data-folder="Lier Images\Combo">
+      <div class="img-wrapper">
+        <a href="../Lier Images/Combo/1.png" target="_blank" title="Click to view full image">
+          <img src="../Lier Images/Combo/1.png" alt="1.png" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">CMB-01</span>
+          <span class="badge badge-combo">Combo</span>
+          
+        </div>
+        <h4 class="filename" title="1.png">1.png</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> PNG</span>
+          <span><strong>Size:</strong> 1.72 MB</span>
+          <span><strong>Dim:</strong> 1086x1448</span>
+        </p>
+        <p class="folder-path"><code>Lier Images\Combo</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> Clean luxury combo lifestyle hero product photograph featuring both fragrance variants side-by-side. Left: Crist Ash Musk (dark brown floral box, pale amber perfume bottle). Right: Alpine Mist (navy blue mountain box, sky blue perfume bottle). Resting on a polished white marble tabletop with soft natural indoor lighting and a blurred ceramic vase with white flowers in background. No text overlays.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Combo Pack / Twin Pack PDP Primary Hero Banner, Homepage Collections Spotlight, Gifting Bundle Hero Card.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Base clean duo photography for the LIER fragrance collection. Direct clean counterpart to Combo marketing graphics.
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Combo" data-confirm="No" data-folder="Lier Images\Combo">
+      <div class="img-wrapper">
+        <a href="../Lier Images/Combo/ChatGPT Image Sep 3, 2026, 01_50_03 PM (1).png" target="_blank" title="Click to view full image">
+          <img src="../Lier Images/Combo/ChatGPT Image Sep 3, 2026, 01_50_03 PM (1).png" alt="ChatGPT Image Sep 3, 2026, 01_50_03 PM (1).png" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">CMB-02</span>
+          <span class="badge badge-combo">Combo</span>
+          
+        </div>
+        <h4 class="filename" title="ChatGPT Image Sep 3, 2026, 01_50_03 PM (1).png">ChatGPT Image Sep 3, 2026, 01_50_03 PM (1).png</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> PNG</span>
+          <span><strong>Size:</strong> 1.85 MB</span>
+          <span><strong>Dim:</strong> 1086x1448</span>
+        </p>
+        <p class="folder-path"><code>Lier Images\Combo</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> Combo promotional poster in car cockpit overlooking a mountain road. Headline: 'LONG LASTING FRESHNESS - UP TO 30 DAYS' with 3 circular badges: 'PREMIUM FRAGRANCE', 'CAR HANGING USE', 'ODOUR CONTROL'. Crist Ash Musk box, Alpine Mist box, and Alpine Mist bottle rest on dashboard, with Musk diffuser hanging from rearview mirror.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Combo Pack '30-Day Freshness' Benefit Card, Twin Pack Value Proposition Banner.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Part of the 3-variant 'Long Lasting Freshness' template family (parallel to Alpine 12_49_09 (2) and Musk 01_31_28 (1)).
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Combo" data-confirm="No" data-folder="Lier Images\Combo">
+      <div class="img-wrapper">
+        <a href="../Lier Images/Combo/ChatGPT Image Sep 3, 2026, 01_50_03 PM (2).png" target="_blank" title="Click to view full image">
+          <img src="../Lier Images/Combo/ChatGPT Image Sep 3, 2026, 01_50_03 PM (2).png" alt="ChatGPT Image Sep 3, 2026, 01_50_03 PM (2).png" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">CMB-03</span>
+          <span class="badge badge-combo">Combo</span>
+          
+        </div>
+        <h4 class="filename" title="ChatGPT Image Sep 3, 2026, 01_50_03 PM (2).png">ChatGPT Image Sep 3, 2026, 01_50_03 PM (2).png</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> PNG</span>
+          <span><strong>Size:</strong> 1.77 MB</span>
+          <span><strong>Dim:</strong> 1086x1448</span>
+        </p>
+        <p class="folder-path"><code>Lier Images\Combo</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> Twin variant comparison guide in luxury living room setting. Headline: '2 Premium Fragrance Variants' with subline 'Choose the fragrance that fits your drive.' Left column highlights 'Crist Ash Musk: Floral • Woody • Musk' with flower emblem. Right column highlights 'Alpine Mist: Fresh • Aquatic • Woody' with mountain emblem. Both boxes and bottles arranged on marble table.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Homepage Fragrance Selector / Scent Comparison Table, Combo Pack PDP Olfactory Guide, 'Which Scent Are You?' Quiz visual.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Premier comparison creative defining the sensory profile differences between both products.
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Combo" data-confirm="No" data-folder="Lier Images\Combo">
+      <div class="img-wrapper">
+        <a href="../Lier Images/Combo/ChatGPT Image Sep 3, 2026, 01_50_04 PM (3).png" target="_blank" title="Click to view full image">
+          <img src="../Lier Images/Combo/ChatGPT Image Sep 3, 2026, 01_50_04 PM (3).png" alt="ChatGPT Image Sep 3, 2026, 01_50_04 PM (3).png" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">CMB-04</span>
+          <span class="badge badge-combo">Combo</span>
+          
+        </div>
+        <h4 class="filename" title="ChatGPT Image Sep 3, 2026, 01_50_04 PM (3).png">ChatGPT Image Sep 3, 2026, 01_50_04 PM (3).png</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> PNG</span>
+          <span><strong>Size:</strong> 1.79 MB</span>
+          <span><strong>Dim:</strong> 1086x1448</span>
+        </p>
+        <p class="folder-path"><code>Lier Images\Combo</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> Universal step-by-step how-to instructional infographic. Headline: 'Easy To Use - Freshness in just a few simple steps.' Left column has 4 photo cards demonstrating 1 Open the bottle, 2 Remove inner stopper, 3 Close the wooden cap, 4 Hang in your car. Center shows both Musk and Alpine boxes and bottles on marble. Bottom features 4 badges: 'Premium Fragrance', 'Long Lasting Up to 30 Days', 'Leak Proof Design', 'Perfect for Every Drive'.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Universal Website 'How It Works' Section, Combo Pack PDP instructions, Order confirmation page.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Part of the 3-variant 'Easy To Use' 4-step instructional template family (parallel to Alpine 12_49_11 (5) and Musk 01_31_29 (3)).
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Combo" data-confirm="No" data-folder="Lier Images\Combo">
+      <div class="img-wrapper">
+        <a href="../Lier Images/Combo/ChatGPT Image Sep 3, 2026, 01_50_04 PM (4).png" target="_blank" title="Click to view full image">
+          <img src="../Lier Images/Combo/ChatGPT Image Sep 3, 2026, 01_50_04 PM (4).png" alt="ChatGPT Image Sep 3, 2026, 01_50_04 PM (4).png" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">CMB-05</span>
+          <span class="badge badge-combo">Combo</span>
+          
+        </div>
+        <h4 class="filename" title="ChatGPT Image Sep 3, 2026, 01_50_04 PM (4).png">ChatGPT Image Sep 3, 2026, 01_50_04 PM (4).png</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> PNG</span>
+          <span><strong>Size:</strong> 1.70 MB</span>
+          <span><strong>Dim:</strong> 1086x1448</span>
+        </p>
+        <p class="folder-path"><code>Lier Images\Combo</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> Car interior combo design poster. Header: 'LIER - PREMIUM FRAGRANCE - Compact & Stylish Design' with 3 badges: 'Rear-view Mirror Hang', 'Premium Wooden Cap', 'Perfect Car Accessory'. Musk bottle hangs from mirror while all four items (both boxes and both bottles) line the dashboard overlooking mountain lake highway.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Combo Pack Aesthetic showcase, Car interior accessory feature block.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Part of the 3-variant 'Compact & Stylish Design' template family (parallel to Alpine 12_49_21 and Musk 01_31_29 (4)).
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Combo" data-confirm="No" data-folder="Lier Images\Combo">
+      <div class="img-wrapper">
+        <a href="../Lier Images/Combo/ChatGPT Image Sep 3, 2026, 01_50_05 PM (6).png" target="_blank" title="Click to view full image">
+          <img src="../Lier Images/Combo/ChatGPT Image Sep 3, 2026, 01_50_05 PM (6).png" alt="ChatGPT Image Sep 3, 2026, 01_50_05 PM (6).png" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">CMB-06</span>
+          <span class="badge badge-combo">Combo</span>
+          
+        </div>
+        <h4 class="filename" title="ChatGPT Image Sep 3, 2026, 01_50_05 PM (6).png">ChatGPT Image Sep 3, 2026, 01_50_05 PM (6).png</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> PNG</span>
+          <span><strong>Size:</strong> 1.89 MB</span>
+          <span><strong>Dim:</strong> 1086x1448</span>
+        </p>
+        <p class="folder-path"><code>Lier Images\Combo</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> Outdoor natural combo promotional poster. Headline: 'Fresh Car, Better Drive - Elegant scent options for a refreshing journey.' 4 circular badges: 'Premium Fragrance', 'Long Lasting Up to 30 Days', 'Easy Hanging Use', 'Ideal for Car Interior'. Bottom displays both products on a marble platter in an outdoor mountain setting, with circular vignette showing hanging diffuser in car.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Combo Pack 'Gift Set' Promotional Banner, Homepage Seasonal Feature.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Outdoor lifestyle variant of the combo product line.
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Combo" data-confirm="No" data-folder="Lier Images\Combo">
+      <div class="img-wrapper">
+        <a href="../Lier Images/Combo/ChatGPT Image Sep 3, 2026, 02_30_09 PM.png" target="_blank" title="Click to view full image">
+          <img src="../Lier Images/Combo/ChatGPT Image Sep 3, 2026, 02_30_09 PM.png" alt="ChatGPT Image Sep 3, 2026, 02_30_09 PM.png" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">CMB-07</span>
+          <span class="badge badge-combo">Combo</span>
+          
+        </div>
+        <h4 class="filename" title="ChatGPT Image Sep 3, 2026, 02_30_09 PM.png">ChatGPT Image Sep 3, 2026, 02_30_09 PM.png</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> PNG</span>
+          <span><strong>Size:</strong> 1.83 MB</span>
+          <span><strong>Dim:</strong> 1086x1448</span>
+        </p>
+        <p class="folder-path"><code>Lier Images\Combo</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> Everyday drive and gifting promotional graphic. Headline: 'PERFECT FOR EVERY DRIVE' with 5 circular badges: 'Daily Commute', 'Road Trips', 'Office Travel', 'All Weather Use', 'Perfect for Gifting' (gift box icon). In-car view on city road with Musk diffuser hanging from mirror, and both Crist Ash Musk and Alpine Mist boxes/bottles placed on car dashboard.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Combo Gifting Guide / Holiday Gift Card, 'Why Buy Both' Bundle Upsell Card.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Part of the 3-variant 'Perfect For Every Drive' template family (parallel to Alpine 12_49_12 (6) and Musk 01_31_30 (5)).
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Musk" data-confirm="No" data-folder="Lier Images\Musk">
+      <div class="img-wrapper">
+        <a href="../Lier Images/Musk/1 (2).png" target="_blank" title="Click to view full image">
+          <img src="../Lier Images/Musk/1 (2).png" alt="1 (2).png" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">MSK-01</span>
+          <span class="badge badge-musk">Musk</span>
+          
+        </div>
+        <h4 class="filename" title="1 (2).png">1 (2).png</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> PNG</span>
+          <span><strong>Size:</strong> 2.16 MB</span>
+          <span><strong>Dim:</strong> 1086x1448</span>
+        </p>
+        <p class="folder-path"><code>Lier Images\Musk</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> Clean luxury lifestyle hero product photograph of Crist Ash Musk. Rich dark chocolate brown box with gold floral motifs and 'CRIST ASH MUSK 30 DAYS' alongside faceted glass perfume bottle with warm amber oil, ribbed beech cap, and black strap. Placed on a round wooden tray atop marble counter, beside a white fluted vase with baby's breath flowers in warm sunlit garden background. No text overlays.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Crist Ash Musk PDP Primary Hero Banner, Musk Product Card, Warm Luxury Fragrance Collection Banner.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Base hero photo for Crist Ash Musk product line. Clean lifestyle counterpart to Musk marketing creatives.
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Musk" data-confirm="No" data-folder="Lier Images\Musk">
+      <div class="img-wrapper">
+        <a href="../Lier Images/Musk/ChatGPT Image Sep 3, 2026, 01_31_28 PM (1).png" target="_blank" title="Click to view full image">
+          <img src="../Lier Images/Musk/ChatGPT Image Sep 3, 2026, 01_31_28 PM (1).png" alt="ChatGPT Image Sep 3, 2026, 01_31_28 PM (1).png" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">MSK-02</span>
+          <span class="badge badge-musk">Musk</span>
+          
+        </div>
+        <h4 class="filename" title="ChatGPT Image Sep 3, 2026, 01_31_28 PM (1).png">ChatGPT Image Sep 3, 2026, 01_31_28 PM (1).png</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> PNG</span>
+          <span><strong>Size:</strong> 1.81 MB</span>
+          <span><strong>Dim:</strong> 1086x1448</span>
+        </p>
+        <p class="folder-path"><code>Lier Images\Musk</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> Promotional poster for Crist Ash Musk. Headline: 'Long Lasting Freshness - Up to 30 Days' with elegant floral branch illustration. Left column has 4 badges: 'Premium Fragrance', 'Car Hanging Use', 'Odour Control', 'Safe & Non-Toxic'. Musk bottle hangs from mirror, box rests on dashboard overlooking country road.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Crist Ash Musk PDP '30-Day Freshness' Feature Card, Mobile Benefit Slider.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Part of the 3-variant 'Long Lasting Freshness' template family (parallel to Alpine 12_49_09 (2) and Combo 01_50_03 (1)).
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Musk" data-confirm="No" data-folder="Lier Images\Musk">
+      <div class="img-wrapper">
+        <a href="../Lier Images/Musk/ChatGPT Image Sep 3, 2026, 01_31_28 PM (2).png" target="_blank" title="Click to view full image">
+          <img src="../Lier Images/Musk/ChatGPT Image Sep 3, 2026, 01_31_28 PM (2).png" alt="ChatGPT Image Sep 3, 2026, 01_31_28 PM (2).png" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">MSK-03</span>
+          <span class="badge badge-musk">Musk</span>
+          
+        </div>
+        <h4 class="filename" title="ChatGPT Image Sep 3, 2026, 01_31_28 PM (2).png">ChatGPT Image Sep 3, 2026, 01_31_28 PM (2).png</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> PNG</span>
+          <span><strong>Size:</strong> 2.06 MB</span>
+          <span><strong>Dim:</strong> 1086x1448</span>
+        </p>
+        <p class="folder-path"><code>Lier Images\Musk</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> Fragrance notes and ingredient spotlight graphic for Crist Ash Musk. Headline: 'Premium Fragrance - Floral • Woody • Musk' with 3 illustrated badges: 'FLORAL' (blossom), 'WOODY' (logs), 'MUSK' (leaves). Subtitle: 'A rich fragrance that keeps your car fresh and inviting.' Box and bottle framed by lush white magnolia flowers and aged driftwood on marble slab under warm amber spotlighting.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Crist Ash Musk PDP Scent Profile / Olfactory Pyramid Section, Ingredient Storytelling block.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Scent profile graphic specific to Crist Ash Musk.
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Musk" data-confirm="No" data-folder="Lier Images\Musk">
+      <div class="img-wrapper">
+        <a href="../Lier Images/Musk/ChatGPT Image Sep 3, 2026, 01_31_29 PM (3).png" target="_blank" title="Click to view full image">
+          <img src="../Lier Images/Musk/ChatGPT Image Sep 3, 2026, 01_31_29 PM (3).png" alt="ChatGPT Image Sep 3, 2026, 01_31_29 PM (3).png" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">MSK-04</span>
+          <span class="badge badge-musk">Musk</span>
+          
+        </div>
+        <h4 class="filename" title="ChatGPT Image Sep 3, 2026, 01_31_29 PM (3).png">ChatGPT Image Sep 3, 2026, 01_31_29 PM (3).png</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> PNG</span>
+          <span><strong>Size:</strong> 1.78 MB</span>
+          <span><strong>Dim:</strong> 1086x1448</span>
+        </p>
+        <p class="folder-path"><code>Lier Images\Musk</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> Instructional how-to infographic for Crist Ash Musk. Headline: 'Easy To Use' with cursive 'To Use'. Left badges: 'PREMIUM FRAGRANCE', 'LONG LASTING AROMA', 'PERFECT FOR YOUR CAR', 'REFRESHES NATURALLY'. Right side features 4 numbered step cards: 1 Open the bottle, 2 Remove inner stopper, 3 Close the wooden cap, 4 Hang in your car. Bottom badges: 'SAFE & LEAK PROOF', 'NON TOXIC', 'SPILL RESISTANT'.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Crist Ash Musk PDP 'How to Use' Section, Customer Onboarding Guide.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Part of the 3-variant 'Easy To Use' 4-step instructional template family (parallel to Alpine 12_49_11 (5) and Combo 01_50_04 (3)).
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Musk" data-confirm="No" data-folder="Lier Images\Musk">
+      <div class="img-wrapper">
+        <a href="../Lier Images/Musk/ChatGPT Image Sep 3, 2026, 01_31_29 PM (4).png" target="_blank" title="Click to view full image">
+          <img src="../Lier Images/Musk/ChatGPT Image Sep 3, 2026, 01_31_29 PM (4).png" alt="ChatGPT Image Sep 3, 2026, 01_31_29 PM (4).png" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">MSK-05</span>
+          <span class="badge badge-musk">Musk</span>
+          
+        </div>
+        <h4 class="filename" title="ChatGPT Image Sep 3, 2026, 01_31_29 PM (4).png">ChatGPT Image Sep 3, 2026, 01_31_29 PM (4).png</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> PNG</span>
+          <span><strong>Size:</strong> 1.99 MB</span>
+          <span><strong>Dim:</strong> 1086x1448</span>
+        </p>
+        <p class="folder-path"><code>Lier Images\Musk</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> Interior design feature poster. Headline: 'Compact & Stylish Design - Enhances your car interior' with 3 badges: 'Rear-view Mirror Hang', 'Premium Wooden Cap', 'Stylish Car Accessory'. Musk diffuser hangs from mirror, box on dashboard with car console screen showing 'Drive Safely' overlooking forested road.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Crist Ash Musk Aesthetic showcase, Dashboard integration feature card.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Part of the 3-variant 'Compact & Stylish Design' template family (parallel to Alpine 12_49_21 and Combo 01_50_04 (4)).
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Musk" data-confirm="No" data-folder="Lier Images\Musk">
+      <div class="img-wrapper">
+        <a href="../Lier Images/Musk/ChatGPT Image Sep 3, 2026, 01_31_30 PM (5).png" target="_blank" title="Click to view full image">
+          <img src="../Lier Images/Musk/ChatGPT Image Sep 3, 2026, 01_31_30 PM (5).png" alt="ChatGPT Image Sep 3, 2026, 01_31_30 PM (5).png" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">MSK-06</span>
+          <span class="badge badge-musk">Musk</span>
+          
+        </div>
+        <h4 class="filename" title="ChatGPT Image Sep 3, 2026, 01_31_30 PM (5).png">ChatGPT Image Sep 3, 2026, 01_31_30 PM (5).png</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> PNG</span>
+          <span><strong>Size:</strong> 1.70 MB</span>
+          <span><strong>Dim:</strong> 1086x1448</span>
+        </p>
+        <p class="folder-path"><code>Lier Images\Musk</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> First-person driver lifestyle graphic. Headline: 'Perfect For Every Drive' with 4 badges: 'Daily Commute', 'Road Trips', 'Office Travel', 'All Weather Use'. Driver's hand grips steering wheel with Musk diffuser hanging from mirror and box on dashboard during sunlit highway drive.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Musk lifestyle banner, 'Daily Commute Companion' section.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Part of the 3-variant 'Perfect For Every Drive' template family (parallel to Alpine 12_49_12 (6) and Combo 02_30_09).
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Musk" data-confirm="No" data-folder="Lier Images\Musk">
+      <div class="img-wrapper">
+        <a href="../Lier Images/Musk/ChatGPT Image Sep 3, 2026, 01_31_30 PM (6).png" target="_blank" title="Click to view full image">
+          <img src="../Lier Images/Musk/ChatGPT Image Sep 3, 2026, 01_31_30 PM (6).png" alt="ChatGPT Image Sep 3, 2026, 01_31_30 PM (6).png" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">MSK-07</span>
+          <span class="badge badge-musk">Musk</span>
+          
+        </div>
+        <h4 class="filename" title="ChatGPT Image Sep 3, 2026, 01_31_30 PM (6).png">ChatGPT Image Sep 3, 2026, 01_31_30 PM (6).png</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> PNG</span>
+          <span><strong>Size:</strong> 1.93 MB</span>
+          <span><strong>Dim:</strong> 1086x1448</span>
+        </p>
+        <p class="folder-path"><code>Lier Images\Musk</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> In-hand product showcase graphic. A male hand with black watch holds Crist Ash Musk box and bottle inside a luxury car interior. Headline: 'Freshness On The Go - Odour Control for your car interior'. Left badges: 'Premium Car Fragrance', 'Lasts Up To 30 Days', 'Easy Hanging Use'. Rounded inset thumbnail in upper right shows diffuser hanging from mirror.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Crist Ash Musk Unboxing / Size perspective showcase, Social proof card.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> In-hand showcase counterpart to Alpine 12_49_12 (7).
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Musk (Product Packshot) / Marketing Creatives" data-confirm="Yes" data-folder="NEW PERFUME POST (1) new">
+      <div class="img-wrapper">
+        <a href="../NEW PERFUME POST (1) new/1.jpg" target="_blank" title="Click to view full image">
+          <img src="../NEW PERFUME POST (1) new/1.jpg" alt="1.jpg" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">MKT-01</span>
+          <span class="badge badge-marketing">Musk (Product Packshot) / Marketing Creatives</span>
+          <span class="badge badge-confirm">Needs Confirmation</span>
+        </div>
+        <h4 class="filename" title="1.jpg">1.jpg</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> JPEG</span>
+          <span><strong>Size:</strong> 281.64 KB</span>
+          <span><strong>Dim:</strong> 2000x2000</span>
+        </p>
+        <p class="folder-path"><code>NEW PERFUME POST (1) new</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> Clean commercial studio packshot on pure seamless white background (#FFFFFF). Displays Crist Ash Musk dark brown box with metallic gold floral motifs on left, and faceted glass diffuser bottle with amber perfume oil, ribbed wooden cap, and black strap on right. Isolated, razor sharp, zero background clutter, zero marketing text overlays.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> CRITICAL ASSET: Crist Ash Musk E-Commerce PDP Main Image (white background), Category Grid Thumbnail, Shopping Cart & Checkout Thumbnail, Transparent PNG cutout source.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Clean studio packshot counterpart to the lifestyle Musk hero photo. Flagged for category confirmation: physically placed in 'NEW PERFUME POST' folder, but visually a pure e-commerce product packshot.
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Marketing Creatives" data-confirm="No" data-folder="NEW PERFUME POST (1) new">
+      <div class="img-wrapper">
+        <a href="../NEW PERFUME POST (1) new/2.jpg" target="_blank" title="Click to view full image">
+          <img src="../NEW PERFUME POST (1) new/2.jpg" alt="2.jpg" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">MKT-02</span>
+          <span class="badge badge-marketing">Marketing Creatives</span>
+          
+        </div>
+        <h4 class="filename" title="2.jpg">2.jpg</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> JPEG</span>
+          <span><strong>Size:</strong> 244.45 KB</span>
+          <span><strong>Dim:</strong> 2000x2000</span>
+        </p>
+        <p class="folder-path"><code>NEW PERFUME POST (1) new</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> Square promotional ad graphic. Top left typography: 'PERFECT FOR EVERY CAR' with gold floral divider and 'Adds Style & Fresh Aroma'. LIER diffuser bottle with amber oil hangs centered from car rearview mirror against soft blurred windshield and dashboard background. Clean, airy, minimalist layout.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Social media square campaign post, Minimalist car aesthetic feature block, Homepage secondary promo card.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Visually identical base background to MKT-07 (7.jpg); MKT-02 is the minimalist version without benefit icon badges.
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Marketing Creatives" data-confirm="No" data-folder="NEW PERFUME POST (1) new">
+      <div class="img-wrapper">
+        <a href="../NEW PERFUME POST (1) new/3.jpg" target="_blank" title="Click to view full image">
+          <img src="../NEW PERFUME POST (1) new/3.jpg" alt="3.jpg" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">MKT-03</span>
+          <span class="badge badge-marketing">Marketing Creatives</span>
+          
+        </div>
+        <h4 class="filename" title="3.jpg">3.jpg</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> JPEG</span>
+          <span><strong>Size:</strong> 313.79 KB</span>
+          <span><strong>Dim:</strong> 2000x2000</span>
+        </p>
+        <p class="folder-path"><code>NEW PERFUME POST (1) new</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> Square promotional graphic on white background. Headline: 'LONG LASTING FRAGRANCE' with gold ornament and 'Enjoy Freshness Up To 30 Days'. Crist Ash Musk box and diffuser bottle are centered at the base, with graceful swirling white smoke/vapor ribbons flowing across the frame symbolizing continuous scent diffusion.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Fragrance diffusion / 30-day longevity feature highlight, E-commerce value banner, Social media ad.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Aroma diffusion concept graphic highlighting 30-day duration.
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Marketing Creatives" data-confirm="No" data-folder="NEW PERFUME POST (1) new">
+      <div class="img-wrapper">
+        <a href="../NEW PERFUME POST (1) new/4.jpg" target="_blank" title="Click to view full image">
+          <img src="../NEW PERFUME POST (1) new/4.jpg" alt="4.jpg" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">MKT-04</span>
+          <span class="badge badge-marketing">Marketing Creatives</span>
+          
+        </div>
+        <h4 class="filename" title="4.jpg">4.jpg</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> JPEG</span>
+          <span><strong>Size:</strong> 323.36 KB</span>
+          <span><strong>Dim:</strong> 2000x2000</span>
+        </p>
+        <p class="folder-path"><code>NEW PERFUME POST (1) new</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> Dramatic dark-toned luxury promotional graphic. Top left: large golden 'UPTO 30 DAYS' and 'LONG LASTING FRAGRANCE', 'TIMELESS SCENTS. ENDLESS DRIVES.' LIER diffuser bottle stands on dark slate rocks beside delicate baby's breath flowers on black leather surface under warm spotlight. Bottom features 3 icon badges: 'UP TO 30 DAYS', 'NATURAL OILS', 'MADE IN INDIA' (with India map outline).
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Homepage Dark Section / Night Mode Feature, 'Made in India & Natural Oils' Trust Block, Luxury ad banner.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Only image featuring the 'Made in India' and 'Natural Oils' explicit trust badges.
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Marketing Creatives" data-confirm="No" data-folder="NEW PERFUME POST (1) new">
+      <div class="img-wrapper">
+        <a href="../NEW PERFUME POST (1) new/5.jpg" target="_blank" title="Click to view full image">
+          <img src="../NEW PERFUME POST (1) new/5.jpg" alt="5.jpg" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">MKT-05</span>
+          <span class="badge badge-marketing">Marketing Creatives</span>
+          
+        </div>
+        <h4 class="filename" title="5.jpg">5.jpg</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> JPEG</span>
+          <span><strong>Size:</strong> 213.30 KB</span>
+          <span><strong>Dim:</strong> 2000x2000</span>
+        </p>
+        <p class="folder-path"><code>NEW PERFUME POST (1) new</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> Macro product detail graphic. Left headline: 'NATURAL WOODEN CAP - Continuous Fragrance Diffusion'. Macro focus on the grooved wooden beech cap, wooden bead, and faceted glass neck on white background with a subtle radiating golden aura halo around the cap demonstrating natural scent evaporation.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Cap & Diffusion Technology Feature Callout, Product Material Quality spotlight, Craftsmanship accordion.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Only macro asset specifically isolating and explaining the wooden cap diffusion mechanism.
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Marketing Creatives" data-confirm="No" data-folder="NEW PERFUME POST (1) new">
+      <div class="img-wrapper">
+        <a href="../NEW PERFUME POST (1) new/6.jpg" target="_blank" title="Click to view full image">
+          <img src="../NEW PERFUME POST (1) new/6.jpg" alt="6.jpg" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">MKT-06</span>
+          <span class="badge badge-marketing">Marketing Creatives</span>
+          
+        </div>
+        <h4 class="filename" title="6.jpg">6.jpg</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> JPEG</span>
+          <span><strong>Size:</strong> 355.72 KB</span>
+          <span><strong>Dim:</strong> 2000x2000</span>
+        </p>
+        <p class="folder-path"><code>NEW PERFUME POST (1) new</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> High-key luxury design graphic. Headline: 'ELEGANT GLASS DESIGN - Beautiful Look For Every Interior'. Crist Ash Musk box and glass bottle on white reflective surface with soft blurred white baby's breath flowers on white background.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Glass Bottle Craftsmanship & Aesthetics callout, Interior elegance feature card, Social feed post.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Complements MKT-05; MKT-05 focuses on the wooden cap while MKT-06 focuses on the glass design.
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Marketing Creatives" data-confirm="No" data-folder="NEW PERFUME POST (1) new">
+      <div class="img-wrapper">
+        <a href="../NEW PERFUME POST (1) new/7.jpg" target="_blank" title="Click to view full image">
+          <img src="../NEW PERFUME POST (1) new/7.jpg" alt="7.jpg" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">MKT-07</span>
+          <span class="badge badge-marketing">Marketing Creatives</span>
+          
+        </div>
+        <h4 class="filename" title="7.jpg">7.jpg</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> JPEG</span>
+          <span><strong>Size:</strong> 259.49 KB</span>
+          <span><strong>Dim:</strong> 2000x2000</span>
+        </p>
+        <p class="folder-path"><code>NEW PERFUME POST (1) new</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> Benefit infographic graphic in car setting. Same headline 'PERFECT FOR EVERY CAR - Adds Style & Fresh Aroma' and same car cockpit/hanging bottle photo as MKT-02, but enhanced with 4 gold circular icon badges on the left: 'Stylish Look', 'Long Lasting Fragrance', 'Refreshes Every Drive', 'Premium Quality Experience'.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Product Features Overview Section, Ad creative, Secondary PDP feature block.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Direct enhanced infographic variant of MKT-02 (2.jpg).
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Marketing Creatives" data-confirm="No" data-folder="NEW PERFUME POST (1) new">
+      <div class="img-wrapper">
+        <a href="../NEW PERFUME POST (1) new/8.jpg" target="_blank" title="Click to view full image">
+          <img src="../NEW PERFUME POST (1) new/8.jpg" alt="8.jpg" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">MKT-08</span>
+          <span class="badge badge-marketing">Marketing Creatives</span>
+          
+        </div>
+        <h4 class="filename" title="8.jpg">8.jpg</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> JPEG</span>
+          <span><strong>Size:</strong> 284.31 KB</span>
+          <span><strong>Dim:</strong> 2000x2000</span>
+        </p>
+        <p class="folder-path"><code>NEW PERFUME POST (1) new</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> Brand value proposition infographic. Top centered headline: 'WHY CHOOSE LIER' with gold flourish. LIER diffuser bottle stands centered on a round white marble pedestal against warm beige background with soft botanical leaf shadows and golden decorative arcs. Flanked by 6 illuminated circular icon badges: 'Long Lasting Fragrance', 'Easy To Hang', 'Modern Car Accessory', 'Elegant Bottle Design', 'Premium Glass Bottle', 'Compact & Stylish'.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Homepage 'Why Choose LIER' Value Proposition Section, PDP feature comparison grid, High-converting social ad.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Flagship 6-benefit brand infographic summarizing all core product differentiators.
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-card" data-category="Marketing Creatives" data-confirm="No" data-folder="NEW PERFUME POST (1) new">
+      <div class="img-wrapper">
+        <a href="../NEW PERFUME POST (1) new/9.jpg" target="_blank" title="Click to view full image">
+          <img src="../NEW PERFUME POST (1) new/9.jpg" alt="9.jpg" loading="lazy" />
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <span class="asset-id">MKT-09</span>
+          <span class="badge badge-marketing">Marketing Creatives</span>
+          
+        </div>
+        <h4 class="filename" title="9.jpg">9.jpg</h4>
+        <p class="meta-row">
+          <span><strong>Format:</strong> JPEG</span>
+          <span><strong>Size:</strong> 315.23 KB</span>
+          <span><strong>Dim:</strong> 2000x2000</span>
+        </p>
+        <p class="folder-path"><code>NEW PERFUME POST (1) new</code></p>
+        <div class="desc-box">
+          <strong>Visual Description:</strong> Problem-Solution / Before vs After comparative infographic. Headline: 'FRESHNESS YOU CAN FEEL - Transform Your Drive'. Center shows LIER diffuser hanging in car. Left side ('BEFORE', dark gray tone) lists pain points: 'Unpleasant Odors', 'Stale Air', 'Uncomfortable Drive' over smoggy city traffic photo. Right side ('AFTER', golden sunny tone) lists benefits: 'Fresh & Pleasant Aroma', 'Clean & Pure Air', 'Refreshes Your Mood', 'Enjoy Every Drive' over lush green country road. Bottom features 4 trust badges: 'LONG LASTING FRAGRANCE', 'PREMIUM QUALITY', 'SAFE & NON TOXIC', 'PERFECT FOR EVERY DRIVE'.
+        </div>
+        <div class="usage-box">
+          <strong>Recommended Usage:</strong> Homepage 'Before vs After' / 'Transform Your Drive' Section, Conversion optimization block, Paid ad landing page.
+        </div>
+        <div class="sim-box">
+          <strong>Similarity / Relation:</strong> Sole Before-vs-After comparative graphic in the entire asset library.
+        </div>
+      </div>
+    </div>
+    
+  </main>
+
+  <script>
+    function filterAssets(cat) {
+      const buttons = document.querySelectorAll('.filter-btn');
+      buttons.forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const cards = document.querySelectorAll('.asset-card');
+      cards.forEach(card => {
+        const cardCat = card.getAttribute('data-category');
+        const confirm = card.getAttribute('data-confirm');
+        const folder = card.getAttribute('data-folder');
+
+        if (cat === 'all') {
+          card.style.display = 'flex';
+        } else if (cat === 'confirm') {
+          card.style.display = confirm === 'Yes' ? 'flex' : 'none';
+        } else if (cat === 'Alpine') {
+          card.style.display = cardCat.includes('Alpine') ? 'flex' : 'none';
+        } else if (cat === 'Musk') {
+          card.style.display = cardCat.includes('Musk') ? 'flex' : 'none';
+        } else if (cat === 'Combo') {
+          card.style.display = cardCat.includes('Combo') ? 'flex' : 'none';
+        } else if (cat === 'Marketing') {
+          card.style.display = folder.includes('NEW PERFUME POST') ? 'flex' : 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

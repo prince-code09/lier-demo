@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-obsidian-950 text-alabaster font-sans antialiased selection:bg-gold-500/30 selection:text-gold-200 overflow-x-hidden;
+  }
+
+  /* Custom luxury scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0A0A0C;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #262633;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #D4AF37;
+  }
+
+  /* Accessible focus outline */
+  :focus-visible {
+    outline: 2px solid #D4AF37;
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .btn-gold {
+    @apply inline-flex items-center justify-center px-6 py-3 text-xs tracking-widest uppercase font-semibold transition-all duration-300 rounded-sm bg-gradient-to-r from-gold-300 via-gold-400 to-gold-500 text-obsidian-950 hover:brightness-110 hover:shadow-gold-glow active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-outline-gold {
+    @apply inline-flex items-center justify-center px-6 py-3 text-xs tracking-widest uppercase font-medium transition-all duration-300 rounded-sm border border-gold-400/40 text-gold-300 hover:border-gold-400 hover:bg-gold-500/10 hover:text-gold-200 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-dark {
+    @apply inline-flex items-center justify-center px-6 py-3 text-xs tracking-widest uppercase font-medium transition-all duration-300 rounded-sm border border-white/10 bg-obsidian-850 text-white hover:bg-obsidian-800 hover:border-gold-400/30 hover:text-gold-200 active:scale-[0.98];
+  }
+
+  .glass-card {
+    @apply bg-obsidian-900/70 backdrop-blur-md border border-white/10 shadow-luxury;
+  }
+
+  .glass-card-hover {
+    @apply transition-all duration-500 hover:border-gold-400/40 hover:shadow-luxury-hover hover:-translate-y-1;
+  }
+
+  .gold-divider {
+    @apply h-[1px] w-20 bg-gradient-to-r from-transparent via-gold-400 to-transparent my-6;
+  }
+
+  .text-gold-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-gold-100 via-gold-300 to-gold-500;
+  }
+
+  .gold-shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(212, 175, 55, 0) 0%,
+      rgba(212, 175, 55, 0.25) 50%,
+      rgba(212, 175, 55, 0) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 4s infinite linear;
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes subtle-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+.animate-float {
+  animation: subtle-float 5s ease-in-out infinite;
+}
+
+/* Hide scrollbar for clean horizontal tab strips */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
