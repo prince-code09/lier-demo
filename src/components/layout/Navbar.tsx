@@ -54,7 +54,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSearch, isScrolled: propIs
 
   const isCurrent = (path: string) => {
     if (path === '/shop') return location.pathname === '/shop';
-    return location.pathname.startsWith(path);
+    if (path === '/product/alpine-mist') {
+      return location.pathname === '/product/alpine-mist' || location.pathname === '/collection/alpine';
+    }
+    if (path === '/product/crist-ash-musk') {
+      return location.pathname === '/product/crist-ash-musk' || location.pathname === '/collection/musk';
+    }
+    if (path === '/about') return location.pathname === '/about';
+    if (path === '/contact') return location.pathname === '/contact';
+    if (path === '/product/duo-combo') {
+      return location.pathname === '/product/duo-combo' || location.pathname === '/collection/combo';
+    }
+    return false;
   };
 
   return (
@@ -73,36 +84,36 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSearch, isScrolled: propIs
             <Link
               to="/shop"
               className={`transition-colors duration-200 hover:text-gold-300 relative py-1.5 ${
-                isCurrent('/shop') ? 'text-gold-400 font-semibold' : 'text-zinc-300'
+                isCurrent('/shop') ? 'text-gold-300 font-semibold' : 'text-zinc-300'
               }`}
             >
               <span>Shop All</span>
               {isCurrent('/shop') && (
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-gold-400 shadow-gold-glow" />
+                <span className="absolute -bottom-0.5 inset-x-0 h-[2px] bg-gold-400 rounded-full shadow-gold-glow animate-fade-in" />
               )}
             </Link>
 
             <Link
               to="/product/alpine-mist"
               className={`transition-colors duration-200 hover:text-gold-300 relative py-1.5 ${
-                isCurrent('/product/alpine-mist') ? 'text-gold-400 font-semibold' : 'text-zinc-300'
+                isCurrent('/product/alpine-mist') ? 'text-gold-300 font-semibold' : 'text-zinc-300'
               }`}
             >
               <span>Alpine Mist</span>
               {isCurrent('/product/alpine-mist') && (
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-gold-400 shadow-gold-glow" />
+                <span className="absolute -bottom-0.5 inset-x-0 h-[2px] bg-gold-400 rounded-full shadow-gold-glow animate-fade-in" />
               )}
             </Link>
 
             <Link
               to="/product/crist-ash-musk"
               className={`transition-colors duration-200 hover:text-gold-300 relative py-1.5 ${
-                isCurrent('/product/crist-ash-musk') ? 'text-gold-400 font-semibold' : 'text-zinc-300'
+                isCurrent('/product/crist-ash-musk') ? 'text-gold-300 font-semibold' : 'text-zinc-300'
               }`}
             >
               <span>Crist Ash Musk</span>
               {isCurrent('/product/crist-ash-musk') && (
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-gold-400 shadow-gold-glow" />
+                <span className="absolute -bottom-0.5 inset-x-0 h-[2px] bg-gold-400 rounded-full shadow-gold-glow animate-fade-in" />
               )}
             </Link>
           </div>
@@ -124,24 +135,24 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSearch, isScrolled: propIs
             <Link
               to="/about"
               className={`transition-colors duration-200 hover:text-gold-300 relative py-1.5 ${
-                isCurrent('/about') ? 'text-gold-400 font-semibold' : 'text-zinc-300'
+                isCurrent('/about') ? 'text-gold-300 font-semibold' : 'text-zinc-300'
               }`}
             >
               <span>The House</span>
               {isCurrent('/about') && (
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-gold-400 shadow-gold-glow" />
+                <span className="absolute -bottom-0.5 inset-x-0 h-[2px] bg-gold-400 rounded-full shadow-gold-glow animate-fade-in" />
               )}
             </Link>
 
             <Link
               to="/contact"
               className={`transition-colors duration-200 hover:text-gold-300 relative py-1.5 ${
-                isCurrent('/contact') ? 'text-gold-400 font-semibold' : 'text-zinc-300'
+                isCurrent('/contact') ? 'text-gold-300 font-semibold' : 'text-zinc-300'
               }`}
             >
               <span>Concierge</span>
               {isCurrent('/contact') && (
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-gold-400 shadow-gold-glow" />
+                <span className="absolute -bottom-0.5 inset-x-0 h-[2px] bg-gold-400 rounded-full shadow-gold-glow animate-fade-in" />
               )}
             </Link>
 
@@ -268,7 +279,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSearch, isScrolled: propIs
                   onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center justify-between text-sm uppercase tracking-widest py-3 px-3 rounded-sm border-b border-white/5 transition-colors ${
                     isCurrent(link.path)
-                      ? 'text-gold-400 font-semibold bg-gold-500/10 border-gold-400/20'
+                      ? 'text-gold-300 font-semibold bg-gold-500/10 border-l-2 border-l-gold-400 pl-3.5'
                       : 'text-zinc-200 hover:text-gold-300'
                   }`}
                 >

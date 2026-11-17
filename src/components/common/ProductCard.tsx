@@ -9,9 +9,10 @@ import { useToast } from '../../context/ToastContext';
 interface ProductCardProps {
   product: Product;
   onQuickView?: (product: Product) => void;
+  isRecommendation?: boolean;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView, isRecommendation }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
   const { addItem } = useCart();
@@ -55,13 +56,19 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView }
       {/* Image Container with Dual Image Transition */}
       <Link
         to={`/product/${product.slug}`}
-        className="relative h-56 sm:h-64 md:h-auto md:aspect-[3/4] overflow-hidden bg-obsidian-950 flex items-center justify-center block"
+        className={`relative overflow-hidden bg-obsidian-950 flex items-center justify-center block ${
+          isRecommendation
+            ? 'h-48 sm:h-56 md:h-64 lg:h-[280px] xl:h-[300px] p-3 sm:p-4'
+            : 'h-56 sm:h-64 md:h-auto md:aspect-[3/4]'
+        }`}
       >
         {/* Primary Image */}
         <img
           src={product.heroImage}
           alt={product.name}
-          className={`w-full h-full object-contain md:object-cover transition-all duration-700 ease-out ${
+          className={`w-full h-full object-contain ${
+            isRecommendation ? '' : 'md:object-cover'
+          } transition-all duration-700 ease-out ${
             isHovered && product.secondaryImage ? 'opacity-0 scale-105' : 'opacity-100 scale-100'
           }`}
           loading="lazy"
@@ -72,7 +79,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView }
           <img
             src={product.secondaryImage}
             alt={`${product.name} in cockpit view`}
-            className={`absolute inset-0 w-full h-full object-contain md:object-cover transition-all duration-700 ease-out ${
+            className={`absolute inset-0 w-full h-full object-contain ${
+              isRecommendation ? 'p-3 sm:p-4' : 'md:object-cover'
+            } transition-all duration-700 ease-out ${
               isHovered ? 'opacity-100 scale-105' : 'opacity-0 scale-100'
             }`}
             loading="lazy"

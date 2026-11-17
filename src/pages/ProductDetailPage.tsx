@@ -97,7 +97,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ defaultSlu
           {/* Left Gallery (6 Columns on Desktop) */}
           <div className="lg:col-span-6 space-y-4">
             {/* Main Stage Image */}
-            <div className="relative h-[270px] sm:h-[340px] lg:h-[420px] xl:h-[440px] max-w-sm sm:max-w-md lg:max-w-[460px] mx-auto bg-obsidian-900/90 border border-white/10 rounded-sm overflow-hidden shadow-luxury flex items-center justify-center p-3 sm:p-4">
+            <div className="relative h-[280px] sm:h-[350px] lg:h-[420px] xl:h-[430px] aspect-[4/5] mx-auto bg-obsidian-900/80 border border-white/15 rounded-sm overflow-hidden shadow-luxury flex items-center justify-center p-3.5 sm:p-4">
               <img
                 src={selectedImage}
                 alt={product.name}
@@ -105,8 +105,8 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ defaultSlu
               />
 
               {product.badge && (
-                <div className="absolute top-4 left-4 z-10">
-                  <span className="bg-obsidian-950/90 backdrop-blur-md text-gold-300 border border-gold-400/30 text-xs font-medium uppercase tracking-wider px-3.5 py-1 rounded-sm shadow-md font-mono">
+                <div className="absolute top-3 left-3 z-10">
+                  <span className="bg-obsidian-950/90 backdrop-blur-md text-gold-300 border border-gold-400/30 text-xs font-medium uppercase tracking-wider px-3 py-0.5 rounded-sm shadow-md font-mono">
                     {product.badge}
                   </span>
                 </div>
@@ -114,7 +114,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ defaultSlu
             </div>
 
             {/* Thumbnail Strip */}
-            <div className="flex space-x-2.5 overflow-x-auto pb-1 scrollbar-none max-w-sm sm:max-w-md lg:max-w-[460px] mx-auto">
+            <div className="flex space-x-2.5 overflow-x-auto pb-1 scrollbar-none justify-center mx-auto max-w-[340px] sm:max-w-[380px] lg:max-w-[420px]">
               {product.galleryImages.map((img, idx) => (
                 <button
                   key={idx}
@@ -451,7 +451,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ defaultSlu
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {relatedProducts.map((p) => (
-              <ProductCard key={p.id} product={p} />
+              <ProductCard key={p.id} product={p} isRecommendation />
             ))}
           </div>
         </div>
