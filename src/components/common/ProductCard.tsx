@@ -49,14 +49,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView, 
 
   return (
     <div
-      className="group relative flex flex-col bg-obsidian-900/70 border border-white/10 rounded-sm overflow-hidden transition-all duration-500 hover:border-gold-400/50 hover:shadow-luxury-hover hover:-translate-y-1"
+      className="group relative flex flex-col bg-porcelain border border-taupe rounded-sm overflow-hidden transition-all duration-500 hover:border-burgundy/40 hover:shadow-luxury-hover hover:-translate-y-1"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Image Container with Dual Image Transition */}
       <Link
         to={`/product/${product.slug}`}
-        className={`relative overflow-hidden bg-obsidian-950 flex items-center justify-center block ${
+        className={`relative overflow-hidden bg-cream flex items-center justify-center block ${
           isRecommendation
             ? 'h-48 sm:h-56 md:h-64 lg:h-[280px] xl:h-[300px] p-3 sm:p-4'
             : 'h-56 sm:h-64 md:h-auto md:aspect-[3/4]'
@@ -88,13 +88,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView, 
           />
         )}
 
-        {/* Subtle Ambient Vignette */}
-        <div className="absolute inset-0 bg-gradient-to-t from-obsidian-950/50 via-transparent to-transparent pointer-events-none" />
+        {/* Subtle Ambient Warm Vignette */}
+        <div className="absolute inset-0 bg-gradient-to-t from-espresso/10 via-transparent to-transparent pointer-events-none" />
 
         {/* Badge Pill */}
         {product.badge && (
           <div className="absolute top-3 left-3 z-10">
-            <span className="bg-obsidian-950/90 backdrop-blur-md text-gold-300 border border-gold-400/30 text-[10px] font-medium uppercase tracking-wider px-2.5 py-1 rounded-sm shadow-md font-mono">
+            <span className="bg-burgundy text-cream border border-burgundy-wine/40 text-[10px] font-medium uppercase tracking-wider px-2.5 py-1 rounded-sm shadow-sm font-mono">
               {product.badge}
             </span>
           </div>
@@ -105,12 +105,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView, 
           onClick={handleWishlistToggle}
           className={`absolute top-3 right-3 z-10 p-2.5 rounded-full backdrop-blur-md transition-all duration-300 ${
             isFavorited
-              ? 'bg-gold-500 text-obsidian-950 shadow-gold-glow scale-110'
-              : 'bg-obsidian-950/70 text-zinc-300 hover:text-white hover:bg-obsidian-900 border border-white/10'
+              ? 'bg-burgundy text-cream shadow-burgundy-glow scale-110'
+              : 'bg-porcelain/90 text-charcoal hover:text-burgundy hover:bg-cream border border-taupe'
           }`}
           aria-label={isFavorited ? 'Remove from wishlist' : 'Add to wishlist'}
         >
-          <Heart className={`w-3.5 h-3.5 ${isFavorited ? 'fill-obsidian-950' : ''}`} />
+          <Heart className={`w-3.5 h-3.5 ${isFavorited ? 'fill-cream' : ''}`} />
         </button>
 
         {/* Quick View Hover Trigger (Desktop) */}
@@ -118,7 +118,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView, 
           <div className="absolute inset-x-0 bottom-3 px-4 z-10 hidden sm:block opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
             <button
               onClick={handleQuickViewClick}
-              className="w-full py-2.5 bg-obsidian-950/90 hover:bg-gold-500 hover:text-obsidian-950 text-white border border-white/20 hover:border-gold-400 rounded-sm text-xs uppercase tracking-widest font-medium transition-all backdrop-blur-md flex items-center justify-center space-x-1.5 shadow-lg"
+              className="w-full py-2.5 bg-porcelain/95 hover:bg-burgundy hover:text-cream text-espresso border border-taupe hover:border-burgundy rounded-sm text-xs uppercase tracking-widest font-medium transition-all backdrop-blur-md flex items-center justify-center space-x-1.5 shadow-md"
             >
               <Eye className="w-3.5 h-3.5" />
               <span>Quick Preview</span>
@@ -128,46 +128,46 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView, 
       </Link>
 
       {/* Card Content */}
-      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between bg-porcelain">
         <div>
           {/* Scent Family & Rating */}
-          <div className="flex items-center justify-between text-[11px] text-zinc-400 mb-1.5">
-            <span className="uppercase tracking-widest text-gold-400/90 font-mono text-[10px]">
+          <div className="flex items-center justify-between text-[11px] mb-1.5">
+            <span className="uppercase tracking-widest text-burgundy-wine font-mono text-[10px] font-semibold">
               {product.scentFamily}
             </span>
-            <div className="flex items-center space-x-1 text-gold-400">
-              <Star className="w-3 h-3 fill-gold-400" />
-              <span className="font-mono text-xs font-semibold">{product.rating}</span>
+            <div className="flex items-center space-x-1 text-champagne">
+              <Star className="w-3 h-3 fill-champagne" />
+              <span className="font-mono text-xs font-semibold text-espresso">{product.rating}</span>
             </div>
           </div>
 
           {/* Title */}
-          <Link to={`/product/${product.slug}`} className="block group-hover:text-gold-300 transition-colors">
-            <h3 className="font-serif text-base sm:text-lg text-white font-normal leading-snug">
+          <Link to={`/product/${product.slug}`} className="block group-hover:text-burgundy transition-colors">
+            <h3 className="font-serif text-base sm:text-lg text-espresso font-normal leading-snug">
               {product.name}
             </h3>
           </Link>
 
           {/* Subtitle / Notes */}
-          <p className="text-xs text-zinc-400 mt-1 line-clamp-1 leading-relaxed font-light">
+          <p className="text-xs text-charcoal-muted mt-1 line-clamp-1 leading-relaxed font-light">
             {product.subtitle}
           </p>
 
           {/* Key Feature Badge */}
-          <div className="flex items-center space-x-1.5 mt-2.5 text-[11px] text-zinc-400">
-            <Sparkles className="w-3 h-3 text-gold-400 flex-shrink-0" />
+          <div className="flex items-center space-x-1.5 mt-2.5 text-[11px] text-charcoal-muted">
+            <Sparkles className="w-3 h-3 text-champagne flex-shrink-0" />
             <span className="truncate">{product.duration}</span>
           </div>
         </div>
 
         {/* Pricing & Add to Cart Button */}
-        <div className="mt-4 pt-3.5 border-t border-white/5 flex items-center justify-between">
+        <div className="mt-4 pt-3.5 border-t border-taupe/60 flex items-center justify-between">
           <div>
             <div className="flex items-baseline space-x-2">
-              <span className="font-serif text-base sm:text-lg text-white font-medium">₹{product.price}</span>
-              <span className="text-xs text-zinc-500 line-through">₹{product.originalPrice}</span>
+              <span className="font-serif text-base sm:text-lg text-espresso font-semibold">₹{product.price}</span>
+              <span className="text-xs text-charcoal-light line-through">₹{product.originalPrice}</span>
             </div>
-            <span className="text-[10px] text-emerald-400 font-medium font-mono">
+            <span className="text-[10px] text-burgundy font-medium font-mono">
               Save ₹{product.originalPrice - product.price}
             </span>
           </div>
@@ -175,7 +175,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView, 
           <button
             onClick={handleAddToCart}
             className={`btn-gold py-2 px-3.5 text-xs tracking-wider flex items-center space-x-1.5 transition-all duration-300 ${
-              isAdded ? 'bg-emerald-500 text-white' : ''
+              isAdded ? 'bg-emerald-600 text-white' : ''
             }`}
             aria-label={`Add ${product.name} to bag`}
           >

@@ -78,13 +78,13 @@ export const HeroCarousel: React.FC = () => {
 
   return (
     <section
-      className="relative min-h-[85vh] lg:min-h-[88vh] flex items-center bg-obsidian-950 overflow-hidden"
+      className="relative min-h-[85vh] lg:min-h-[88vh] flex items-center bg-ivory overflow-hidden border-b border-taupe/60"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Background Ambience Glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_35%,rgba(212,175,55,0.09),transparent_60%)] pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_25%_75%,rgba(2,132,199,0.06),transparent_60%)] pointer-events-none" />
+      {/* Background Ambience Warm Glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_35%,rgba(184,149,80,0.12),transparent_60%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_25%_75%,rgba(87,38,52,0.06),transparent_60%)] pointer-events-none" />
 
       {/* Slide Images Container */}
       {SLIDES.map((s, idx) => (
@@ -95,7 +95,7 @@ export const HeroCarousel: React.FC = () => {
           }`}
         >
           {/* Mobile Image Overlay Background */}
-          <div className="lg:hidden absolute inset-0 z-0 opacity-20">
+          <div className="lg:hidden absolute inset-0 z-0 opacity-15">
             <img
               src={s.image}
               alt={s.title}
@@ -103,7 +103,7 @@ export const HeroCarousel: React.FC = () => {
               loading={idx === 0 ? 'eager' : 'lazy'}
               fetchPriority={idx === 0 ? 'high' : 'auto'}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-obsidian-950 via-obsidian-950/85 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ivory via-ivory/85 to-transparent" />
           </div>
         </div>
       ))}
@@ -114,23 +114,23 @@ export const HeroCarousel: React.FC = () => {
           {/* Left Text Block */}
           <div className="lg:col-span-7 space-y-6 animate-fade-in">
             {/* Badge */}
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1 bg-gold-500/10 border border-gold-400/30 rounded-full text-gold-300 text-xs tracking-widest uppercase font-medium shadow-sm">
-              <Sparkles className="w-3.5 h-3.5 text-gold-400" />
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1 bg-cream border border-taupe rounded-full text-burgundy text-xs tracking-widest uppercase font-semibold shadow-sm">
+              <Sparkles className="w-3.5 h-3.5 text-champagne" />
               <span>{slide.badge}</span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl text-white font-normal tracking-tight leading-[1.12]">
+            <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl text-espresso font-normal tracking-tight leading-[1.12]">
               {slide.title}
             </h1>
 
             {/* Scent Subtitle */}
-            <p className="text-xs sm:text-sm font-medium tracking-wider uppercase text-gold-400 font-mono">
+            <p className="text-xs sm:text-sm font-semibold tracking-wider uppercase text-burgundy-wine font-mono">
               {slide.subtitle}
             </p>
 
             {/* Narrative Description */}
-            <p className="text-zinc-300 text-sm sm:text-base leading-relaxed max-w-xl font-light">
+            <p className="text-charcoal text-sm sm:text-base leading-relaxed max-w-xl font-light">
               {slide.description}
             </p>
 
@@ -138,29 +138,29 @@ export const HeroCarousel: React.FC = () => {
             <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
               <Link
                 to={slide.ctaLink}
-                className="btn-gold text-xs tracking-widest uppercase flex items-center justify-center space-x-2 py-3.5 px-8 shadow-gold-glow"
+                className="btn-gold text-xs tracking-widest uppercase flex items-center justify-center space-x-2 py-3.5 px-8 shadow-burgundy-glow"
               >
                 <span>{slide.ctaText}</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 to={slide.secondaryCtaLink}
-                className="btn-outline-gold text-xs tracking-widest uppercase py-3.5 px-6 text-center"
+                className="btn-outline-gold text-xs tracking-widest uppercase py-3.5 px-6 text-center font-semibold"
               >
                 {slide.secondaryCtaText}
               </Link>
             </div>
 
             {/* Technical Hardware Footnote */}
-            <div className="pt-4 border-t border-white/10 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-zinc-400">
-              <span className="flex items-center space-x-1.5 text-gold-400">
-                <ShieldCheck className="w-4 h-4 shrink-0" />
-                <span className="text-[11px] uppercase tracking-wider text-zinc-300 font-mono">
+            <div className="pt-4 border-t border-taupe/60 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-charcoal-muted">
+              <span className="flex items-center space-x-1.5 text-burgundy">
+                <ShieldCheck className="w-4 h-4 shrink-0 text-champagne" />
+                <span className="text-[11px] uppercase tracking-wider text-charcoal font-mono font-medium">
                   Up to 30 Days Continuous Diffusion
                 </span>
               </span>
-              <span className="hidden sm:inline text-zinc-600">•</span>
-              <span className="tracking-wider uppercase text-[11px] text-zinc-400 font-light">
+              <span className="hidden sm:inline text-taupe-dark">•</span>
+              <span className="tracking-wider uppercase text-[11px] text-charcoal-muted font-light">
                 {slide.tagline}
               </span>
             </div>
@@ -168,7 +168,7 @@ export const HeroCarousel: React.FC = () => {
 
           {/* Right Product Image Showcase (Desktop) */}
           <div className="hidden lg:flex lg:col-span-5 justify-center relative">
-            <div className="relative w-full max-w-md aspect-[3/4] rounded-sm overflow-hidden border border-white/10 shadow-luxury group bg-obsidian-900/50">
+            <div className="relative w-full max-w-md aspect-[3/4] rounded-sm overflow-hidden border border-taupe shadow-luxury group bg-cream">
               <img
                 src={slide.image}
                 alt={slide.title}
@@ -176,9 +176,9 @@ export const HeroCarousel: React.FC = () => {
                 loading={current === 0 ? 'eager' : 'lazy'}
                 fetchPriority={current === 0 ? 'high' : 'auto'}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-obsidian-950/70 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-4 left-4 right-4 p-3 bg-obsidian-950/85 backdrop-blur-md border border-white/10 rounded text-center">
-                <span className="text-xs uppercase tracking-widest text-gold-300 font-mono">
+              <div className="absolute inset-0 bg-gradient-to-t from-espresso/25 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute bottom-4 left-4 right-4 p-3 bg-cream/95 backdrop-blur-md border border-taupe rounded text-center shadow-md">
+                <span className="text-xs uppercase tracking-widest text-burgundy font-mono font-semibold">
                   {slide.thumbLabel} • Handcrafted Passive Diffusion
                 </span>
               </div>
@@ -197,12 +197,12 @@ export const HeroCarousel: React.FC = () => {
               onClick={() => setCurrent(i)}
               className={`text-xs uppercase tracking-wider font-mono py-1 px-2.5 rounded-sm transition-all duration-300 flex items-center space-x-2 ${
                 i === current
-                  ? 'bg-gold-500/20 text-gold-300 border border-gold-400/40 shadow-sm'
-                  : 'text-zinc-500 hover:text-zinc-300 bg-obsidian-900/60 border border-white/5'
+                  ? 'bg-burgundy text-cream border border-burgundy shadow-sm'
+                  : 'text-charcoal-muted hover:text-burgundy bg-cream/90 border border-taupe'
               }`}
               aria-label={`Go to slide ${i + 1}`}
             >
-              <span className={`w-1.5 h-1.5 rounded-full ${i === current ? 'bg-gold-400 animate-pulse' : 'bg-zinc-600'}`} />
+              <span className={`w-1.5 h-1.5 rounded-full ${i === current ? 'bg-cream animate-pulse' : 'bg-taupe-dark'}`} />
               <span className="hidden sm:inline">{s.thumbLabel}</span>
               <span className="sm:hidden">0{i + 1}</span>
             </button>
@@ -213,14 +213,14 @@ export const HeroCarousel: React.FC = () => {
         <div className="flex items-center space-x-2">
           <button
             onClick={() => setCurrent((prev) => (prev - 1 + SLIDES.length) % SLIDES.length)}
-            className="w-10 h-10 sm:w-9 sm:h-9 flex items-center justify-center rounded-sm bg-obsidian-900/80 hover:bg-gold-500 hover:text-obsidian-950 border border-white/10 text-zinc-300 transition-colors"
+            className="w-10 h-10 sm:w-9 sm:h-9 flex items-center justify-center rounded-sm bg-cream/90 hover:bg-burgundy hover:text-cream border border-taupe text-charcoal transition-colors shadow-sm"
             aria-label="Previous slide"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
           <button
             onClick={() => setCurrent((prev) => (prev + 1) % SLIDES.length)}
-            className="w-10 h-10 sm:w-9 sm:h-9 flex items-center justify-center rounded-sm bg-obsidian-900/80 hover:bg-gold-500 hover:text-obsidian-950 border border-white/10 text-zinc-300 transition-colors"
+            className="w-10 h-10 sm:w-9 sm:h-9 flex items-center justify-center rounded-sm bg-cream/90 hover:bg-burgundy hover:text-cream border border-taupe text-charcoal transition-colors shadow-sm"
             aria-label="Next slide"
           >
             <ChevronRight className="w-4 h-4" />

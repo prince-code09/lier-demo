@@ -63,7 +63,7 @@ export const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-obsidian-950 text-alabaster">
+    <div className="flex flex-col min-h-screen bg-ivory text-espresso">
       <ScrollToTop />
       {/* Unified Luxury Header (Layer 1 Announcement + Layer 2 Navigation) */}
       <header className="sticky top-0 z-40 w-full transition-all duration-300">
@@ -100,7 +100,7 @@ export const AppContent: React.FC = () => {
       {showBackToTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-6 left-6 z-40 p-3 rounded-full bg-obsidian-900/90 text-gold-400 border border-gold-400/30 hover:bg-gold-500 hover:text-obsidian-950 transition-all duration-300 shadow-luxury focus:outline-none"
+          className="fixed bottom-6 left-6 z-40 p-3 rounded-full bg-cream/95 text-burgundy border border-taupe hover:bg-burgundy hover:text-cream transition-all duration-300 shadow-luxury focus:outline-none"
           aria-label="Back to top of page"
         >
           <ArrowUp className="w-4 h-4" />

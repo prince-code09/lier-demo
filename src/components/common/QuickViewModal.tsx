@@ -41,15 +41,15 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({ product, onClose
       {/* Backdrop */}
       <div
         onClick={onClose}
-        className="fixed inset-0 bg-black/85 backdrop-blur-md transition-opacity"
+        className="fixed inset-0 bg-espresso/70 backdrop-blur-md transition-opacity"
       />
 
       <div className="min-h-screen px-4 text-center flex items-center justify-center p-4">
-        <div className="w-full max-w-3xl bg-obsidian-950 border border-white/10 rounded-sm shadow-2xl text-left overflow-hidden relative z-10 animate-fade-in">
+        <div className="w-full max-w-3xl bg-porcelain border border-taupe rounded-sm shadow-2xl text-left overflow-hidden relative z-10 animate-fade-in">
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 z-20 text-zinc-400 hover:text-white p-2 rounded-full bg-obsidian-900/80 border border-white/10 transition-colors"
+            className="absolute top-4 right-4 z-20 text-charcoal-muted hover:text-espresso p-2 rounded-full bg-cream/90 border border-taupe/60 transition-colors shadow-sm"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
@@ -57,78 +57,78 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({ product, onClose
 
           <div className="grid grid-cols-1 md:grid-cols-2">
             {/* Image Preview */}
-            <div className="relative bg-obsidian-900 h-60 sm:h-72 md:h-full md:aspect-auto flex items-center justify-center">
+            <div className="relative bg-cream h-60 sm:h-72 md:h-full md:aspect-auto flex items-center justify-center p-6 border-b md:border-b-0 md:border-r border-taupe/40">
               <img
                 src={product.heroImage}
                 alt={product.name}
                 className="w-full h-full object-contain md:object-cover"
               />
               {product.badge && (
-                <div className="absolute top-4 left-4 z-10 bg-gold-500/90 text-obsidian-950 font-semibold text-[10px] uppercase tracking-wider px-3 py-1 rounded-sm shadow-lg">
+                <div className="absolute top-4 left-4 z-10 bg-burgundy text-cream font-medium text-[10px] uppercase tracking-wider px-3 py-1 rounded-sm shadow-sm">
                   {product.badge}
                 </div>
               )}
             </div>
 
             {/* Product Details */}
-            <div className="p-6 sm:p-8 flex flex-col justify-between space-y-6">
+            <div className="p-6 sm:p-8 flex flex-col justify-between space-y-6 bg-porcelain">
               <div>
-                <div className="flex items-center space-x-2 text-xs text-gold-400 mb-1">
+                <div className="flex items-center space-x-2 text-xs text-champagne mb-1">
                   <div className="flex items-center">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-3.5 h-3.5 fill-gold-400 text-gold-400" />
+                      <Star key={i} className="w-3.5 h-3.5 fill-champagne text-champagne" />
                     ))}
                   </div>
-                  <span className="font-mono">{product.rating}</span>
-                  <span className="text-zinc-500">({product.reviewCount} connoisseurs)</span>
+                  <span className="font-serif text-espresso font-medium">{product.rating}</span>
+                  <span className="text-charcoal-muted">({product.reviewCount} connoisseurs)</span>
                 </div>
 
-                <h3 className="font-serif text-2xl text-white font-normal">{product.name}</h3>
-                <p className="text-xs uppercase tracking-widest text-gold-400/90 mt-1">
+                <h3 className="font-serif text-2xl text-espresso font-normal">{product.name}</h3>
+                <p className="text-xs uppercase tracking-widest text-burgundy mt-1 font-medium">
                   {product.scentFamily}
                 </p>
 
                 <div className="flex items-baseline space-x-3 mt-3">
-                  <span className="text-2xl font-serif text-white font-medium">₹{product.price}</span>
-                  <span className="text-sm text-zinc-500 line-through">₹{product.originalPrice}</span>
-                  <span className="text-xs text-emerald-400 font-medium">
+                  <span className="text-2xl font-serif text-espresso font-medium">₹{product.price}</span>
+                  <span className="text-sm text-charcoal-muted line-through">₹{product.originalPrice}</span>
+                  <span className="text-xs text-burgundy font-medium bg-burgundy/10 px-2 py-0.5 rounded">
                     Save ₹{product.originalPrice - product.price}
                   </span>
                 </div>
 
-                <p className="text-xs text-zinc-400 mt-4 leading-relaxed line-clamp-3">
+                <p className="text-xs text-charcoal-muted mt-4 leading-relaxed line-clamp-3">
                   {product.description}
                 </p>
 
                 {/* Scent Notes Preview */}
-                <div className="mt-4 pt-4 border-t border-white/5 space-y-1.5 text-xs">
-                  <div className="text-zinc-400">
-                    <strong className="text-zinc-300">Top Notes:</strong> {product.topNotes.join(', ')}
+                <div className="mt-4 pt-4 border-t border-taupe/40 space-y-1.5 text-xs">
+                  <div className="text-charcoal-muted">
+                    <strong className="text-charcoal font-medium">Top Notes:</strong> {product.topNotes.join(', ')}
                   </div>
-                  <div className="text-zinc-400">
-                    <strong className="text-zinc-300">Heart Notes:</strong> {product.heartNotes.join(', ')}
+                  <div className="text-charcoal-muted">
+                    <strong className="text-charcoal font-medium">Heart Notes:</strong> {product.heartNotes.join(', ')}
                   </div>
-                  <div className="text-zinc-400">
-                    <strong className="text-zinc-300">Base Notes:</strong> {product.baseNotes.join(', ')}
+                  <div className="text-charcoal-muted">
+                    <strong className="text-charcoal font-medium">Base Notes:</strong> {product.baseNotes.join(', ')}
                   </div>
                 </div>
               </div>
 
               {/* Actions */}
-              <div className="space-y-4 pt-4 border-t border-white/5">
+              <div className="space-y-4 pt-4 border-t border-taupe/40">
                 <div className="flex items-center space-x-4">
-                  <div className="flex items-center border border-white/15 rounded-sm bg-obsidian-900">
+                  <div className="flex items-center border border-taupe/60 rounded-sm bg-cream">
                     <button
                       onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                      className="p-2 text-zinc-400 hover:text-white"
+                      className="p-2 text-charcoal-muted hover:text-espresso"
                       aria-label="Decrease quantity"
                     >
                       <Minus className="w-3.5 h-3.5" />
                     </button>
-                    <span className="px-4 text-xs font-mono text-white">{quantity}</span>
+                    <span className="px-4 text-xs font-serif text-espresso font-medium">{quantity}</span>
                     <button
                       onClick={() => setQuantity((q) => q + 1)}
-                      className="p-2 text-zinc-400 hover:text-white"
+                      className="p-2 text-charcoal-muted hover:text-espresso"
                       aria-label="Increase quantity"
                     >
                       <Plus className="w-3.5 h-3.5" />
@@ -147,24 +147,24 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({ product, onClose
                     onClick={handleWishlistToggle}
                     className={`p-3 border rounded-sm transition-colors ${
                       isFavorited
-                        ? 'border-gold-400 bg-gold-500/10 text-gold-400'
-                        : 'border-white/15 text-zinc-400 hover:text-white hover:border-white/30'
+                        ? 'border-burgundy bg-burgundy/10 text-burgundy'
+                        : 'border-taupe/60 text-charcoal-muted hover:text-espresso hover:border-burgundy/40'
                     }`}
                     title={isFavorited ? 'Remove from wishlist' : 'Save to wishlist'}
                   >
-                    <Heart className={`w-4 h-4 ${isFavorited ? 'fill-gold-400' : ''}`} />
+                    <Heart className={`w-4 h-4 ${isFavorited ? 'fill-burgundy' : ''}`} />
                   </button>
                 </div>
 
-                <div className="flex items-center justify-between text-xs text-zinc-400 pt-1">
+                <div className="flex items-center justify-between text-xs text-charcoal-muted pt-1">
                   <span className="flex items-center space-x-1">
-                    <ShieldCheck className="w-3.5 h-3.5 text-gold-400" />
+                    <ShieldCheck className="w-3.5 h-3.5 text-burgundy" />
                     <span>30 Days Continuous Diffusion</span>
                   </span>
                   <Link
                     to={`/product/${product.slug}`}
                     onClick={onClose}
-                    className="text-gold-400 hover:text-gold-300 underline underline-offset-4 flex items-center space-x-1"
+                    className="text-burgundy hover:text-wine underline underline-offset-4 flex items-center space-x-1 font-medium"
                   >
                     <span>Full Product Specifications</span>
                     <ArrowRight className="w-3 h-3" />

@@ -48,24 +48,24 @@ export const ShopPage: React.FC = () => {
   }, [selectedCategory, sortBy, searchQuery]);
 
   return (
-    <div className="py-12 bg-obsidian-950 min-h-screen text-alabaster">
+    <div className="py-12 bg-ivory min-h-screen text-espresso">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Page Hero */}
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-xs uppercase tracking-ultra text-gold-400 font-semibold">
+          <span className="text-xs uppercase tracking-ultra text-burgundy font-semibold">
             Boutique Catalog
           </span>
-          <h1 className="font-serif text-4xl sm:text-5xl text-white font-normal mt-2 leading-tight">
+          <h1 className="font-serif text-4xl sm:text-5xl text-espresso font-normal mt-2 leading-tight">
             The Complete LIER Collection
           </h1>
           <div className="gold-divider mx-auto" />
-          <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed font-light">
+          <p className="text-xs sm:text-sm text-charcoal-muted leading-relaxed font-light">
             Engineered exclusively for luxury automotive cabins. Explore individual single flacons or acquire our flagship Connoisseur Duo Suite.
           </p>
         </div>
 
         {/* Filter & Sort Bar */}
-        <div className="bg-obsidian-900 border border-white/10 rounded-sm p-4 mb-8 flex flex-col md:flex-row items-center justify-between gap-4 shadow-luxury">
+        <div className="bg-porcelain border border-taupe rounded-sm p-4 mb-8 flex flex-col md:flex-row items-center justify-between gap-4 shadow-luxury">
           {/* Category Tabs */}
           <div className="flex items-center space-x-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none">
             {categories.map((cat) => (
@@ -74,16 +74,16 @@ export const ShopPage: React.FC = () => {
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`px-4 py-2 text-xs uppercase tracking-wider font-medium rounded-sm whitespace-nowrap transition-all flex items-center space-x-1.5 ${
                   selectedCategory === cat.id
-                    ? 'bg-gold-500 text-obsidian-950 font-semibold shadow-gold-glow'
-                    : 'text-zinc-400 hover:text-white bg-obsidian-850 hover:bg-obsidian-800 border border-white/5'
+                    ? 'bg-burgundy text-cream font-semibold shadow-burgundy-glow border border-burgundy'
+                    : 'text-charcoal hover:text-burgundy bg-cream hover:bg-sand-light border border-taupe/60'
                 }`}
               >
                 <span>{cat.label}</span>
                 <span
                   className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
                     selectedCategory === cat.id
-                      ? 'bg-obsidian-950/30 text-obsidian-950'
-                      : 'bg-obsidian-800 text-zinc-500'
+                      ? 'bg-cream/20 text-cream'
+                      : 'bg-sand-light text-charcoal-muted'
                   }`}
                 >
                   {cat.count}
@@ -96,18 +96,18 @@ export const ShopPage: React.FC = () => {
           <div className="flex items-center space-x-3 w-full md:w-auto">
             {/* Search Input */}
             <div className="relative flex-1 md:w-60">
-              <Search className="w-3.5 h-3.5 text-zinc-500 absolute left-3 top-3" />
+              <Search className="w-3.5 h-3.5 text-charcoal-muted absolute left-3 top-3" />
               <input
                 type="text"
                 placeholder="Filter notes or bottles..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-obsidian-850 border border-white/10 rounded-sm pl-8 pr-3 py-1.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-gold-400"
+                className="w-full bg-cream border border-taupe rounded-sm pl-8 pr-3 py-1.5 text-xs text-espresso placeholder-charcoal-light focus:outline-none focus:border-burgundy"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-2.5 top-2 text-zinc-500 hover:text-white"
+                  className="absolute right-2.5 top-2 text-charcoal-muted hover:text-burgundy"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
@@ -116,11 +116,11 @@ export const ShopPage: React.FC = () => {
 
             {/* Sort Select */}
             <div className="flex items-center space-x-2 flex-shrink-0">
-              <SlidersHorizontal className="w-3.5 h-3.5 text-zinc-400 hidden sm:inline" />
+              <SlidersHorizontal className="w-3.5 h-3.5 text-charcoal-muted hidden sm:inline" />
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="bg-obsidian-850 border border-white/10 rounded-sm px-3 py-1.5 text-xs text-zinc-300 focus:outline-none focus:border-gold-400"
+                className="bg-cream border border-taupe rounded-sm px-3 py-1.5 text-xs text-espresso focus:outline-none focus:border-burgundy"
               >
                 <option value="featured">Featured Curations</option>
                 <option value="price-low">Price: Low to High</option>
@@ -133,21 +133,21 @@ export const ShopPage: React.FC = () => {
 
         {/* Active Filter Indicators */}
         {(selectedCategory !== 'all' || searchQuery) && (
-          <div className="flex items-center space-x-2 mb-6 text-xs text-zinc-400">
-            <span className="uppercase text-[11px] tracking-wider text-zinc-500">Active Filters:</span>
+          <div className="flex items-center space-x-2 mb-6 text-xs text-charcoal-muted">
+            <span className="uppercase text-[11px] tracking-wider text-charcoal-muted">Active Filters:</span>
             {selectedCategory !== 'all' && (
-              <span className="inline-flex items-center space-x-1 px-2.5 py-1 bg-obsidian-850 border border-gold-400/30 rounded-sm text-gold-300 text-xs">
+              <span className="inline-flex items-center space-x-1 px-2.5 py-1 bg-cream border border-taupe rounded-sm text-burgundy text-xs">
                 <span>Category: {categories.find((c) => c.id === selectedCategory)?.label}</span>
                 <button onClick={() => setSelectedCategory('all')}>
-                  <X className="w-3 h-3 hover:text-white" />
+                  <X className="w-3 h-3 hover:text-burgundy" />
                 </button>
               </span>
             )}
             {searchQuery && (
-              <span className="inline-flex items-center space-x-1 px-2.5 py-1 bg-obsidian-850 border border-gold-400/30 rounded-sm text-gold-300 text-xs">
+              <span className="inline-flex items-center space-x-1 px-2.5 py-1 bg-cream border border-taupe rounded-sm text-burgundy text-xs">
                 <span>Query: "{searchQuery}"</span>
                 <button onClick={() => setSearchQuery('')}>
-                  <X className="w-3 h-3 hover:text-white" />
+                  <X className="w-3 h-3 hover:text-burgundy" />
                 </button>
               </span>
             )}
@@ -156,7 +156,7 @@ export const ShopPage: React.FC = () => {
                 setSelectedCategory('all');
                 setSearchQuery('');
               }}
-              className="text-xs text-zinc-500 hover:text-gold-300 underline ml-2"
+              className="text-xs text-charcoal-muted hover:text-burgundy underline ml-2"
             >
               Clear all
             </button>
@@ -165,9 +165,9 @@ export const ShopPage: React.FC = () => {
 
         {/* Product Grid */}
         {filteredProducts.length === 0 ? (
-          <div className="py-20 text-center bg-obsidian-900 border border-white/10 rounded-sm">
-            <h3 className="font-serif text-xl text-white mb-2">No Matching Fragrances</h3>
-            <p className="text-xs text-zinc-400 mb-6 font-light">
+          <div className="py-20 text-center bg-porcelain border border-taupe rounded-sm shadow-sm">
+            <h3 className="font-serif text-xl text-espresso mb-2">No Matching Fragrances</h3>
+            <p className="text-xs text-charcoal-muted mb-6 font-light">
               Try adjusting your category filter or clearing the search query.
             </p>
             <button
@@ -193,20 +193,20 @@ export const ShopPage: React.FC = () => {
         )}
 
         {/* Promo Suite Banner inside Shop */}
-        <div className="bg-gradient-to-r from-obsidian-900 via-obsidian-850 to-obsidian-900 border border-gold-400/20 rounded-sm p-8 sm:p-10 shadow-luxury flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="bg-gradient-to-r from-cream via-porcelain to-cream border border-taupe rounded-sm p-8 sm:p-10 shadow-luxury flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-2 text-center md:text-left">
-            <div className="inline-flex items-center space-x-2 text-xs uppercase tracking-widest text-gold-400 font-mono">
+            <div className="inline-flex items-center space-x-2 text-xs uppercase tracking-widest text-burgundy font-mono font-semibold">
               <Sparkles className="w-4 h-4" />
               <span>Complimentary Concierge Privileges</span>
             </div>
-            <h3 className="font-serif text-2xl text-white">Looking for Bespoke Automobile Fleet Gifting?</h3>
-            <p className="text-xs text-zinc-400 max-w-xl font-light">
+            <h3 className="font-serif text-2xl text-espresso font-normal">Looking for Bespoke Automobile Fleet Gifting?</h3>
+            <p className="text-xs text-charcoal-muted max-w-xl font-light">
               We collaborate with luxury car clubs, bespoke dealerships, and private collectors. Contact our concierge team for custom engraved packaging and curated fleet assortments.
             </p>
           </div>
           <Link
             to="/contact"
-            className="btn-gold text-xs tracking-widest uppercase py-3 px-6 whitespace-nowrap shadow-gold-glow"
+            className="btn-gold text-xs tracking-widest uppercase py-3 px-6 whitespace-nowrap shadow-burgundy-glow"
           >
             Inquire with Concierge
           </Link>

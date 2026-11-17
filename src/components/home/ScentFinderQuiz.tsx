@@ -89,19 +89,19 @@ export const ScentFinderQuiz: React.FC = () => {
   };
 
   return (
-    <section className="py-24 bg-obsidian-950 border-t border-white/5 relative">
+    <section className="py-24 bg-ivory border-t border-taupe/60 relative">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-obsidian-900 border border-gold-400/30 rounded-sm p-8 sm:p-12 shadow-luxury text-center relative overflow-hidden">
+        <div className="bg-porcelain border border-taupe rounded-sm p-8 sm:p-12 shadow-luxury text-center relative overflow-hidden">
           {/* Subtle Top Badge */}
-          <div className="inline-flex items-center space-x-2 px-3 py-1 bg-gold-500/10 border border-gold-400/20 rounded-full text-gold-300 text-xs tracking-widest uppercase font-mono mb-4">
-            <Compass className="w-3.5 h-3.5 text-gold-400" />
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1 bg-cream border border-taupe rounded-full text-burgundy text-xs tracking-widest uppercase font-mono font-semibold mb-4">
+            <Compass className="w-3.5 h-3.5 text-champagne" />
             <span>Interactive Fragrance Concierge</span>
           </div>
 
-          <h2 className="font-serif text-3xl sm:text-4xl text-white font-normal mb-3">
+          <h2 className="font-serif text-3xl sm:text-4xl text-espresso font-normal mb-3">
             Find Your Drive's Signature Scent
           </h2>
-          <p className="text-xs sm:text-sm text-zinc-400 max-w-lg mx-auto mb-8 leading-relaxed font-light">
+          <p className="text-xs sm:text-sm text-charcoal-muted max-w-lg mx-auto mb-8 leading-relaxed font-light">
             Answer 3 brief questions about your driving rituals to receive a bespoke olfactory recommendation tailored to your cabin atmosphere.
           </p>
 
@@ -113,10 +113,10 @@ export const ScentFinderQuiz: React.FC = () => {
                   key={num}
                   className={`h-1.5 rounded-full transition-all duration-300 ${
                     num === step
-                      ? 'w-12 bg-gold-400 shadow-gold-glow'
+                      ? 'w-12 bg-burgundy shadow-burgundy-glow'
                       : num < step
-                      ? 'w-8 bg-gold-600/50'
-                      : 'w-6 bg-white/10'
+                      ? 'w-8 bg-burgundy/40'
+                      : 'w-6 bg-taupe/50'
                   }`}
                 />
               ))}
@@ -126,7 +126,7 @@ export const ScentFinderQuiz: React.FC = () => {
           {/* Question View */}
           {step <= 3 ? (
             <div className="space-y-6 animate-fade-in text-left max-w-xl mx-auto">
-              <h3 className="text-sm font-medium uppercase tracking-wider text-white text-center mb-6">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-espresso text-center mb-6">
                 Step {step} of 3: {questions[step - 1].title}
               </h3>
 
@@ -135,10 +135,10 @@ export const ScentFinderQuiz: React.FC = () => {
                   <button
                     key={idx}
                     onClick={() => handleSelectOption(idx)}
-                    className="w-full text-left p-4 bg-obsidian-950/80 hover:bg-obsidian-850 hover:border-gold-400/40 border border-white/10 rounded-sm text-xs sm:text-sm text-zinc-200 transition-all duration-200 flex items-center justify-between group"
+                    className="w-full text-left p-4 bg-cream hover:bg-sand-light hover:border-burgundy/40 border border-taupe rounded-sm text-xs sm:text-sm text-espresso transition-all duration-200 flex items-center justify-between group shadow-sm"
                   >
                     <span>{option.label}</span>
-                    <ArrowRight className="w-4 h-4 text-zinc-600 group-hover:text-gold-400 group-hover:translate-x-1 transition-all" />
+                    <ArrowRight className="w-4 h-4 text-charcoal-muted group-hover:text-burgundy group-hover:translate-x-1 transition-all" />
                   </button>
                 ))}
               </div>
@@ -147,14 +147,14 @@ export const ScentFinderQuiz: React.FC = () => {
             /* Result View */
             recommendedProduct && (
               <div className="animate-fade-in space-y-6 max-w-md mx-auto">
-                <div className="p-1 bg-gradient-to-r from-gold-400 to-gold-600 rounded-sm inline-block shadow-gold-glow">
-                  <span className="bg-obsidian-950 px-4 py-1 text-[11px] font-mono uppercase tracking-widest text-gold-300 block">
+                <div className="inline-block">
+                  <span className="bg-burgundy text-cream px-4 py-1 text-[11px] font-mono uppercase tracking-widest rounded-sm shadow-sm">
                     Bespoke Scent Match
                   </span>
                 </div>
 
-                <div className="bg-obsidian-950 border border-gold-400/30 p-6 rounded-sm shadow-luxury">
-                  <div className="w-36 h-44 mx-auto rounded overflow-hidden border border-white/10 mb-4 bg-obsidian-900">
+                <div className="bg-cream border border-taupe p-6 rounded-sm shadow-md">
+                  <div className="w-36 h-44 mx-auto rounded overflow-hidden border border-taupe mb-4 bg-porcelain">
                     <img
                       src={recommendedProduct.heroImage}
                       alt={recommendedProduct.name}
@@ -162,27 +162,27 @@ export const ScentFinderQuiz: React.FC = () => {
                     />
                   </div>
 
-                  <h3 className="font-serif text-2xl text-white mb-1">
+                  <h3 className="font-serif text-2xl text-espresso mb-1">
                     {recommendedProduct.name}
                   </h3>
-                  <div className="text-xs uppercase tracking-widest text-gold-400 font-mono mb-3">
+                  <div className="text-xs uppercase tracking-widest text-burgundy font-mono font-semibold mb-3">
                     {recommendedProduct.scentFamily}
                   </div>
-                  <p className="text-xs text-zinc-300 leading-relaxed mb-6 font-light">
+                  <p className="text-xs text-charcoal leading-relaxed mb-6 font-light">
                     {recommendedProduct.tagline}
                   </p>
 
                   <div className="space-y-2.5">
                     <button
                       onClick={handleAddRecommended}
-                      className="w-full btn-gold py-3.5 text-xs tracking-widest uppercase flex items-center justify-center space-x-2 shadow-gold-glow"
+                      className="w-full btn-gold py-3.5 text-xs tracking-widest uppercase flex items-center justify-center space-x-2 shadow-burgundy-glow"
                     >
                       <ShoppingBag className="w-4 h-4" />
                       <span>Acquire Recommended Match &bull; ₹{recommendedProduct.price}</span>
                     </button>
                     <Link
                       to={`/product/${recommendedProduct.slug}`}
-                      className="w-full btn-outline-gold py-3 text-xs tracking-widest uppercase block text-center"
+                      className="w-full btn-outline-gold py-3 text-xs tracking-widest uppercase block text-center font-semibold"
                     >
                       View Full Specifications
                     </Link>
@@ -191,7 +191,7 @@ export const ScentFinderQuiz: React.FC = () => {
 
                 <button
                   onClick={handleReset}
-                  className="inline-flex items-center space-x-2 text-xs text-zinc-400 hover:text-white transition-colors pt-2"
+                  className="inline-flex items-center space-x-2 text-xs text-charcoal-muted hover:text-burgundy transition-colors pt-2 font-medium"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   <span>Retake Scent Quiz</span>

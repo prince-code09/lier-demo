@@ -27,18 +27,18 @@ export const LifestyleFeed: React.FC = () => {
   ];
 
   return (
-    <section className="py-24 bg-obsidian-900 border-t border-white/5 relative">
+    <section className="py-24 bg-ivory border-t border-taupe/60 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-xs uppercase tracking-ultra text-gold-400 font-semibold">
-            The Driver\'s Perspective
+          <span className="text-xs uppercase tracking-ultra text-burgundy font-semibold">
+            The Driver's Perspective
           </span>
-          <h2 className="font-serif text-3xl sm:text-4xl text-white font-normal mt-2 leading-tight">
+          <h2 className="font-serif text-3xl sm:text-4xl text-espresso font-normal mt-2 leading-tight">
             Curated Cockpit Aesthetics
           </h2>
           <div className="gold-divider mx-auto" />
-          <p className="text-sm text-zinc-400 leading-relaxed font-light">
+          <p className="text-sm text-charcoal-muted leading-relaxed font-light">
             Witness how LIER diffusers integrate seamlessly into luxury automobile interiors around the country.
           </p>
         </div>
@@ -48,16 +48,16 @@ export const LifestyleFeed: React.FC = () => {
           {feedImages.map((img, i) => (
             <div
               key={i}
-              className="group relative aspect-[3/4] rounded-sm overflow-hidden bg-obsidian-950 border border-white/10 shadow-lg"
+              className="group relative aspect-[3/4] rounded-sm overflow-hidden bg-cream border border-taupe shadow-md"
             >
               <img
                 src={img.src}
                 alt={img.title}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-obsidian-950/90 via-obsidian-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                <span className="text-xs font-serif text-white">{img.title}</span>
-                <span className="text-[10px] text-zinc-300 mt-0.5">{img.caption}</span>
+              <div className="absolute inset-0 bg-gradient-to-t from-espresso/80 via-espresso/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                <span className="text-xs font-serif text-cream font-medium">{img.title}</span>
+                <span className="text-[10px] text-cream/80 mt-0.5">{img.caption}</span>
               </div>
             </div>
           ))}
@@ -68,31 +68,31 @@ export const LifestyleFeed: React.FC = () => {
           {REVIEWS.slice(0, 3).map((review) => (
             <div
               key={review.id}
-              className="p-6 bg-obsidian-950/90 border border-white/10 rounded-sm hover:border-gold-400/30 transition-all flex flex-col justify-between"
+              className="p-6 bg-porcelain border border-taupe rounded-sm hover:border-burgundy/40 hover:shadow-luxury-hover transition-all flex flex-col justify-between"
             >
               <div>
-                <div className="flex items-center space-x-1 text-gold-400 mb-3">
+                <div className="flex items-center space-x-1 text-champagne mb-3">
                   {[...Array(review.rating)].map((_, i) => (
-                    <Star key={i} className="w-3.5 h-3.5 fill-gold-400" />
+                    <Star key={i} className="w-3.5 h-3.5 fill-champagne" />
                   ))}
                 </div>
-                <h4 className="font-serif text-base text-white mb-2 leading-snug">
+                <h4 className="font-serif text-base text-espresso mb-2 leading-snug font-normal">
                   "{review.title}"
                 </h4>
-                <p className="text-xs text-zinc-400 leading-relaxed font-light">
+                <p className="text-xs text-charcoal-muted leading-relaxed font-light">
                   {review.content}
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-xs">
+              <div className="mt-6 pt-4 border-t border-taupe/60 flex items-center justify-between text-xs">
                 <div>
-                  <div className="text-white font-medium flex items-center space-x-1.5">
+                  <div className="text-espresso font-medium flex items-center space-x-1.5">
                     <span>{review.author}</span>
-                    <ShieldCheck className="w-3.5 h-3.5 text-gold-400" />
+                    <ShieldCheck className="w-3.5 h-3.5 text-champagne" />
                   </div>
-                  <div className="text-[11px] text-zinc-500">{review.vehicle} &bull; {review.location}</div>
+                  <div className="text-[11px] text-charcoal-muted">{review.vehicle} &bull; {review.location}</div>
                 </div>
-                <span className="text-[10px] text-zinc-600 font-mono">{review.date}</span>
+                <span className="text-[10px] text-charcoal-light font-mono">{review.date}</span>
               </div>
             </div>
           ))}

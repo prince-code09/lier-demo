@@ -24,20 +24,20 @@ export const HomePage: React.FC = () => {
       <HeroCarousel />
 
       {/* 2. Featured Fragrances Showcase */}
-      <section className="py-20 bg-obsidian-950 border-b border-white/5">
+      <section className="py-20 bg-ivory border-b border-taupe/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
             <div>
-              <span className="text-xs uppercase tracking-ultra text-gold-400 font-semibold">
+              <span className="text-xs uppercase tracking-ultra text-burgundy font-semibold">
                 The Master Catalog
               </span>
-              <h2 className="font-serif text-3xl sm:text-4xl text-white font-normal mt-1">
+              <h2 className="font-serif text-3xl sm:text-4xl text-espresso font-normal mt-1">
                 Signature Automotive Perfumes
               </h2>
             </div>
             <Link
               to="/shop"
-              className="mt-4 md:mt-0 inline-flex items-center space-x-1.5 text-xs uppercase tracking-widest text-gold-400 hover:text-gold-300 font-medium transition-colors"
+              className="mt-4 md:mt-0 inline-flex items-center space-x-1.5 text-xs uppercase tracking-widest text-burgundy hover:text-burgundy-hover font-semibold transition-colors"
             >
               <span>View Complete Boutique</span>
               <ArrowRight className="w-4 h-4" />

@@ -37,18 +37,18 @@ export const FAQSection: React.FC = () => {
   ];
 
   return (
-    <section id="faq" className="py-24 bg-obsidian-950 border-t border-white/5 relative">
+    <section id="faq" className="py-24 bg-cream border-t border-taupe/60 relative">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-xs uppercase tracking-ultra text-gold-400 font-semibold">
+          <span className="text-xs uppercase tracking-ultra text-burgundy font-semibold">
             Inquiries & Understanding
           </span>
-          <h2 className="font-serif text-3xl sm:text-4xl text-white font-normal mt-2 leading-tight">
+          <h2 className="font-serif text-3xl sm:text-4xl text-espresso font-normal mt-2 leading-tight">
             Frequently Asked Questions
           </h2>
           <div className="gold-divider mx-auto" />
-          <p className="text-sm text-zinc-400 leading-relaxed font-light">
+          <p className="text-sm text-charcoal-muted leading-relaxed font-light">
             Everything you need to know about caring for your LIER diffuser, diffusion longevity, and cabin safety.
           </p>
         </div>
@@ -60,19 +60,19 @@ export const FAQSection: React.FC = () => {
             return (
               <div
                 key={idx}
-                className="bg-obsidian-900 border border-white/10 rounded-sm overflow-hidden transition-all duration-300"
+                className="bg-porcelain border border-taupe rounded-sm overflow-hidden transition-all duration-300 shadow-sm"
               >
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : idx)}
                   className="w-full text-left p-6 flex items-center justify-between space-x-4 focus:outline-none"
                   aria-expanded={isOpen}
                 >
-                  <span className="font-serif text-base text-white font-medium">
+                  <span className="font-serif text-base text-espresso font-normal">
                     {faq.question}
                   </span>
                   <div
-                    className={`p-1 rounded text-gold-400 transition-transform duration-300 ${
-                      isOpen ? 'rotate-180 bg-gold-500/10' : ''
+                    className={`p-1 rounded text-burgundy transition-transform duration-300 ${
+                      isOpen ? 'rotate-180 bg-burgundy/10' : ''
                     }`}
                   >
                     <ChevronDown className="w-5 h-5" />
@@ -80,7 +80,7 @@ export const FAQSection: React.FC = () => {
                 </button>
 
                 {isOpen && (
-                  <div className="px-6 pb-6 pt-1 text-xs sm:text-sm text-zinc-400 leading-relaxed border-t border-white/5 animate-fade-in font-light">
+                  <div className="px-6 pb-6 pt-2 text-xs sm:text-sm text-charcoal leading-relaxed border-t border-taupe/60 animate-fade-in font-light">
                     {faq.answer}
                   </div>
                 )}

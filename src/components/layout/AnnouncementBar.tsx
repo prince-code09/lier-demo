@@ -52,7 +52,7 @@ export const AnnouncementBar: React.FC<AnnouncementBarProps> = ({ isScrolled = f
 
   return (
     <div
-      className={`w-full bg-obsidian-950 border-b border-gold-400/20 text-xs text-zinc-300 transition-all duration-300 z-50 ${
+      className={`w-full bg-burgundy border-b border-burgundy-wine/30 text-xs text-cream transition-all duration-300 z-50 ${
         isScrolled
           ? 'max-h-0 py-0 opacity-0 overflow-hidden pointer-events-none md:max-h-8 md:py-1.5 md:opacity-100 md:pointer-events-auto'
           : 'max-h-10 py-2 opacity-100'
@@ -62,21 +62,21 @@ export const AnnouncementBar: React.FC<AnnouncementBarProps> = ({ isScrolled = f
         <div className="relative flex items-center justify-center">
           {/* Centered Single Announcement Message */}
           <div className="flex items-center justify-center space-x-2 text-center truncate px-6 transition-opacity duration-500">
-            <Icon className="w-3.5 h-3.5 text-gold-400 shrink-0" />
-            <span className="tracking-wider uppercase font-medium text-[11px] sm:text-xs text-zinc-200 truncate">
+            <Icon className="w-3.5 h-3.5 text-champagne shrink-0" />
+            <span className="tracking-wider uppercase font-medium text-[11px] sm:text-xs text-cream truncate">
               <span className="hidden sm:inline">{current.text}</span>
               <span className="sm:hidden">{current.mobileText}</span>
             </span>
 
             {current.code && (
-              <span className="font-mono text-gold-300 font-bold px-1.5 py-0.2 bg-gold-500/15 border border-gold-400/40 rounded text-[10px] tracking-wider shrink-0">
+              <span className="font-mono text-champagne-light font-bold px-1.5 py-0.2 bg-cream/15 border border-champagne/40 rounded text-[10px] tracking-wider shrink-0">
                 {current.code}
               </span>
             )}
 
             <Link
               to={current.link}
-              className="text-gold-400 underline underline-offset-4 hover:text-gold-200 font-semibold transition-colors text-[11px] shrink-0 ml-1.5"
+              className="text-champagne underline underline-offset-4 hover:text-white font-semibold transition-colors text-[11px] shrink-0 ml-1.5"
             >
               {current.linkText} &rarr;
             </Link>
@@ -85,7 +85,7 @@ export const AnnouncementBar: React.FC<AnnouncementBarProps> = ({ isScrolled = f
           {/* Discreet Dismiss Button on Far Right */}
           <button
             onClick={() => setIsVisible(false)}
-            className="absolute right-0 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-zinc-500 hover:text-gold-300 transition-colors rounded hover:bg-white/5"
+            className="absolute right-0 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-cream/70 hover:text-white transition-colors rounded hover:bg-white/10"
             aria-label="Dismiss announcement bar"
           >
             <X className="w-3 h-3" />

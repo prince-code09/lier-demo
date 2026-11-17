@@ -12,26 +12,26 @@ export const ToastContainer: React.FC = () => {
       {toasts.map((toast) => (
         <div
           key={toast.id}
-          className="pointer-events-auto flex items-start space-x-3 p-4 rounded-sm bg-obsidian-850/95 backdrop-blur-md border border-gold-400/30 text-alabaster shadow-luxury transition-all duration-300 animate-slide-up"
+          className="pointer-events-auto flex items-start space-x-3 p-4 rounded-sm bg-espresso/95 backdrop-blur-md border border-champagne/40 text-cream shadow-luxury transition-all duration-300 animate-slide-up"
         >
           <div className="flex-shrink-0 mt-0.5">
             {toast.type === 'success' ? (
-              <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+              <CheckCircle2 className="w-5 h-5 text-emerald-300" />
             ) : toast.type === 'info' ? (
-              <Info className="w-5 h-5 text-alpine-light" />
+              <Info className="w-5 h-5 text-champagne" />
             ) : (
-              <Sparkles className="w-5 h-5 text-gold-400" />
+              <Sparkles className="w-5 h-5 text-champagne" />
             )}
           </div>
           <div className="flex-1 min-w-0">
-            <h4 className="text-sm font-medium tracking-wide text-white">{toast.title}</h4>
+            <h4 className="text-sm font-medium tracking-wide text-cream">{toast.title}</h4>
             {toast.description && (
-              <p className="mt-1 text-xs text-zinc-400 leading-relaxed">{toast.description}</p>
+              <p className="mt-1 text-xs text-cream/75 leading-relaxed">{toast.description}</p>
             )}
           </div>
           <button
             onClick={() => dismissToast(toast.id)}
-            className="flex-shrink-0 text-zinc-500 hover:text-white transition-colors"
+            className="flex-shrink-0 text-cream/60 hover:text-cream transition-colors"
             aria-label="Close notification"
           >
             <X className="w-4 h-4" />

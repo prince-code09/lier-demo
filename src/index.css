@@ -11,67 +11,75 @@
   }
 
   body {
-    @apply bg-obsidian-950 text-alabaster font-sans antialiased selection:bg-gold-500/30 selection:text-gold-200 overflow-x-hidden;
+    @apply bg-ivory text-espresso font-sans antialiased selection:bg-burgundy/15 selection:text-burgundy overflow-x-hidden;
   }
 
-  /* Custom luxury scrollbar */
+  /* Custom warm editorial luxury scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #0A0A0C;
+    background: #F5F0E9;
   }
   ::-webkit-scrollbar-thumb {
-    background: #262633;
+    background: #D9CEC5;
     border-radius: 3px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #D4AF37;
+    background: #B89550;
   }
 
   /* Accessible focus outline */
   :focus-visible {
-    outline: 2px solid #D4AF37;
+    outline: 2px solid #572634;
     outline-offset: 2px;
   }
 }
 
 @layer components {
-  .btn-gold {
-    @apply inline-flex items-center justify-center px-6 py-3 text-xs tracking-widest uppercase font-semibold transition-all duration-300 rounded-sm bg-gradient-to-r from-gold-300 via-gold-400 to-gold-500 text-obsidian-950 hover:brightness-110 hover:shadow-gold-glow active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none;
+  /* Primary Button: Deep Burgundy background, Warm Ivory/Cream text */
+  .btn-gold, .btn-primary, .btn-burgundy {
+    @apply inline-flex items-center justify-center px-6 py-3 text-xs tracking-widest uppercase font-semibold transition-all duration-300 rounded-sm bg-burgundy text-cream hover:bg-burgundy-hover hover:shadow-burgundy-glow active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none;
   }
 
-  .btn-outline-gold {
-    @apply inline-flex items-center justify-center px-6 py-3 text-xs tracking-widest uppercase font-medium transition-all duration-300 rounded-sm border border-gold-400/40 text-gold-300 hover:border-gold-400 hover:bg-gold-500/10 hover:text-gold-200 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none;
+  /* Secondary Button: Transparent/Cream background, Burgundy border and text */
+  .btn-outline-gold, .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 text-xs tracking-widest uppercase font-medium transition-all duration-300 rounded-sm border border-burgundy/30 bg-transparent text-burgundy hover:border-burgundy hover:bg-burgundy/5 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none;
   }
 
+  /* Accent Button: Champagne Gold */
+  .btn-champagne {
+    @apply inline-flex items-center justify-center px-6 py-3 text-xs tracking-widest uppercase font-semibold transition-all duration-300 rounded-sm bg-champagne text-white hover:brightness-105 hover:shadow-champagne-glow active:scale-[0.98];
+  }
+
+  /* Neutral Dark Button */
   .btn-dark {
-    @apply inline-flex items-center justify-center px-6 py-3 text-xs tracking-widest uppercase font-medium transition-all duration-300 rounded-sm border border-white/10 bg-obsidian-850 text-white hover:bg-obsidian-800 hover:border-gold-400/30 hover:text-gold-200 active:scale-[0.98];
+    @apply inline-flex items-center justify-center px-6 py-3 text-xs tracking-widest uppercase font-medium transition-all duration-300 rounded-sm border border-taupe bg-cream text-espresso hover:bg-sand-light hover:border-burgundy/30 active:scale-[0.98];
   }
 
   .glass-card {
-    @apply bg-obsidian-900/70 backdrop-blur-md border border-white/10 shadow-luxury;
+    @apply bg-porcelain/90 backdrop-blur-md border border-taupe shadow-luxury;
   }
 
   .glass-card-hover {
-    @apply transition-all duration-500 hover:border-gold-400/40 hover:shadow-luxury-hover hover:-translate-y-1;
+    @apply transition-all duration-500 hover:border-burgundy/40 hover:shadow-luxury-hover hover:-translate-y-1;
   }
 
   .gold-divider {
-    @apply h-[1px] w-20 bg-gradient-to-r from-transparent via-gold-400 to-transparent my-6;
+    @apply h-[1px] w-20 bg-gradient-to-r from-transparent via-champagne to-transparent my-6;
   }
 
   .text-gold-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-gold-100 via-gold-300 to-gold-500;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-champagne via-burgundy to-espresso;
   }
 
   .gold-shimmer {
     background: linear-gradient(
       90deg,
-      rgba(212, 175, 55, 0) 0%,
-      rgba(212, 175, 55, 0.25) 50%,
-      rgba(212, 175, 55, 0) 100%
+      rgba(184, 149, 80, 0) 0%,
+      rgba(184, 149, 80, 0.2) 50%,
+      rgba(184, 149, 80, 0) 100%
     );
     background-size: 200% 100%;
     animation: shimmer 4s infinite linear;
