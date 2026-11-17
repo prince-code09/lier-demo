@@ -96,15 +96,15 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ defaultSlu
         </nav>
 
         {/* Top Product View: Gallery + Sticky Buy Box */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-24">
-          {/* Left Gallery (7 Columns) */}
-          <div className="lg:col-span-7 space-y-4">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start mb-20 lg:mb-24">
+          {/* Left Gallery (6 Columns on Desktop) */}
+          <div className="lg:col-span-6 space-y-4">
             {/* Main Stage Image */}
-            <div className="relative h-72 sm:h-96 lg:h-auto lg:aspect-[4/5] bg-obsidian-900 border border-white/10 rounded-sm overflow-hidden group shadow-luxury flex items-center justify-center">
+            <div className="relative h-[300px] sm:h-[380px] lg:h-[480px] xl:h-[500px] max-w-md lg:max-w-none mx-auto bg-obsidian-900/90 border border-white/10 rounded-sm overflow-hidden group shadow-luxury flex items-center justify-center p-3 sm:p-4">
               <img
                 src={selectedImage}
                 alt={product.name}
-                className="w-full h-full object-contain lg:object-cover transition-transform duration-700 group-hover:scale-105 cursor-zoom-in"
+                className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105 cursor-zoom-in"
                 onClick={() => setIsZoomOpen(true)}
               />
 
@@ -125,34 +125,34 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ defaultSlu
                 <Maximize2 className="w-4 h-4" />
               </button>
 
-              <div className="absolute bottom-4 left-4 right-4 p-2.5 bg-obsidian-950/85 backdrop-blur-md rounded border border-white/10 text-center pointer-events-none">
-                <span className="text-[11px] uppercase tracking-widest text-zinc-400 font-mono">
+              <div className="absolute bottom-3 inset-x-4 p-2 bg-obsidian-950/85 backdrop-blur-md rounded border border-white/10 text-center pointer-events-none">
+                <span className="text-[10px] sm:text-[11px] uppercase tracking-widest text-zinc-400 font-mono">
                   Authentic LIER Product Craftsmanship &bull; Click to Enlarge
                 </span>
               </div>
             </div>
 
             {/* Thumbnail Strip */}
-            <div className="flex space-x-3 overflow-x-auto pb-2 scrollbar-none">
+            <div className="flex space-x-2.5 overflow-x-auto pb-2 scrollbar-none max-w-md lg:max-w-none mx-auto">
               {product.galleryImages.map((img, idx) => (
                 <button
                   key={idx}
                   onClick={() => setSelectedImage(img.url)}
-                  className={`relative w-16 h-20 sm:w-20 sm:h-24 rounded-sm overflow-hidden border flex-shrink-0 transition-all ${
+                  className={`relative w-14 h-16 sm:w-16 sm:h-20 rounded-sm overflow-hidden border flex-shrink-0 transition-all p-1 bg-obsidian-900 ${
                     selectedImage === img.url
                       ? 'border-gold-400 shadow-gold-glow scale-95 opacity-100'
                       : 'border-white/10 hover:border-white/30 opacity-60 hover:opacity-100'
                   }`}
                   aria-label={`View ${img.caption}`}
                 >
-                  <img src={img.url} alt={img.caption} className="w-full h-full object-cover" />
+                  <img src={img.url} alt={img.caption} className="w-full h-full object-contain" />
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Right Sticky Buy Box (5 Columns) */}
-          <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-24">
+          {/* Right Sticky Buy Box (6 Columns on Desktop) */}
+          <div className="lg:col-span-6 space-y-6 lg:sticky lg:top-24">
             <div>
               <div className="flex items-center space-x-2 text-xs text-gold-400 mb-2 font-mono">
                 <span className="uppercase tracking-widest">{product.scentFamily}</span>
