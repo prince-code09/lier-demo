@@ -18,8 +18,6 @@ import {
   Layers,
   ArrowRight,
   ChevronRight,
-  Maximize2,
-  X,
   Truck,
   RotateCcw,
   Check,
@@ -44,7 +42,6 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ defaultSlu
   const [selectedImage, setSelectedImage] = useState<string>(product.heroImage);
   const [quantity, setQuantity] = useState<number>(1);
   const [activeTab, setActiveTab] = useState<'notes' | 'howToUse' | 'specs' | 'reviews'>('notes');
-  const [isZoomOpen, setIsZoomOpen] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
 
   useEffect(() => {
@@ -100,12 +97,11 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ defaultSlu
           {/* Left Gallery (6 Columns on Desktop) */}
           <div className="lg:col-span-6 space-y-4">
             {/* Main Stage Image */}
-            <div className="relative h-[220px] sm:h-[280px] lg:h-[350px] xl:h-[360px] max-w-[280px] sm:max-w-sm lg:max-w-[420px] mx-auto bg-obsidian-900/90 border border-white/10 rounded-sm overflow-hidden group shadow-luxury flex items-center justify-center p-3 sm:p-4">
+            <div className="relative h-[270px] sm:h-[340px] lg:h-[420px] xl:h-[440px] max-w-sm sm:max-w-md lg:max-w-[460px] mx-auto bg-obsidian-900/90 border border-white/10 rounded-sm overflow-hidden shadow-luxury flex items-center justify-center p-3 sm:p-4">
               <img
                 src={selectedImage}
                 alt={product.name}
-                className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105 cursor-zoom-in"
-                onClick={() => setIsZoomOpen(true)}
+                className="w-full h-full object-contain"
               />
 
               {product.badge && (
@@ -115,25 +111,10 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ defaultSlu
                   </span>
                 </div>
               )}
-
-              {/* Zoom Trigger Button */}
-              <button
-                onClick={() => setIsZoomOpen(true)}
-                className="absolute top-4 right-4 z-10 p-2.5 rounded bg-obsidian-950/80 hover:bg-gold-500 hover:text-obsidian-950 text-zinc-300 border border-white/10 transition-colors"
-                aria-label="Enlarge image"
-              >
-                <Maximize2 className="w-4 h-4" />
-              </button>
-
-              <div className="absolute bottom-3 inset-x-4 p-2 bg-obsidian-950/85 backdrop-blur-md rounded border border-white/10 text-center pointer-events-none">
-                <span className="text-[10px] sm:text-[11px] uppercase tracking-widest text-zinc-400 font-mono">
-                  Authentic LIER Product Craftsmanship &bull; Click to Enlarge
-                </span>
-              </div>
             </div>
 
             {/* Thumbnail Strip */}
-            <div className="flex space-x-2 overflow-x-auto pb-1 scrollbar-none max-w-[280px] sm:max-w-sm lg:max-w-[420px] mx-auto">
+            <div className="flex space-x-2.5 overflow-x-auto pb-1 scrollbar-none max-w-sm sm:max-w-md lg:max-w-[460px] mx-auto">
               {product.galleryImages.map((img, idx) => (
                 <button
                   key={idx}
@@ -510,23 +491,6 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ defaultSlu
         </button>
       </div>
 
-      {/* Fullscreen Image Zoom Lightbox */}
-      {isZoomOpen && (
-        <div className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 animate-fade-in">
-          <button
-            onClick={() => setIsZoomOpen(false)}
-            className="absolute top-6 right-6 p-3 text-zinc-400 hover:text-white bg-obsidian-900/80 rounded-full border border-white/10 z-10 transition-colors"
-            aria-label="Close zoom"
-          >
-            <X className="w-6 h-6" />
-          </button>
-          <img
-            src={selectedImage}
-            alt={product.name}
-            className="max-w-full max-h-[90vh] object-contain rounded-sm shadow-2xl"
-          />
-        </div>
-      )}
     </div>
   );
 };
