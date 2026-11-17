@@ -100,7 +100,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ defaultSlu
           {/* Left Gallery (6 Columns on Desktop) */}
           <div className="lg:col-span-6 space-y-4">
             {/* Main Stage Image */}
-            <div className="relative h-[300px] sm:h-[380px] lg:h-[480px] xl:h-[500px] max-w-md lg:max-w-none mx-auto bg-obsidian-900/90 border border-white/10 rounded-sm overflow-hidden group shadow-luxury flex items-center justify-center p-3 sm:p-4">
+            <div className="relative h-[220px] sm:h-[280px] lg:h-[350px] xl:h-[360px] max-w-[280px] sm:max-w-sm lg:max-w-[420px] mx-auto bg-obsidian-900/90 border border-white/10 rounded-sm overflow-hidden group shadow-luxury flex items-center justify-center p-3 sm:p-4">
               <img
                 src={selectedImage}
                 alt={product.name}
@@ -133,12 +133,12 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ defaultSlu
             </div>
 
             {/* Thumbnail Strip */}
-            <div className="flex space-x-2.5 overflow-x-auto pb-2 scrollbar-none max-w-md lg:max-w-none mx-auto">
+            <div className="flex space-x-2 overflow-x-auto pb-1 scrollbar-none max-w-[280px] sm:max-w-sm lg:max-w-[420px] mx-auto">
               {product.galleryImages.map((img, idx) => (
                 <button
                   key={idx}
                   onClick={() => setSelectedImage(img.url)}
-                  className={`relative w-14 h-16 sm:w-16 sm:h-20 rounded-sm overflow-hidden border flex-shrink-0 transition-all p-1 bg-obsidian-900 ${
+                  className={`relative w-12 h-14 sm:w-14 sm:h-16 rounded-sm overflow-hidden border flex-shrink-0 transition-all p-0.5 bg-obsidian-900 ${
                     selectedImage === img.url
                       ? 'border-gold-400 shadow-gold-glow scale-95 opacity-100'
                       : 'border-white/10 hover:border-white/30 opacity-60 hover:opacity-100'
