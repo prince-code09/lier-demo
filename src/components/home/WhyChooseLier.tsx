@@ -77,7 +77,7 @@ export const WhyChooseLier: React.FC = () => {
 
           {/* Center: Authentic Client Pedestal Graphic (MKT-08) */}
           <div className="md:col-span-2 lg:col-span-4 flex justify-center order-first lg:order-2 mb-4 md:mb-6 lg:mb-0">
-            <div className="relative w-full max-w-sm aspect-square rounded-sm overflow-hidden border border-gold-400/30 shadow-luxury group">
+            <div className="relative w-full max-w-[280px] sm:max-w-sm aspect-square rounded-sm overflow-hidden border border-gold-400/30 shadow-luxury group">
               <img
                 src="/assets/marketing/8.webp"
                 alt="Why Choose LIER 6-Benefit Pedestal"

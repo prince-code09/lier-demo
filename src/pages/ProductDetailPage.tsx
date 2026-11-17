@@ -100,11 +100,11 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ defaultSlu
           {/* Left Gallery (7 Columns) */}
           <div className="lg:col-span-7 space-y-4">
             {/* Main Stage Image */}
-            <div className="relative aspect-[3/4] sm:aspect-[4/5] bg-obsidian-900 border border-white/10 rounded-sm overflow-hidden group shadow-luxury">
+            <div className="relative h-72 sm:h-96 lg:h-auto lg:aspect-[4/5] bg-obsidian-900 border border-white/10 rounded-sm overflow-hidden group shadow-luxury flex items-center justify-center">
               <img
                 src={selectedImage}
                 alt={product.name}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 cursor-zoom-in"
+                className="w-full h-full object-contain lg:object-cover transition-transform duration-700 group-hover:scale-105 cursor-zoom-in"
                 onClick={() => setIsZoomOpen(true)}
               />
 
@@ -138,7 +138,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ defaultSlu
                 <button
                   key={idx}
                   onClick={() => setSelectedImage(img.url)}
-                  className={`relative w-20 h-24 rounded-sm overflow-hidden border flex-shrink-0 transition-all ${
+                  className={`relative w-16 h-20 sm:w-20 sm:h-24 rounded-sm overflow-hidden border flex-shrink-0 transition-all ${
                     selectedImage === img.url
                       ? 'border-gold-400 shadow-gold-glow scale-95 opacity-100'
                       : 'border-white/10 hover:border-white/30 opacity-60 hover:opacity-100'

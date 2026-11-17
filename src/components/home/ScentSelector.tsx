@@ -69,7 +69,7 @@ export const ScentSelector: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center bg-obsidian-900/60 border border-white/10 rounded-sm p-5 sm:p-8 lg:p-12 shadow-luxury">
           {/* Left: Authentic Comparison Visual */}
           <div className="lg:col-span-5 relative">
-            <div className="relative aspect-[3/4] rounded-sm overflow-hidden border border-white/10 shadow-lg group bg-obsidian-950">
+            <div className="relative h-64 sm:h-80 lg:h-auto lg:aspect-[3/4] rounded-sm overflow-hidden border border-white/10 shadow-lg group bg-obsidian-950 flex items-center justify-center">
               <img
                 src={
                   activeTab === 'musk'
@@ -77,7 +77,7 @@ export const ScentSelector: React.FC = () => {
                     : '/assets/alpine/ChatGPT Image Sep 3, 2026, 12_49_10 PM (3).webp'
                 }
                 alt={`${currentProduct.name} Scent profile`}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-full object-contain lg:object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute top-4 left-4 bg-obsidian-950/85 backdrop-blur-md px-3 py-1 rounded text-[10px] uppercase tracking-wider text-gold-300 font-mono border border-gold-400/30">
                 Official Scent Inspiration

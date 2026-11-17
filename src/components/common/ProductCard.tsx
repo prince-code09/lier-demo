@@ -53,12 +53,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView }
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Image Container with Dual Image Transition */}
-      <Link to={`/product/${product.slug}`} className="relative aspect-[3/4] overflow-hidden bg-obsidian-950 block">
+      <Link
+        to={`/product/${product.slug}`}
+        className="relative h-56 sm:h-64 md:h-auto md:aspect-[3/4] overflow-hidden bg-obsidian-950 flex items-center justify-center block"
+      >
         {/* Primary Image */}
         <img
           src={product.heroImage}
           alt={product.name}
-          className={`w-full h-full object-cover transition-all duration-700 ease-out ${
+          className={`w-full h-full object-contain md:object-cover transition-all duration-700 ease-out ${
             isHovered && product.secondaryImage ? 'opacity-0 scale-105' : 'opacity-100 scale-100'
           }`}
           loading="lazy"
@@ -69,7 +72,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView }
           <img
             src={product.secondaryImage}
             alt={`${product.name} in cockpit view`}
-            className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out ${
+            className={`absolute inset-0 w-full h-full object-contain md:object-cover transition-all duration-700 ease-out ${
               isHovered ? 'opacity-100 scale-105' : 'opacity-0 scale-100'
             }`}
             loading="lazy"
@@ -116,7 +119,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView }
       </Link>
 
       {/* Card Content */}
-      <div className="p-5 flex-1 flex flex-col justify-between">
+      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
         <div>
           {/* Scent Family & Rating */}
           <div className="flex items-center justify-between text-[11px] text-zinc-400 mb-1.5">
@@ -131,7 +134,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView }
 
           {/* Title */}
           <Link to={`/product/${product.slug}`} className="block group-hover:text-gold-300 transition-colors">
-            <h3 className="font-serif text-lg text-white font-normal leading-snug">
+            <h3 className="font-serif text-base sm:text-lg text-white font-normal leading-snug">
               {product.name}
             </h3>
           </Link>
@@ -149,10 +152,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView }
         </div>
 
         {/* Pricing & Add to Cart Button */}
-        <div className="mt-5 pt-4 border-t border-white/5 flex items-center justify-between">
+        <div className="mt-4 pt-3.5 border-t border-white/5 flex items-center justify-between">
           <div>
             <div className="flex items-baseline space-x-2">
-              <span className="font-serif text-lg text-white font-medium">₹{product.price}</span>
+              <span className="font-serif text-base sm:text-lg text-white font-medium">₹{product.price}</span>
               <span className="text-xs text-zinc-500 line-through">₹{product.originalPrice}</span>
             </div>
             <span className="text-[10px] text-emerald-400 font-medium font-mono">

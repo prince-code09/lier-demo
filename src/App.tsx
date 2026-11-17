@@ -35,9 +35,11 @@ const ScrollToTop = () => {
 export const AppContent: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
       setShowBackToTop(window.scrollY > 400);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -63,8 +65,11 @@ export const AppContent: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen bg-obsidian-950 text-alabaster">
       <ScrollToTop />
-      <AnnouncementBar />
-      <Navbar onOpenSearch={() => setIsSearchOpen(true)} />
+      {/* Unified Luxury Header (Layer 1 Announcement + Layer 2 Navigation) */}
+      <header className="sticky top-0 z-40 w-full transition-all duration-300">
+        <AnnouncementBar isScrolled={isScrolled} />
+        <Navbar isScrolled={isScrolled} onOpenSearch={() => setIsSearchOpen(true)} />
+      </header>
 
       <main className="flex-1">
         <Routes>

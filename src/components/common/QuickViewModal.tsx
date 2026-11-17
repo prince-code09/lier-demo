@@ -57,11 +57,11 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({ product, onClose
 
           <div className="grid grid-cols-1 md:grid-cols-2">
             {/* Image Preview */}
-            <div className="relative bg-obsidian-900 aspect-[3/4] md:aspect-auto">
+            <div className="relative bg-obsidian-900 h-60 sm:h-72 md:h-full md:aspect-auto flex items-center justify-center">
               <img
                 src={product.heroImage}
                 alt={product.name}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain md:object-cover"
               />
               {product.badge && (
                 <div className="absolute top-4 left-4 z-10 bg-gold-500/90 text-obsidian-950 font-semibold text-[10px] uppercase tracking-wider px-3 py-1 rounded-sm shadow-lg">
