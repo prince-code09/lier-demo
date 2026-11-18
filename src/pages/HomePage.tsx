@@ -56,6 +56,7 @@ export const HomePage: React.FC = () => {
               <ProductCard
                 key={product.id}
                 product={product}
+                imageContainerClassName="h-48 sm:h-56 md:h-64 lg:h-[420px] xl:h-[450px] p-3 sm:p-5"
                 onQuickView={(p) => setQuickViewProduct(p)}
               />
             ))}

@@ -10,9 +10,15 @@ interface ProductCardProps {
   product: Product;
   onQuickView?: (product: Product) => void;
   isRecommendation?: boolean;
+  imageContainerClassName?: string;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView, isRecommendation }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({
+  product,
+  onQuickView,
+  isRecommendation,
+  imageContainerClassName,
+}) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
   const { addItem } = useCart();
@@ -57,7 +63,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView, 
       <Link
         to={`/product/${product.slug}`}
         className={`relative overflow-hidden bg-cream flex items-center justify-center block ${
-          isRecommendation
+          imageContainerClassName
+            ? imageContainerClassName
+            : isRecommendation
             ? 'h-44 sm:h-56 md:h-64 lg:h-[280px] xl:h-[300px] p-2.5 sm:p-4'
             : 'h-44 sm:h-56 md:h-64 lg:h-auto lg:aspect-[3/4] p-2 sm:p-3'
         }`}
