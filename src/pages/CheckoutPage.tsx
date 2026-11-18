@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 
 export const CheckoutPage: React.FC = () => {
-  const { items, subtotal, discount, shippingFee, total, clearCart } = useCart();
+  const { items, subtotal, discount, appliedPromo, shippingFee, total, clearCart } = useCart();
 
   const [step, setStep] = useState<number>(1);
   const [shippingDetails, setShippingDetails] = useState({
@@ -36,13 +36,40 @@ export const CheckoutPage: React.FC = () => {
   const [orderId, setOrderId] = useState('');
   const [purchasedItems, setPurchasedItems] = useState<typeof items>([]);
   const [purchasedTotal, setPurchasedTotal] = useState(0);
+  const [purchasedSubtotal, setPurchasedSubtotal] = useState(0);
+  const [purchasedDiscount, setPurchasedDiscount] = useState(0);
+  const [purchasedAppliedPromo, setPurchasedAppliedPromo] = useState<string | null>(null);
+  const [purchasedShippingFee, setPurchasedShippingFee] = useState(0);
+  const [purchasedDate, setPurchasedDate] = useState('');
+  const [purchasedShippingDetails, setPurchasedShippingDetails] = useState({ ...shippingDetails });
+  const [purchasedShippingMethod, setPurchasedShippingMethod] = useState<'express' | 'standard'>('express');
+  const [purchasedPaymentMethod, setPurchasedPaymentMethod] = useState<'upi' | 'card' | 'cod'>('upi');
 
   const handlePlaceOrder = (e: React.FormEvent) => {
     e.preventDefault();
     const generatedId = `LIER-${new Date().getFullYear()}-${Math.floor(100000 + Math.random() * 900000)}`;
+    const now = new Date();
+    const dateFormatted = now.toLocaleDateString('en-IN', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+    const timeFormatted = now.toLocaleTimeString('en-IN', {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+
     setOrderId(generatedId);
+    setPurchasedDate(`${dateFormatted} at ${timeFormatted}`);
     setPurchasedItems([...items]);
+    setPurchasedSubtotal(subtotal);
+    setPurchasedDiscount(discount);
+    setPurchasedAppliedPromo(appliedPromo);
+    setPurchasedShippingFee(shippingFee);
     setPurchasedTotal(total);
+    setPurchasedShippingDetails({ ...shippingDetails });
+    setPurchasedShippingMethod(shippingMethod);
+    setPurchasedPaymentMethod(paymentMethod);
     setOrderConfirmed(true);
 
     try {
@@ -83,81 +110,235 @@ export const CheckoutPage: React.FC = () => {
     );
   }
 
-  // Order Confirmation Screen
+  // Order Confirmation & Premium Luxury Receipt Screen
   if (orderConfirmed) {
     return (
-      <div className="py-16 bg-ivory min-h-screen text-charcoal">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center animate-fade-in">
-          <div className="w-20 h-20 rounded-full bg-burgundy/10 border-2 border-burgundy flex items-center justify-center text-burgundy mx-auto mb-6">
-            <CheckCircle2 className="w-10 h-10" />
+      <div className="py-12 sm:py-16 bg-ivory min-h-screen text-charcoal print:py-0 print:bg-white">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in print:max-w-full print:px-0">
+          {/* Success Banner & Confirmation Header (Screen Only) */}
+          <div className="text-center mb-8 sm:mb-10 no-print">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-burgundy/10 border-2 border-burgundy flex items-center justify-center text-burgundy mx-auto mb-5 shadow-sm">
+              <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10 text-burgundy" />
+            </div>
+
+            <span className="text-[11px] sm:text-xs uppercase tracking-ultra text-burgundy font-mono font-semibold">
+              Acquisition Confirmed &bull; Atelier Dispatch Queued
+            </span>
+            <h1 className="font-serif text-2xl sm:text-4xl text-espresso font-normal mt-2 mb-2">
+              Thank You For Choosing LIER
+            </h1>
+            <p className="text-xs sm:text-sm text-charcoal-muted max-w-lg mx-auto font-light leading-relaxed">
+              Your bespoke automotive fragrance flacons are being hand-inspected and sealed for White Glove delivery from our Mumbai atelier.
+            </p>
           </div>
 
-          <span className="text-xs uppercase tracking-ultra text-burgundy font-serif font-semibold">
-            Acquisition Confirmed
-          </span>
-          <h1 className="font-serif text-3xl sm:text-4xl text-espresso font-normal mt-2 mb-3">
-            Thank You For Choosing LIER
-          </h1>
-          <p className="text-xs sm:text-sm text-charcoal-muted max-w-md mx-auto mb-8 font-light leading-relaxed">
-            Your bespoke automotive fragrance order has been received at our dispatch atelier in Mumbai.
-          </p>
-
-          {/* Order Details Receipt Box */}
-          <div className="bg-porcelain border border-taupe/60 rounded-sm p-6 sm:p-8 text-left space-y-6 shadow-sm mb-8">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-4 border-b border-taupe/40 gap-3">
+          {/* Premium Luxury Invoice & Receipt Document */}
+          <div className="print-receipt-container bg-porcelain border border-taupe rounded-sm p-6 sm:p-10 text-left shadow-luxury mb-8 print:shadow-none print:border-none print:p-4 print:mb-0">
+            {/* 1. Header: Brand Wordmark & Official Document Meta */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-6 border-b border-taupe/80 gap-4">
               <div>
-                <span className="text-[10px] uppercase tracking-wider text-charcoal-muted block">Order Reference Code</span>
-                <span className="font-serif text-lg text-burgundy font-bold tracking-wider">{orderId}</span>
-              </div>
-              <div className="text-left sm:text-right">
-                <span className="text-[10px] uppercase tracking-wider text-charcoal-muted block">Delivery Mode</span>
-                <span className="text-xs text-espresso font-medium">
-                  {shippingMethod === 'express' ? 'Express White Glove (48-72h)' : 'Standard Ground Courier'}
+                <span className="font-serif text-2xl sm:text-3xl tracking-[0.22em] text-espresso uppercase font-normal block">
+                  LIER
                 </span>
+                <span className="text-[10px] tracking-[0.2em] uppercase text-burgundy font-mono font-semibold block mt-1">
+                  Haute Parfum Automobile
+                </span>
+                <span className="text-[11px] text-charcoal-muted font-light block mt-0.5">
+                  Artisanal Dispatch Atelier &bull; Mumbai, India
+                </span>
+              </div>
+
+              <div className="text-left sm:text-right shrink-0">
+                <span className="inline-block text-[10px] uppercase tracking-wider font-mono font-semibold px-2.5 py-1 bg-burgundy/10 text-burgundy border border-burgundy/20 rounded-sm mb-1.5">
+                  Official Acquisition Receipt
+                </span>
+                <div className="text-xs text-charcoal-muted">
+                  Order ID: <span className="font-mono font-bold text-espresso tracking-wide text-xs sm:text-sm">{orderId}</span>
+                </div>
+                <div className="text-[11px] text-charcoal-muted font-light mt-0.5">
+                  Acquisition Date: {purchasedDate}
+                </div>
               </div>
             </div>
 
-            {/* Purchased Items Breakdown */}
-            <div className="space-y-3 pb-4 border-b border-taupe/40">
-              <span className="text-[10px] uppercase tracking-wider text-charcoal-muted block">Acquired Items</span>
+            {/* 2. Customer, Logistics & Payment Information Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 py-6 border-b border-taupe/80 text-xs">
+              {/* Left Column: Client & Destination Details */}
+              <div className="space-y-2 bg-cream/50 p-4 rounded-sm border border-taupe/40">
+                <span className="text-[10px] uppercase tracking-wider text-burgundy font-mono font-semibold block">
+                  Client & Shipping Destination
+                </span>
+                <p className="text-sm font-serif font-medium text-espresso">
+                  {purchasedShippingDetails.firstName} {purchasedShippingDetails.lastName}
+                </p>
+                <p className="text-charcoal leading-relaxed font-light">
+                  {purchasedShippingDetails.address}<br />
+                  {purchasedShippingDetails.city}, {purchasedShippingDetails.state} &mdash; <span className="font-mono font-medium">{purchasedShippingDetails.postalCode}</span>
+                </p>
+                <div className="pt-1.5 text-[11px] text-charcoal-muted space-y-0.5 border-t border-taupe/40 font-mono">
+                  <div>Contact: {purchasedShippingDetails.phone}</div>
+                  <div>Email: {purchasedShippingDetails.email}</div>
+                </div>
+              </div>
+
+              {/* Right Column: Dispatch Protocol & Settlement Status */}
+              <div className="space-y-2 bg-cream/50 p-4 rounded-sm border border-taupe/40">
+                <span className="text-[10px] uppercase tracking-wider text-burgundy font-mono font-semibold block">
+                  Dispatch & Settlement Protocol
+                </span>
+                <div className="space-y-1.5">
+                  <div>
+                    <span className="text-[10px] uppercase text-charcoal-muted block">Logistics Tier:</span>
+                    <span className="text-xs text-espresso font-medium">
+                      {purchasedShippingMethod === 'express'
+                        ? 'Express White Glove (Insured 48–72h Transit)'
+                        : 'Standard Ground Courier (4–5 Business Days)'}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-[10px] uppercase text-charcoal-muted block">Payment Method:</span>
+                    <span className="text-xs text-espresso font-medium">
+                      {purchasedPaymentMethod === 'upi'
+                        ? 'Instant UPI / QR Settlement'
+                        : purchasedPaymentMethod === 'card'
+                        ? 'Luxury Credit / Debit Card'
+                        : 'Cash / Handover on White Glove Delivery'}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-[10px] uppercase text-charcoal-muted block">Payment Status:</span>
+                    <span className="inline-flex items-center text-[10px] uppercase font-mono font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200">
+                      {purchasedPaymentMethod === 'cod' ? 'Payable Upon Delivery' : 'Authorized & Confirmed'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 3. Acquired Items Breakdown Table */}
+            <div className="py-6 border-b border-taupe/80">
+              <span className="text-[10px] uppercase tracking-wider text-burgundy font-mono font-semibold block mb-4">
+                Acquired Olfactory Curations
+              </span>
+
+              {/* Table Header */}
+              <div className="hidden sm:grid grid-cols-12 gap-4 pb-2 border-b border-taupe/50 text-[10px] uppercase tracking-wider text-charcoal-muted font-mono font-semibold">
+                <div className="col-span-6">Flacon / Fragrance</div>
+                <div className="col-span-2 text-center">Unit Price</div>
+                <div className="col-span-2 text-center">Quantity</div>
+                <div className="col-span-2 text-right">Investment</div>
+              </div>
+
+              {/* Item Rows */}
               <div className="divide-y divide-taupe/40">
                 {purchasedItems.map(({ product, quantity }) => (
-                  <div key={product.id} className="py-2.5 flex items-center justify-between text-xs">
-                    <div className="flex items-center space-x-3">
-                      <img src={product.heroImage} alt={product.name} className="w-10 h-12 object-cover rounded-sm border border-taupe/40" />
+                  <div key={product.id} className="py-3.5 flex flex-col sm:grid sm:grid-cols-12 sm:gap-4 items-start sm:items-center text-xs">
+                    <div className="col-span-6 flex items-center space-x-3 w-full mb-2 sm:mb-0">
+                      <img
+                        src={product.heroImage}
+                        alt={product.name}
+                        className="w-12 h-14 object-contain rounded-sm border border-taupe/60 bg-cream p-1 shrink-0"
+                      />
                       <div>
-                        <div className="font-serif text-espresso">{product.name}</div>
-                        <div className="text-[10px] text-charcoal-muted">Qty: {quantity} &times; ₹{product.price}</div>
+                        <div className="font-serif text-sm text-espresso font-medium">{product.name}</div>
+                        <div className="text-[11px] text-charcoal-muted font-light">{product.subtitle}</div>
+                        <div className="text-[10px] text-burgundy font-mono font-semibold sm:hidden mt-0.5">
+                          {quantity} &times; ₹{product.price}
+                        </div>
                       </div>
                     </div>
-                    <span className="font-serif text-burgundy font-semibold">₹{product.price * quantity}</span>
+                    <div className="hidden sm:block col-span-2 text-center font-serif text-charcoal">
+                      ₹{product.price}
+                    </div>
+                    <div className="hidden sm:block col-span-2 text-center font-mono text-charcoal-muted">
+                      {quantity}
+                    </div>
+                    <div className="col-span-2 text-right font-serif text-espresso font-semibold w-full sm:w-auto">
+                      ₹{product.price * quantity}
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="space-y-2 text-xs">
-              <span className="text-[10px] uppercase tracking-wider text-charcoal-muted block">Destination Address</span>
-              <p className="text-espresso font-medium">{shippingDetails.firstName} {shippingDetails.lastName}</p>
-              <p className="text-charcoal-muted">{shippingDetails.address}, {shippingDetails.city}, {shippingDetails.state} &mdash; {shippingDetails.postalCode}</p>
-              <p className="text-charcoal-muted/80">Contact: {shippingDetails.email} &bull; {shippingDetails.phone}</p>
+            {/* 4. Financial Calculations Summary */}
+            <div className="pt-6 pb-6 border-b border-taupe/80">
+              <div className="max-w-xs ml-auto space-y-2 text-xs">
+                <div className="flex justify-between text-charcoal-muted">
+                  <span>Subtotal:</span>
+                  <span className="font-serif text-espresso font-medium">₹{purchasedSubtotal}</span>
+                </div>
+
+                {purchasedDiscount > 0 && (
+                  <div className="flex justify-between text-burgundy font-medium">
+                    <span className="font-mono text-[11px]">
+                      Privilege Discount ({purchasedAppliedPromo || 'LIER10'}):
+                    </span>
+                    <span className="font-serif">-₹{purchasedDiscount}</span>
+                  </div>
+                )}
+
+                <div className="flex justify-between text-charcoal-muted">
+                  <span>White Glove Delivery:</span>
+                  <span className="font-serif text-espresso font-medium">
+                    {purchasedShippingFee === 0 ? (
+                      <span className="text-emerald-700 font-sans font-medium">Complimentary</span>
+                    ) : (
+                      `₹${purchasedShippingFee}`
+                    )}
+                  </span>
+                </div>
+
+                <div className="flex justify-between items-baseline pt-3 border-t border-taupe/80">
+                  <div>
+                    <span className="font-serif text-sm font-semibold text-espresso block">
+                      Total Authorized:
+                    </span>
+                    <span className="text-[10px] text-charcoal-muted font-light block">
+                      Inclusive of all taxes & luxury handling
+                    </span>
+                  </div>
+                  <span className="font-serif text-2xl text-burgundy font-bold">
+                    ₹{purchasedTotal}
+                  </span>
+                </div>
+              </div>
             </div>
 
-            <div className="pt-4 border-t border-taupe/40 flex justify-between items-center text-xs">
-              <span className="text-charcoal-muted">Total Investment Authorized:</span>
-              <span className="font-serif text-xl text-burgundy font-bold">₹{purchasedTotal}</span>
+            {/* 5. Brand Authenticity Statement & Atelier Warranty */}
+            <div className="pt-6 flex flex-col sm:flex-row items-start space-y-3 sm:space-y-0 sm:space-x-3.5 bg-cream/70 border border-taupe/60 rounded-sm p-4 mt-6 text-xs text-charcoal-muted leading-relaxed font-light">
+              <ShieldCheck className="w-5 h-5 text-burgundy shrink-0 mt-0.5" />
+              <div>
+                <strong className="text-espresso font-medium block mb-0.5">
+                  Seal of Provenance &bull; 30-Day Ambient Scenting Guarantee
+                </strong>
+                Every LIER flacon is individually batch-tested at our Mumbai atelier. Crafted with sustainably harvested beech wood diffusion caps and pure botanical fragrance oils. For concierge support, inquiries, or seasonal flacon refills, contact{' '}
+                <span className="text-burgundy font-medium">concierge@lierperfumes.com</span>.
+              </div>
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-4">
+          {/* 6. Action Controls (Screen Only) */}
+          <div className="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-4 no-print mb-12">
             <button
               onClick={handlePrint}
-              className="btn-outline-gold text-xs tracking-widest uppercase py-3.5 px-6 flex items-center space-x-2 w-full sm:w-auto justify-center"
+              className="btn-outline-gold text-xs tracking-widest uppercase py-3.5 px-6 flex items-center space-x-2 w-full sm:w-auto justify-center shadow-sm"
+              aria-label="Print or Save Order Receipt as PDF"
             >
               <Printer className="w-4 h-4" />
-              <span>Print Order Receipt</span>
+              <span>Print / Download Receipt</span>
             </button>
-            <Link to="/" className="btn-gold text-xs tracking-widest uppercase py-3.5 px-8 w-full sm:w-auto">
+            <Link
+              to="/shop"
+              className="btn-dark text-xs tracking-widest uppercase py-3.5 px-6 flex items-center space-x-2 w-full sm:w-auto justify-center"
+            >
+              <ShoppingBag className="w-4 h-4" />
+              <span>Continue Exploring Boutique</span>
+            </Link>
+            <Link
+              to="/"
+              className="btn-gold text-xs tracking-widest uppercase py-3.5 px-8 w-full sm:w-auto text-center"
+            >
               Return to Homepage
             </Link>
           </div>

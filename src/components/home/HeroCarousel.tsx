@@ -109,7 +109,7 @@ export const HeroCarousel: React.FC = () => {
       ))}
 
       {/* Main Content Container */}
-      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-16 w-full">
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 lg:py-16 pb-28 sm:pb-32 lg:pb-16 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left Text Block */}
           <div className="lg:col-span-7 space-y-4 sm:space-y-6 animate-fade-in text-center lg:text-left">
@@ -130,8 +130,8 @@ export const HeroCarousel: React.FC = () => {
             </p>
 
             {/* Mobile Product Image Showcase (Visible on Mobile & Tablet < 1024px) */}
-            <div className="lg:hidden flex justify-center my-4">
-              <div className="relative w-full max-w-[270px] sm:max-w-xs aspect-[4/5] rounded-sm overflow-hidden border border-taupe shadow-luxury group bg-cream">
+            <div className="lg:hidden flex justify-center my-3 sm:my-4">
+              <div className="relative w-full max-w-[250px] sm:max-w-xs aspect-[4/5] rounded-sm overflow-hidden border border-taupe shadow-luxury group bg-cream">
                 <img
                   src={slide.image}
                   alt={slide.title}

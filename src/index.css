@@ -148,3 +148,29 @@
 .pr-safe {
   padding-right: env(safe-area-inset-right, 0px);
 }
+
+/* Print Optimization for Luxury Order Receipts */
+@media print {
+  header, footer, .no-print, button:not(.print-keep), [role="dialog"], #toast-root {
+    display: none !important;
+  }
+  body, main {
+    background: #FFFFFF !important;
+    color: #211A1B !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .print-receipt-container {
+    box-shadow: none !important;
+    border: 1px solid #D9CEC5 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 1.5rem !important;
+    page-break-inside: avoid;
+  }
+  @page {
+    margin: 1.2cm;
+    size: portrait;
+  }
+}
