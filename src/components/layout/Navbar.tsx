@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
-import { Search, Heart, ShoppingBag, Menu, X, ChevronRight, ShieldCheck } from 'lucide-react';
+import { Search, Heart, ShoppingBag, Menu, X, ChevronRight, ShieldCheck, Sparkles } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useWishlist } from '../../context/WishlistContext';
 
@@ -48,13 +49,43 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSearch, isScrolled: propIs
     };
   }, [mobileMenuOpen]);
 
+  // ESC key listener to close mobile menu
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mobileMenuOpen]);
+
   const navLinks = [
-    { label: 'Shop All', path: '/shop' },
-    { label: 'Alpine Mist', path: '/product/alpine-mist' },
-    { label: 'Crist Ash Musk', path: '/product/crist-ash-musk' },
-    { label: 'Duo Suite', path: '/product/duo-combo', badge: 'Save 33%' },
-    { label: 'The House', path: '/about' },
-    { label: 'Concierge', path: '/contact' },
+    {
+      label: 'Shop All',
+      subtitle: 'Complete Fragrance Boutique',
+      path: '/shop'
+    },
+    {
+      label: 'Alpine Mist',
+      subtitle: 'Crisp Glacial Mountain Air',
+      path: '/product/alpine-mist'
+    },
+    {
+      label: 'Crist Ash Musk',
+      subtitle: 'Velvety Amber Cashmere Wood',
+      path: '/product/crist-ash-musk'
+    },
+    {
+      label: 'The House',
+      subtitle: 'Heritage & Diffuser Craftsmanship',
+      path: '/about'
+    },
+    {
+      label: 'Concierge / Contact Us',
+      subtitle: 'Bespoke Client Services & Inquiries',
+      path: '/contact'
+    },
   ];
 
   const isCurrent = (path: string) => {
@@ -201,29 +232,30 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSearch, isScrolled: propIs
           </div>
         </div>
 
-        {/* Mobile Layout (< 1024px): Balanced 3-Column */}
+        {/* Mobile Header (< 1024px): Balanced 3-Column Arrangement */}
         <div className="flex lg:hidden items-center justify-between">
-          {/* Mobile Left: Menu Toggle + Search */}
-          <div className="flex items-center space-x-1">
+          {/* Mobile Left: Menu Toggle */}
+          <div className="flex items-center justify-start w-24 sm:w-28">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="w-10 h-10 flex items-center justify-center text-charcoal hover:text-burgundy transition-colors focus:outline-none rounded hover:bg-sand/40"
-              aria-label="Toggle navigation menu"
+              className="w-10 h-10 flex items-center justify-center text-charcoal hover:text-burgundy transition-colors focus:outline-none rounded hover:bg-sand/40 active:scale-95"
+              aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
             >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
-            <button
-              onClick={onOpenSearch}
-              className="w-10 h-10 flex items-center justify-center text-charcoal hover:text-burgundy transition-colors rounded hover:bg-sand/40"
-              aria-label="Search fragrances"
-            >
-              <Search className="w-4 h-4" />
+              {mobileMenuOpen ? (
+                <X className="w-5 h-5 text-burgundy transition-transform duration-200" />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
             </button>
           </div>
 
-          {/* Mobile Center: Brand Logo */}
-          <div className="text-center">
-            <Link to="/" className="inline-block group focus:outline-none py-0.5">
+          {/* Mobile Center: Brand Logo (Dead-Centered) */}
+          <div className="text-center flex-1 flex flex-col items-center justify-center min-w-0">
+            <Link
+              to="/"
+              onClick={() => setMobileMenuOpen(false)}
+              className="inline-block group focus:outline-none py-0.5 select-none"
+            >
               <span className="font-serif text-xl sm:text-2xl tracking-widest font-normal text-espresso group-hover:text-burgundy transition-colors block">
                 LIER
               </span>
@@ -233,28 +265,41 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSearch, isScrolled: propIs
             </Link>
           </div>
 
-          {/* Mobile Right: Wishlist + Bag */}
-          <div className="flex items-center space-x-1">
+          {/* Mobile Right: Search, Wishlist, Shopping Bag */}
+          <div className="flex items-center justify-end space-x-0.5 sm:space-x-1 w-24 sm:w-28">
             <button
-              onClick={() => setIsWishlistOpen(true)}
-              className="relative w-10 h-10 flex items-center justify-center text-charcoal hover:text-burgundy transition-colors rounded hover:bg-sand/40"
+              onClick={onOpenSearch}
+              className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center text-charcoal hover:text-burgundy transition-colors rounded hover:bg-sand/40 active:scale-95"
+              aria-label="Search fragrances"
+            >
+              <Search className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+            </button>
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                setIsWishlistOpen(true);
+              }}
+              className="relative w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center text-charcoal hover:text-burgundy transition-colors rounded hover:bg-sand/40 active:scale-95"
               aria-label="Open wishlist"
             >
-              <Heart className="w-5 h-5" />
+              <Heart className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
               {wishlistIds.length > 0 && (
-                <span className="absolute top-1.5 right-1.5 flex items-center justify-center w-4 h-4 text-[9px] font-bold text-cream bg-burgundy rounded-full ring-2 ring-cream shadow-burgundy-glow">
+                <span className="absolute top-1 sm:top-1.5 right-1 sm:right-1.5 flex items-center justify-center w-3.5 h-3.5 sm:w-4 sm:h-4 text-[8px] sm:text-[9px] font-bold text-cream bg-burgundy rounded-full ring-2 ring-cream shadow-burgundy-glow">
                   {wishlistIds.length}
                 </span>
               )}
             </button>
             <button
-              onClick={() => setIsCartOpen(true)}
-              className="relative w-10 h-10 flex items-center justify-center text-charcoal hover:text-burgundy transition-colors rounded hover:bg-sand/40"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                setIsCartOpen(true);
+              }}
+              className="relative w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center text-charcoal hover:text-burgundy transition-colors rounded hover:bg-sand/40 active:scale-95"
               aria-label="Open shopping bag"
             >
-              <ShoppingBag className="w-5 h-5" />
+              <ShoppingBag className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
               {totalItems > 0 && (
-                <span className="absolute top-1.5 right-1.5 flex items-center justify-center w-4 h-4 text-[9px] font-bold text-cream bg-burgundy rounded-full ring-2 ring-cream shadow-burgundy-glow">
+                <span className="absolute top-1 sm:top-1.5 right-1 sm:right-1.5 flex items-center justify-center w-3.5 h-3.5 sm:w-4 sm:h-4 text-[8px] sm:text-[9px] font-bold text-cream bg-burgundy rounded-full ring-2 ring-cream shadow-burgundy-glow">
                   {totalItems}
                 </span>
               )}
@@ -263,71 +308,182 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSearch, isScrolled: propIs
         </div>
       </div>
 
-      {/* Mobile Navigation Drawer */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 top-[56px] sm:top-[60px] bg-cream/98 backdrop-blur-2xl z-50 border-t border-taupe px-6 py-6 flex flex-col justify-between animate-fade-in overflow-y-auto">
-          <div className="space-y-5">
-            <div className="flex items-center justify-between border-b border-taupe pb-3">
-              <span className="text-[10px] uppercase tracking-ultra text-burgundy font-semibold font-mono">
-                The Curated Collection
-              </span>
-              <span className="text-[10px] uppercase tracking-wider text-charcoal-muted font-mono">
-                Atelier Mumbai
-              </span>
-            </div>
+      {/* Mobile Navigation Drawer rendered via Portal directly to body to bypass header containing block trap */}
+      {mobileMenuOpen &&
+        typeof document !== 'undefined' &&
+        createPortal(
+          <div className="fixed inset-0 z-50 overflow-hidden lg:hidden animate-fade-in" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+            {/* Darkened Backdrop */}
+            <div
+              onClick={() => setMobileMenuOpen(false)}
+              className="absolute inset-0 bg-espresso/60 backdrop-blur-sm transition-opacity duration-300"
+              aria-hidden="true"
+            />
 
-            <div className="flex flex-col space-y-1">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center justify-between text-sm uppercase tracking-widest py-3 px-3 rounded-sm border-b border-taupe/40 transition-colors ${
-                    isCurrent(link.path)
-                      ? 'text-burgundy font-semibold bg-burgundy/10 border-l-2 border-l-burgundy pl-3.5'
-                      : 'text-espresso hover:text-burgundy'
-                  }`}
-                >
-                  <span className="flex items-center space-x-2">
-                    <span>{link.label}</span>
-                    {link.badge && (
-                      <span className="text-[10px] bg-burgundy/15 text-burgundy border border-burgundy/30 px-2 py-0.5 rounded-full font-mono">
-                        {link.badge}
+            {/* Slide-out Drawer Panel */}
+            <div className="fixed inset-y-0 left-0 max-w-full flex pr-10">
+              <div className="w-screen max-w-sm sm:max-w-md bg-cream border-r border-taupe shadow-2xl flex flex-col justify-between animate-slide-right overflow-y-auto">
+                {/* Drawer Header */}
+                <div className="p-4 sm:p-5 border-b border-taupe flex items-center justify-between bg-porcelain sticky top-0 z-10">
+                  <Link
+                    to="/"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex flex-col select-none"
+                  >
+                    <span className="font-serif text-xl tracking-widest font-normal text-espresso">
+                      LIER
+                    </span>
+                    <span className="text-[7px] tracking-ultra uppercase text-champagne font-medium -mt-0.5">
+                      Haute Parfum Automobile
+                    </span>
+                  </Link>
+                  <button
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-9 h-9 flex items-center justify-center text-charcoal hover:text-burgundy transition-colors rounded-sm hover:bg-sand-light active:scale-95 border border-taupe/60"
+                    aria-label="Close navigation menu"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+
+                {/* Drawer Navigation Links */}
+                <div className="p-5 sm:p-6 space-y-5 flex-1">
+                  {/* Primary Navigation Destinations */}
+                  <div>
+                    <div className="flex items-center justify-between pb-2 mb-3 border-b border-taupe/60">
+                      <span className="text-[10px] uppercase tracking-ultra text-burgundy font-semibold font-mono">
+                        Olfactory Navigation
                       </span>
-                    )}
-                  </span>
-                  <ChevronRight className={`w-4 h-4 ${isCurrent(link.path) ? 'text-burgundy' : 'text-charcoal-muted'}`} />
-                </Link>
-              ))}
-            </div>
+                      <span className="text-[10px] uppercase tracking-wider text-charcoal-muted font-mono">
+                        Atelier Direct
+                      </span>
+                    </div>
 
-            <div className="pt-2">
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenSearch();
-                }}
-                className="w-full flex items-center justify-center space-x-2 py-3 bg-porcelain border border-taupe hover:border-burgundy/40 rounded-sm text-xs uppercase tracking-widest text-charcoal shadow-sm"
-              >
-                <Search className="w-4 h-4 text-burgundy" />
-                <span>Search Scent Notes & Bottles</span>
-              </button>
-            </div>
-          </div>
+                    <nav className="flex flex-col space-y-2">
+                      {navLinks.map((link) => {
+                        const active = isCurrent(link.path);
+                        return (
+                          <Link
+                            key={link.path}
+                            to={link.path}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className={`flex items-center justify-between p-3.5 rounded-sm border transition-all duration-200 group ${
+                              active
+                                ? 'bg-burgundy/10 border-burgundy/40 text-burgundy font-semibold shadow-sm'
+                                : 'bg-porcelain border-taupe/70 hover:border-burgundy/40 hover:bg-white text-espresso'
+                            }`}
+                          >
+                            <div className="flex flex-col">
+                              <span className="text-xs sm:text-sm uppercase tracking-widest flex items-center space-x-2">
+                                <span>{link.label}</span>
+                                {active && (
+                                  <span className="w-1.5 h-1.5 rounded-full bg-burgundy" />
+                                )}
+                              </span>
+                              {link.subtitle && (
+                                <span className="text-[10px] sm:text-[11px] font-light text-charcoal-muted font-sans mt-0.5">
+                                  {link.subtitle}
+                                </span>
+                              )}
+                            </div>
+                            <ChevronRight
+                              className={`w-4 h-4 transition-transform duration-200 group-hover:translate-x-1 ${
+                                active ? 'text-burgundy' : 'text-charcoal-muted group-hover:text-burgundy'
+                              }`}
+                            />
+                          </Link>
+                        );
+                      })}
+                    </nav>
+                  </div>
 
-          <div className="pt-4 border-t border-taupe text-center space-y-1.5 pb-safe">
-            <div className="flex items-center justify-center space-x-2 text-xs text-burgundy">
-              <ShieldCheck className="w-3.5 h-3.5" />
-              <span className="uppercase tracking-widest text-[10px] font-mono">
-                IFRA Certified • Organic Fragrance Oils
-              </span>
+                  {/* Curated Duo Privilege Card */}
+                  <Link
+                    to="/product/duo-combo"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block p-3.5 bg-sand-light/70 hover:bg-sand-light border border-taupe rounded-sm transition-all group"
+                  >
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-[10px] uppercase tracking-wider text-burgundy font-mono font-semibold flex items-center space-x-1.5">
+                        <Sparkles className="w-3 h-3 text-champagne" />
+                        <span>Curated Duo Privilege</span>
+                      </span>
+                      <span className="text-[9px] bg-burgundy text-cream px-1.5 py-0.5 rounded font-mono font-bold">
+                        Save 33%
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-charcoal font-medium">
+                      Alpine Mist & Crist Ash Musk Duo Flacon Suite
+                    </p>
+                  </Link>
+
+                  {/* Search Shortcut */}
+                  <div>
+                    <button
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        onOpenSearch();
+                      }}
+                      className="w-full flex items-center justify-between p-3 bg-porcelain hover:bg-white border border-taupe rounded-sm text-xs uppercase tracking-widest text-charcoal hover:text-burgundy transition-all group shadow-sm"
+                    >
+                      <div className="flex items-center space-x-2.5">
+                        <Search className="w-4 h-4 text-burgundy" />
+                        <span>Search Scent Notes & Bottles</span>
+                      </div>
+                      <span className="text-[10px] font-mono text-charcoal-muted border border-taupe px-1.5 py-0.5 rounded bg-cream">
+                        ⌘K
+                      </span>
+                    </button>
+                  </div>
+
+                  {/* Bag & Wishlist Direct Shortcuts */}
+                  <div className="grid grid-cols-2 gap-2.5">
+                    <button
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        setIsCartOpen(true);
+                      }}
+                      className="flex items-center justify-center space-x-2 p-3 bg-porcelain border border-taupe hover:border-burgundy/40 rounded-sm text-xs uppercase tracking-wider text-espresso transition-colors shadow-sm active:scale-95"
+                    >
+                      <ShoppingBag className="w-4 h-4 text-burgundy" />
+                      <span>Bag ({totalItems})</span>
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        setIsWishlistOpen(true);
+                      }}
+                      className="flex items-center justify-center space-x-2 p-3 bg-porcelain border border-taupe hover:border-burgundy/40 rounded-sm text-xs uppercase tracking-wider text-espresso transition-colors shadow-sm active:scale-95"
+                    >
+                      <Heart className="w-4 h-4 text-burgundy" />
+                      <span>Wishlist ({wishlistIds.length})</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Drawer Footer: Certification & Concierge Hotline */}
+                <div className="p-4 sm:p-5 border-t border-taupe bg-porcelain/60 space-y-2 pb-safe">
+                  <div className="flex items-center justify-center space-x-2 text-[10px] font-mono uppercase tracking-widest text-burgundy">
+                    <ShieldCheck className="w-3.5 h-3.5" />
+                    <span>IFRA Certified • Organic Fragrance Oils</span>
+                  </div>
+                  <div className="text-center text-[11px] text-charcoal-muted font-light">
+                    <span>Atelier Concierge: </span>
+                    <a href="tel:+919876543210" className="hover:text-burgundy font-medium text-espresso underline underline-offset-2">
+                      +91 98765 43210
+                    </a>
+                    <span className="mx-1.5">•</span>
+                    <a href="mailto:care@lierfragrance.com" className="hover:text-burgundy font-medium text-espresso underline underline-offset-2">
+                      care@lierfragrance.com
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
-            <p className="text-[11px] text-charcoal-muted font-light">
-              Concierge: care@lierfragrance.com &bull; +91 98765 43210
-            </p>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
     </nav>
   );
 };
