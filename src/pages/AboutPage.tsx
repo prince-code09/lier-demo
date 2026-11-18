@@ -51,8 +51,14 @@ export const AboutPage: React.FC = () => {
             <div className="relative w-full max-w-md aspect-square rounded-sm overflow-hidden border border-taupe/60 shadow-md group bg-cream">
               <img
                 src="/assets/marketing/4.webp"
+                srcSet="/assets/marketing/4-800w.webp 800w, /assets/marketing/4-1200w.webp 1200w, /assets/marketing/4.webp 2000w"
+                sizes="(max-width: 768px) 100vw, 450px"
                 alt="LIER Brand Heritage"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+                decoding="async"
+                width={800}
+                height={800}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-espresso/40 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-4 inset-x-4 p-2 bg-porcelain/90 backdrop-blur-md rounded text-center border border-taupe/40">

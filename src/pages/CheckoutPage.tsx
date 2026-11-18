@@ -66,7 +66,7 @@ export const CheckoutPage: React.FC = () => {
 
   if (items.length === 0 && !orderConfirmed) {
     return (
-      <div className="py-24 bg-ivory min-h-[70vh] flex items-center justify-center">
+      <div className="py-24 bg-ivory min-h-[70vh] min-h-[70dvh] flex items-center justify-center">
         <div className="text-center max-w-md mx-auto px-4">
           <div className="w-16 h-16 rounded-full bg-cream border border-taupe/60 flex items-center justify-center text-charcoal-muted mx-auto mb-4">
             <ShoppingBag className="w-8 h-8 text-charcoal-muted" />

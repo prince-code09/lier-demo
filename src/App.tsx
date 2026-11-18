@@ -39,8 +39,14 @@ export const AppContent: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-      setShowBackToTop(window.scrollY > 400);
+      const scrollY = window.scrollY;
+      // Hysteresis buffer (35px / 12px) prevents rapid header height toggling near boundary
+      if (scrollY > 35) {
+        setIsScrolled(true);
+      } else if (scrollY < 12) {
+        setIsScrolled(false);
+      }
+      setShowBackToTop(scrollY > 400);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);

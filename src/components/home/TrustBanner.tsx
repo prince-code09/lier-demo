@@ -11,8 +11,14 @@ export const TrustBanner: React.FC = () => {
             <div className="relative w-full max-w-sm aspect-square rounded-sm overflow-hidden border border-taupe shadow-lg group bg-cream">
               <img
                 src="/assets/marketing/4.webp"
+                srcSet="/assets/marketing/4-800w.webp 800w, /assets/marketing/4-1200w.webp 1200w, /assets/marketing/4.webp 2000w"
+                sizes="(max-width: 768px) 100vw, 400px"
                 alt="Made in India with Natural Oils"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+                decoding="async"
+                width={800}
+                height={800}
               />
               <div className="absolute bottom-3 inset-x-3 p-2 bg-cream/95 backdrop-blur-md rounded text-center border border-taupe shadow-sm">
                 <span className="text-[10px] uppercase tracking-widest text-burgundy font-mono font-medium">

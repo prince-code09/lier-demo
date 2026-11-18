@@ -18,22 +18,28 @@ import { Link } from 'react-router-dom';
 export const HomePage: React.FC = () => {
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
 
+  const primaryCollections = PRODUCTS.filter((p) => p.category === 'alpine' || p.category === 'musk');
+  const duoSuite = PRODUCTS.find((p) => p.category === 'combo');
+
   return (
     <div className="space-y-0">
       {/* 1. Cinematic Multi-slide Hero Carousel */}
       <HeroCarousel />
 
-      {/* 2. Featured Fragrances Showcase */}
+      {/* 2. Primary Fragrance Collections Showcase (Alpine Mist & Crist Ash Musk) */}
       <section className="py-20 bg-ivory border-b border-taupe/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
             <div>
               <span className="text-xs uppercase tracking-ultra text-burgundy font-semibold">
-                The Master Catalog
+                Two Signature Olfactory Houses
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl text-espresso font-normal mt-1">
-                Signature Automotive Perfumes
+                The Primary Collections
               </h2>
+              <p className="text-xs sm:text-sm text-charcoal-muted mt-2 max-w-xl font-light">
+                Handcrafted botanical car perfumes engineered for luxury automotive microclimates. Choose your signature driving atmosphere.
+              </p>
             </div>
             <Link
               to="/shop"
@@ -44,8 +50,9 @@ export const HomePage: React.FC = () => {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {PRODUCTS.map((product) => (
+          {/* Balanced Two-Column Desktop Layout (Stacked on Mobile) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 mb-10">
+            {primaryCollections.map((product) => (
               <ProductCard
                 key={product.id}
                 product={product}
@@ -53,6 +60,46 @@ export const HomePage: React.FC = () => {
               />
             ))}
           </div>
+
+          {/* Featured Duo Suite Curation Privilege */}
+          {duoSuite && (
+            <div className="bg-porcelain border border-taupe rounded-sm p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm hover:border-burgundy/40 transition-all duration-300">
+              <div className="flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left">
+                <Link
+                  to={`/product/${duoSuite.slug}`}
+                  className="w-20 h-24 sm:w-24 sm:h-28 bg-cream rounded-sm border border-taupe/60 overflow-hidden shrink-0 flex items-center justify-center p-2"
+                >
+                  <img src={duoSuite.heroImage} alt={duoSuite.name} className="w-full h-full object-contain" />
+                </Link>
+                <div>
+                  <div className="inline-flex items-center space-x-2 text-[10px] uppercase tracking-wider text-burgundy font-mono font-semibold bg-burgundy/10 px-2 py-0.5 rounded-sm mb-1">
+                    <span>Curated Connoisseur Suite</span>
+                    <span>•</span>
+                    <span>Save 33%</span>
+                  </div>
+                  <h3 className="font-serif text-xl sm:text-2xl text-espresso font-normal">
+                    {duoSuite.name}
+                  </h3>
+                  <p className="text-xs text-charcoal-muted mt-1 max-w-lg leading-relaxed font-light">
+                    Acquire both signature flacons in luxury dual presentation packaging. Includes complimentary White Glove Delivery.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto shrink-0">
+                <div className="text-center sm:text-right">
+                  <div className="font-serif text-xl sm:text-2xl text-espresso font-semibold">₹{duoSuite.price}</div>
+                  <div className="text-xs text-charcoal-light line-through font-light">₹{duoSuite.originalPrice}</div>
+                </div>
+                <Link
+                  to={`/product/${duoSuite.slug}`}
+                  className="btn-gold text-xs tracking-widest uppercase py-3.5 px-6 w-full sm:w-auto text-center shadow-burgundy-glow"
+                >
+                  Acquire Duo Suite
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 

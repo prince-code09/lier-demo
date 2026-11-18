@@ -19,28 +19,14 @@ interface Slide {
 
 const SLIDES: Slide[] = [
   {
-    id: 'duo-suite',
-    badge: 'Flagship Curated Suite',
-    title: 'The Art of Automotive Scenting',
-    subtitle: 'Haute Parfum Automobile • Connoisseur Duo Pack',
-    description: 'Artisanal car perfume crafted with organic fragrance oils and porous beech wood caps. Continuous passive diffusion for up to 60 days.',
-    ctaText: 'Acquire The Duo Suite',
-    ctaLink: '/product/duo-combo',
-    secondaryCtaText: 'Explore All Fragrances',
-    secondaryCtaLink: '/shop',
-    image: '/assets/combo/1.webp',
-    tagline: 'Faceted Borosilicate Glass • Hand-Finished Beech Wood',
-    thumbLabel: 'The Duo Suite',
-  },
-  {
     id: 'alpine-mist',
     badge: 'Alpine Inspired Freshness',
     title: 'Alpine Mist',
     subtitle: 'Crisp Glacial Air • Chilled Citrus • Mountain Pine',
-    description: 'An invigorating rush of high-altitude mountain lake clarity. Engineered to elevate mental focus and refresh the cabin throughout your commute.',
+    description: 'An invigorating rush of high-altitude mountain lake clarity. Engineered to elevate mental focus and refresh the vehicle cabin naturally throughout your drive.',
     ctaText: 'Discover Alpine Mist',
     ctaLink: '/product/alpine-mist',
-    secondaryCtaText: 'View Alpine Collection',
+    secondaryCtaText: 'View Collection',
     secondaryCtaLink: '/product/alpine-mist',
     image: '/assets/alpine/1 (2).webp',
     tagline: 'Fresh Mountain Aroma For Your Car Interior',
@@ -50,15 +36,29 @@ const SLIDES: Slide[] = [
     id: 'crist-ash-musk',
     badge: 'Velvet Nocturne & Luxury',
     title: 'Crist Ash Musk',
-    subtitle: 'Floral • Woody • Warm Golden Amber',
-    description: 'An opulent, sensual fragrance crafted for nocturnal drives and tailored leather interiors. Neutralizes stubborn vehicle odors naturally.',
+    subtitle: 'Warm Golden Amber • Smoked Cedar • Rare Florals',
+    description: 'An opulent, sensual fragrance crafted for nocturnal drives and tailored leather interiors. Neutralizes cabin odors while radiating warm sophistication.',
     ctaText: 'Discover Crist Ash Musk',
     ctaLink: '/product/crist-ash-musk',
-    secondaryCtaText: 'View Musk Collection',
+    secondaryCtaText: 'View Collection',
     secondaryCtaLink: '/product/crist-ash-musk',
     image: '/assets/musk/1 (2).webp',
-    tagline: 'A Rich Fragrance That Keeps Your Car Fresh & Inviting',
+    tagline: 'Rich Amber Warmth For Tailored Cabin Interiors',
     thumbLabel: 'Crist Ash Musk',
+  },
+  {
+    id: 'duo-suite',
+    badge: 'Flagship Curated Suite',
+    title: 'The Art of Automotive Scenting',
+    subtitle: 'Haute Parfum Automobile • Connoisseur Duo Suite',
+    description: 'Artisanal car perfume crafted with organic fragrance oils and porous beech wood caps. Enjoy both signature scents with 60 days of continuous diffusion.',
+    ctaText: 'Acquire The Duo Suite',
+    ctaLink: '/product/duo-combo',
+    secondaryCtaText: 'Explore All Fragrances',
+    secondaryCtaLink: '/shop',
+    image: '/assets/combo/1.webp',
+    tagline: 'Faceted Borosilicate Glass • Hand-Finished Beech Wood',
+    thumbLabel: 'Duo Suite',
   },
 ];
 
@@ -78,7 +78,7 @@ export const HeroCarousel: React.FC = () => {
 
   return (
     <section
-      className="relative min-h-[85vh] lg:min-h-[88vh] flex items-center bg-ivory overflow-hidden border-b border-taupe/60"
+      className="relative min-h-[85vh] min-h-[85dvh] lg:min-h-[88vh] lg:min-h-[88dvh] flex items-center bg-ivory overflow-hidden border-b border-taupe/60"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >

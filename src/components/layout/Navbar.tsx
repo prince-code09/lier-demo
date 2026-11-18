@@ -21,7 +21,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSearch, isScrolled: propIs
   useEffect(() => {
     if (propIsScrolled !== undefined) return;
     const handleScroll = () => {
-      setInternalScrolled(window.scrollY > 20);
+      const scrollY = window.scrollY;
+      if (scrollY > 35) {
+        setInternalScrolled(true);
+      } else if (scrollY < 12) {
+        setInternalScrolled(false);
+      }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -80,79 +85,79 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSearch, isScrolled: propIs
         {/* Desktop Layout: Symmetrical 12-Column Grid (Left 5 - Center 2 - Right 5) */}
         <div className="hidden lg:grid lg:grid-cols-12 items-center">
           {/* LEFT: 3 Navigation Links */}
-          <div className="col-span-5 flex items-center space-x-7 text-xs uppercase tracking-widest font-medium justify-start">
+          <div className="col-span-5 flex items-center space-x-7 text-xs uppercase tracking-widest font-medium justify-start min-w-0">
             <Link
               to="/shop"
-              className={`transition-colors duration-200 hover:text-burgundy relative py-1.5 ${
+              className={`transition-colors duration-200 hover:text-burgundy relative py-1.5 group ${
                 isCurrent('/shop') ? 'text-burgundy font-semibold' : 'text-charcoal'
               }`}
             >
-              <span>Shop All</span>
+              <span className="inline-block transition-transform duration-300 ease-out group-hover:-translate-y-0.5">Shop All</span>
               {isCurrent('/shop') && (
-                <span className="absolute -bottom-0.5 inset-x-0 h-[2px] bg-burgundy rounded-full shadow-burgundy-glow animate-fade-in" />
+                <span className="absolute -bottom-0.5 inset-x-0 h-[2px] bg-burgundy rounded-full shadow-burgundy-glow animate-fade-in pointer-events-none" />
               )}
             </Link>
 
             <Link
               to="/product/alpine-mist"
-              className={`transition-colors duration-200 hover:text-burgundy relative py-1.5 ${
+              className={`transition-colors duration-200 hover:text-burgundy relative py-1.5 group ${
                 isCurrent('/product/alpine-mist') ? 'text-burgundy font-semibold' : 'text-charcoal'
               }`}
             >
-              <span>Alpine Mist</span>
+              <span className="inline-block transition-transform duration-300 ease-out group-hover:-translate-y-0.5">Alpine Mist</span>
               {isCurrent('/product/alpine-mist') && (
-                <span className="absolute -bottom-0.5 inset-x-0 h-[2px] bg-burgundy rounded-full shadow-burgundy-glow animate-fade-in" />
+                <span className="absolute -bottom-0.5 inset-x-0 h-[2px] bg-burgundy rounded-full shadow-burgundy-glow animate-fade-in pointer-events-none" />
               )}
             </Link>
 
             <Link
               to="/product/crist-ash-musk"
-              className={`transition-colors duration-200 hover:text-burgundy relative py-1.5 ${
+              className={`transition-colors duration-200 hover:text-burgundy relative py-1.5 group ${
                 isCurrent('/product/crist-ash-musk') ? 'text-burgundy font-semibold' : 'text-charcoal'
               }`}
             >
-              <span>Crist Ash Musk</span>
+              <span className="inline-block transition-transform duration-300 ease-out group-hover:-translate-y-0.5">Crist Ash Musk</span>
               {isCurrent('/product/crist-ash-musk') && (
-                <span className="absolute -bottom-0.5 inset-x-0 h-[2px] bg-burgundy rounded-full shadow-burgundy-glow animate-fade-in" />
+                <span className="absolute -bottom-0.5 inset-x-0 h-[2px] bg-burgundy rounded-full shadow-burgundy-glow animate-fade-in pointer-events-none" />
               )}
             </Link>
           </div>
 
-          {/* CENTER: LIER Logo & Tagline (Visually Protected Center) */}
-          <div className="col-span-2 text-center flex flex-col items-center justify-center">
-            <Link to="/" className="inline-block group focus:outline-none py-0.5">
+          {/* CENTER: LIER Logo & Tagline (Visually Protected Center with Stabilized Container) */}
+          <div className="col-span-2 text-center flex flex-col items-center justify-center min-w-0 overflow-visible">
+            <Link to="/" className="inline-block group focus:outline-none py-0.5 transition-transform duration-300 ease-out hover:-translate-y-0.5 select-none">
               <span className="font-serif text-2xl sm:text-3xl tracking-widest font-normal text-espresso group-hover:text-burgundy transition-colors duration-300 block">
                 LIER
               </span>
-              <span className="block text-[8px] sm:text-[9px] tracking-ultra uppercase text-champagne font-medium -mt-0.5 opacity-90 group-hover:opacity-100 whitespace-nowrap">
+              <span className="block text-[8px] sm:text-[9px] tracking-widest uppercase text-champagne font-medium -mt-0.5 opacity-90 group-hover:opacity-100 whitespace-nowrap transition-opacity duration-300">
                 Haute Parfum Automobile
               </span>
             </Link>
           </div>
 
           {/* RIGHT: The House, Concierge, Search, Wishlist, Bag */}
-          <div className="col-span-5 flex items-center space-x-6 text-xs uppercase tracking-widest font-medium justify-end">
+          <div className="col-span-5 flex items-center space-x-6 text-xs uppercase tracking-widest font-medium justify-end min-w-0">
             <Link
               to="/about"
-              className={`transition-colors duration-200 hover:text-burgundy relative py-1.5 ${
+              className={`transition-colors duration-200 hover:text-burgundy relative py-1.5 group ${
                 isCurrent('/about') ? 'text-burgundy font-semibold' : 'text-charcoal'
               }`}
             >
-              <span>The House</span>
+              <span className="inline-block transition-transform duration-300 ease-out group-hover:-translate-y-0.5">The House</span>
               {isCurrent('/about') && (
-                <span className="absolute -bottom-0.5 inset-x-0 h-[2px] bg-burgundy rounded-full shadow-burgundy-glow animate-fade-in" />
+                <span className="absolute -bottom-0.5 inset-x-0 h-[2px] bg-burgundy rounded-full shadow-burgundy-glow animate-fade-in pointer-events-none" />
               )}
             </Link>
 
             <Link
               to="/contact"
-              className={`transition-colors duration-200 hover:text-burgundy relative py-1.5 ${
+              className={`transition-colors duration-200 hover:text-burgundy relative py-1.5 group ${
                 isCurrent('/contact') ? 'text-burgundy font-semibold' : 'text-charcoal'
               }`}
             >
-              <span>Concierge</span>
+              <span className="inline-block transition-transform duration-300 ease-out group-hover:-translate-y-0.5">Concierge</span>
               {isCurrent('/contact') && (
-                <span className="absolute -bottom-0.5 inset-x-0 h-[2px] bg-burgundy rounded-full shadow-burgundy-glow animate-fade-in" />
+                <span className="absolute -bottom-0.5 inset-x-0 h-[2px] bg-burgundy rounded-full shadow-burgundy-glow animate-fade-in pointer-events-none" />
               )}
             </Link>
 

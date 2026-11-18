@@ -35,7 +35,7 @@ export const CartPage: React.FC = () => {
 
   if (items.length === 0) {
     return (
-      <div className="py-24 bg-ivory min-h-[70vh] flex items-center justify-center">
+      <div className="py-24 bg-ivory min-h-[70vh] min-h-[70dvh] flex items-center justify-center">
         <div className="max-w-md w-full mx-auto px-4 text-center">
           <div className="w-20 h-20 rounded-full bg-cream border border-taupe/60 flex items-center justify-center text-charcoal-muted mx-auto mb-6">
             <ShoppingBag className="w-10 h-10 text-charcoal-muted" />

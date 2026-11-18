@@ -11,16 +11,46 @@ export const ContactPage: React.FC = () => {
     subject: 'general',
     message: '',
   });
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  const validate = (): boolean => {
+    const errors: Record<string, string> = {};
+    if (!formData.name.trim()) {
+      errors.name = 'Please provide your full name.';
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim()) {
+      errors.email = 'Please provide your email address.';
+    } else if (!emailRegex.test(formData.email.trim())) {
+      errors.email = 'Please provide a valid email address (e.g. name@domain.com).';
+    }
+    if (!formData.message.trim()) {
+      errors.message = 'Please share your message or inquiry.';
+    } else if (formData.message.trim().length < 10) {
+      errors.message = 'Please provide at least 10 characters in your message.';
+    }
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) {
-      showToast('Please fill in all mandatory fields.', '', 'info');
+    if (isSubmitting) return;
+
+    if (!validate()) {
+      showToast('Please correct highlighted fields.', '', 'info');
       return;
     }
-    setSubmitted(true);
-    showToast('Inquiry Transmitted', 'Our private concierge will respond within 24 hours.', 'gold');
+
+    setIsSubmitting(true);
+    // Simulate smooth processing while preventing double submissions
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setSubmitted(true);
+      showToast('Inquiry Logged', 'Our private concierge will review your message shortly.', 'gold');
+    }, 600);
   };
 
   return (
@@ -50,12 +80,13 @@ export const ContactPage: React.FC = () => {
                 </div>
                 <h3 className="font-serif text-2xl text-espresso">Thank You, {formData.name}</h3>
                 <p className="text-xs sm:text-sm text-charcoal-muted max-w-sm mx-auto leading-relaxed">
-                  Your message has been assigned to our senior olfactory concierge. A representative will contact you via email shortly.
+                  Your message has been assigned to our senior olfactory concierge team. A representative will contact you via email shortly.
                 </p>
                 <button
                   onClick={() => {
                     setSubmitted(false);
                     setFormData({ name: '', email: '', phone: '', subject: 'general', message: '' });
+                    setFormErrors({});
                   }}
                   className="btn-outline-gold text-xs tracking-wider uppercase mt-6"
                 >
@@ -63,7 +94,7 @@ export const ContactPage: React.FC = () => {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} noValidate className="space-y-6">
                 <div>
                   <h3 className="font-serif text-xl text-espresso mb-1">Direct Inquiries</h3>
                   <p className="text-xs text-charcoal-muted font-light">
@@ -73,39 +104,62 @@ export const ContactPage: React.FC = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs uppercase tracking-wider text-charcoal-muted mb-1.5 font-medium">
+                    <label htmlFor="contact-name" className="block text-xs uppercase tracking-wider text-charcoal-muted mb-1.5 font-medium">
                       Full Name <span className="text-burgundy">*</span>
                     </label>
                     <input
+                      id="contact-name"
                       type="text"
                       required
+                      aria-required="true"
+                      aria-invalid={!!formErrors.name}
                       value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      onChange={(e) => {
+                        setFormData({ ...formData, name: e.target.value });
+                        if (formErrors.name) setFormErrors({ ...formErrors, name: '' });
+                      }}
                       placeholder="e.g. Vikramaditya Singhania"
-                      className="w-full bg-cream border border-taupe/60 rounded-sm px-4 py-2.5 text-base sm:text-xs text-espresso placeholder-charcoal-muted/60 focus:outline-none focus:border-burgundy"
+                      className={`w-full bg-cream border rounded-sm px-4 py-2.5 text-base sm:text-xs text-espresso placeholder-charcoal-muted/60 focus:outline-none transition-colors ${
+                        formErrors.name ? 'border-burgundy focus:border-burgundy' : 'border-taupe/60 focus:border-burgundy'
+                      }`}
                     />
+                    {formErrors.name && (
+                      <p className="text-[11px] text-burgundy font-medium mt-1">{formErrors.name}</p>
+                    )}
                   </div>
                   <div>
-                    <label className="block text-xs uppercase tracking-wider text-charcoal-muted mb-1.5 font-medium">
+                    <label htmlFor="contact-email" className="block text-xs uppercase tracking-wider text-charcoal-muted mb-1.5 font-medium">
                       Email Address <span className="text-burgundy">*</span>
                     </label>
                     <input
+                      id="contact-email"
                       type="email"
                       required
+                      aria-required="true"
+                      aria-invalid={!!formErrors.email}
                       value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      onChange={(e) => {
+                        setFormData({ ...formData, email: e.target.value });
+                        if (formErrors.email) setFormErrors({ ...formErrors, email: '' });
+                      }}
                       placeholder="e.g. vikram@example.com"
-                      className="w-full bg-cream border border-taupe/60 rounded-sm px-4 py-2.5 text-base sm:text-xs text-espresso placeholder-charcoal-muted/60 focus:outline-none focus:border-burgundy"
+                      className={`w-full bg-cream border rounded-sm px-4 py-2.5 text-base sm:text-xs text-espresso placeholder-charcoal-muted/60 focus:outline-none transition-colors ${
+                        formErrors.email ? 'border-burgundy focus:border-burgundy' : 'border-taupe/60 focus:border-burgundy'
+                      }`}
                     />
+                    {formErrors.email && (
+                      <p className="text-[11px] text-burgundy font-medium mt-1">{formErrors.email}</p>
+                    )}
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs uppercase tracking-wider text-charcoal-muted mb-1.5 font-medium">
+                    <label htmlFor="contact-phone" className="block text-xs uppercase tracking-wider text-charcoal-muted mb-1.5 font-medium">
                       Phone Number (Optional)
                     </label>
                     <input
+                      id="contact-phone"
                       type="tel"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -114,10 +168,11 @@ export const ContactPage: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs uppercase tracking-wider text-charcoal-muted mb-1.5 font-medium">
+                    <label htmlFor="contact-subject" className="block text-xs uppercase tracking-wider text-charcoal-muted mb-1.5 font-medium">
                       Inquiry Nature
                     </label>
                     <select
+                      id="contact-subject"
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                       className="w-full bg-cream border border-taupe/60 rounded-sm px-4 py-2.5 text-base sm:text-xs text-espresso focus:outline-none focus:border-burgundy"
@@ -131,25 +186,37 @@ export const ContactPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs uppercase tracking-wider text-charcoal-muted mb-1.5 font-medium">
+                  <label htmlFor="contact-message" className="block text-xs uppercase tracking-wider text-charcoal-muted mb-1.5 font-medium">
                     Your Message <span className="text-burgundy">*</span>
                   </label>
                   <textarea
+                    id="contact-message"
                     rows={4}
                     required
+                    aria-required="true"
+                    aria-invalid={!!formErrors.message}
                     value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    onChange={(e) => {
+                      setFormData({ ...formData, message: e.target.value });
+                      if (formErrors.message) setFormErrors({ ...formErrors, message: '' });
+                    }}
                     placeholder="Tell us about your requirements, vehicle models, or fragrance queries..."
-                    className="w-full bg-cream border border-taupe/60 rounded-sm p-4 text-base sm:text-xs text-espresso placeholder-charcoal-muted/60 focus:outline-none focus:border-burgundy leading-relaxed"
+                    className={`w-full bg-cream border rounded-sm p-4 text-base sm:text-xs text-espresso placeholder-charcoal-muted/60 focus:outline-none leading-relaxed transition-colors ${
+                      formErrors.message ? 'border-burgundy focus:border-burgundy' : 'border-taupe/60 focus:border-burgundy'
+                    }`}
                   />
+                  {formErrors.message && (
+                    <p className="text-[11px] text-burgundy font-medium mt-1">{formErrors.message}</p>
+                  )}
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full btn-gold py-3.5 text-xs tracking-widest uppercase flex items-center justify-center space-x-2"
+                  disabled={isSubmitting}
+                  className="w-full btn-gold py-3.5 text-xs tracking-widest uppercase flex items-center justify-center space-x-2 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   <Send className="w-4 h-4" />
-                  <span>Transmit Inquiry to Concierge</span>
+                  <span>{isSubmitting ? 'Transmitting to Concierge...' : 'Transmit Inquiry to Concierge'}</span>
                 </button>
               </form>
             )}
