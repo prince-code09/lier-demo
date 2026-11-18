@@ -109,10 +109,10 @@ export const HeroCarousel: React.FC = () => {
       ))}
 
       {/* Main Content Container */}
-      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-16 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left Text Block */}
-          <div className="lg:col-span-7 space-y-6 animate-fade-in">
+          <div className="lg:col-span-7 space-y-4 sm:space-y-6 animate-fade-in text-center lg:text-left">
             {/* Badge */}
             <div className="inline-flex items-center space-x-2 px-3.5 py-1 bg-cream border border-taupe rounded-full text-burgundy text-xs tracking-widest uppercase font-semibold shadow-sm">
               <Sparkles className="w-3.5 h-3.5 text-champagne" />
@@ -129,13 +129,32 @@ export const HeroCarousel: React.FC = () => {
               {slide.subtitle}
             </p>
 
+            {/* Mobile Product Image Showcase (Visible on Mobile & Tablet < 1024px) */}
+            <div className="lg:hidden flex justify-center my-4">
+              <div className="relative w-full max-w-[270px] sm:max-w-xs aspect-[4/5] rounded-sm overflow-hidden border border-taupe shadow-luxury group bg-cream">
+                <img
+                  src={slide.image}
+                  alt={slide.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading={current === 0 ? 'eager' : 'lazy'}
+                  fetchPriority={current === 0 ? 'high' : 'auto'}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-espresso/25 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute bottom-3 inset-x-3 p-2 bg-cream/95 backdrop-blur-md border border-taupe rounded text-center shadow-sm">
+                  <span className="text-[10px] uppercase tracking-widest text-burgundy font-mono font-semibold">
+                    {slide.thumbLabel} • Handcrafted Passive Diffusion
+                  </span>
+                </div>
+              </div>
+            </div>
+
             {/* Narrative Description */}
-            <p className="text-charcoal text-sm sm:text-base leading-relaxed max-w-xl font-light">
+            <p className="text-charcoal text-xs sm:text-sm lg:text-base leading-relaxed max-w-xl mx-auto lg:mx-0 font-light">
               {slide.description}
             </p>
 
             {/* Action Buttons */}
-            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
+            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start space-y-3 sm:space-y-0 sm:space-x-4">
               <Link
                 to={slide.ctaLink}
                 className="btn-gold text-xs tracking-widest uppercase flex items-center justify-center space-x-2 py-3.5 px-8 shadow-burgundy-glow"
@@ -152,7 +171,7 @@ export const HeroCarousel: React.FC = () => {
             </div>
 
             {/* Technical Hardware Footnote */}
-            <div className="pt-4 border-t border-taupe/60 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-charcoal-muted">
+            <div className="pt-4 border-t border-taupe/60 flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-1.5 text-xs text-charcoal-muted">
               <span className="flex items-center space-x-1.5 text-burgundy">
                 <ShieldCheck className="w-4 h-4 shrink-0 text-champagne" />
                 <span className="text-[11px] uppercase tracking-wider text-charcoal font-mono font-medium">
