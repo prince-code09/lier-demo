@@ -20,14 +20,14 @@ export const Craftsmanship: React.FC = () => {
         </div>
 
         {/* 2 Feature Modules: MKT-05 & MKT-06 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
           {/* Wooden Cap Focus (MKT-05) */}
-          <div className="bg-porcelain border border-taupe rounded-sm p-5 sm:p-7 flex flex-col justify-between group hover:border-burgundy/40 hover:shadow-luxury-hover transition-all duration-300">
-            <div className="relative h-64 sm:h-72 md:h-80 lg:h-[350px] w-full rounded-sm overflow-hidden border border-taupe/80 mb-6 bg-cream flex items-center justify-center p-3 sm:p-4">
+          <div className="bg-porcelain border border-taupe rounded-sm p-5 sm:p-6 flex flex-col justify-between group hover:border-burgundy/40 hover:shadow-luxury-hover transition-all duration-300">
+            <div className="relative h-44 sm:h-52 md:h-56 lg:h-[250px] w-full rounded-sm overflow-hidden border border-taupe/80 mb-5 bg-cream flex items-center justify-center p-2.5 sm:p-3">
               <img
                 src="/assets/marketing/5.webp"
                 srcSet="/assets/marketing/5-800w.webp 800w, /assets/marketing/5-1200w.webp 1200w, /assets/marketing/5.webp 2000w"
-                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 550px"
+                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 450px"
                 alt="Natural Wooden Cap Continuous Diffusion"
                 className="w-full h-full object-contain transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                 loading="lazy"
@@ -35,7 +35,7 @@ export const Craftsmanship: React.FC = () => {
                 width={800}
                 height={800}
               />
-              <div className="absolute top-3 left-3 bg-cream/95 backdrop-blur-md px-2.5 py-1 rounded text-[10px] uppercase tracking-wider text-burgundy font-mono border border-taupe font-medium shadow-sm z-10">
+              <div className="absolute top-2.5 left-2.5 bg-cream/95 backdrop-blur-md px-2.5 py-1 rounded text-[10px] uppercase tracking-wider text-burgundy font-mono border border-taupe font-medium shadow-sm z-10">
                 Passive Capillary Technology
               </div>
             </div>
@@ -53,12 +53,12 @@ export const Craftsmanship: React.FC = () => {
           </div>
 
           {/* Faceted Glass Flacon Focus (MKT-06) */}
-          <div className="bg-porcelain border border-taupe rounded-sm p-5 sm:p-7 flex flex-col justify-between group hover:border-burgundy/40 hover:shadow-luxury-hover transition-all duration-300">
-            <div className="relative h-64 sm:h-72 md:h-80 lg:h-[350px] w-full rounded-sm overflow-hidden border border-taupe/80 mb-6 bg-cream flex items-center justify-center p-3 sm:p-4">
+          <div className="bg-porcelain border border-taupe rounded-sm p-5 sm:p-6 flex flex-col justify-between group hover:border-burgundy/40 hover:shadow-luxury-hover transition-all duration-300">
+            <div className="relative h-44 sm:h-52 md:h-56 lg:h-[250px] w-full rounded-sm overflow-hidden border border-taupe/80 mb-5 bg-cream flex items-center justify-center p-2.5 sm:p-3">
               <img
                 src="/assets/marketing/6.webp"
                 srcSet="/assets/marketing/6-800w.webp 800w, /assets/marketing/6-1200w.webp 1200w, /assets/marketing/6.webp 2000w"
-                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 550px"
+                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 450px"
                 alt="Faceted Glass Flacon Design"
                 className="w-full h-full object-contain transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                 loading="lazy"
@@ -66,7 +66,7 @@ export const Craftsmanship: React.FC = () => {
                 width={800}
                 height={800}
               />
-              <div className="absolute top-3 left-3 bg-cream/95 backdrop-blur-md px-2.5 py-1 rounded text-[10px] uppercase tracking-wider text-burgundy font-mono border border-taupe font-medium shadow-sm z-10">
+              <div className="absolute top-2.5 left-2.5 bg-cream/95 backdrop-blur-md px-2.5 py-1 rounded text-[10px] uppercase tracking-wider text-burgundy font-mono border border-taupe font-medium shadow-sm z-10">
                 Borosilicate Crystal Glass
               </div>
             </div>
